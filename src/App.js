@@ -78,7 +78,7 @@ function App() {
                     <Routes>
                       <Route path="/" exact element={<Home />} />
                       {/* not found page */}
-                      <Route path="*" exact element={<PageNotFound />} />
+                      <Route path="*" element={<PageNotFound />} />
                       {/* form page */}
                       <Route
                         path="/formpage"
@@ -199,7 +199,7 @@ const Menu = () => {
         <div className="flex flex-col w-full justify-center ">
           <Link
             onClick={() => setChangemenu(false)}
-            to={`https://ilinks-api.onrender.com/userprofile/${userData._id}`}
+            to={`/userprofile/${userData._id}`}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <BsFillPersonFill />

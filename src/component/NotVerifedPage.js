@@ -28,7 +28,9 @@ export const NotVerifedPage = () => {
         </p>
         <button
           onClick={() =>
-            window.location.assign(`/Ilinks/auth/verifyemail/${userData._id}`)
+            window.location.assign(
+              `https://ilinks-api.onrender.com/auth/verifyemail/${userData._id}`
+            )
           }
           className="bg-blue-600 text-2xl capitalize py-2 px-4 rounded-lg text-white w-6/12"
         >

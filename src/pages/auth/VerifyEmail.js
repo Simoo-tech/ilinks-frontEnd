@@ -22,7 +22,7 @@ export const VerifyEmail = () => {
     if (Number(userData.code) === Number(codeVal)) {
       const { username, email } = userData;
       await axios
-        .put(`https://ilink.onrender.com/user/${userData._id}`, {
+        .put(`https://ilinks-api.onrender.com/user/${userData._id}`, {
           username,
           email,
           verifed: true,
