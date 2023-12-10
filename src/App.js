@@ -55,7 +55,7 @@ function App() {
   const MenuValue = { changemenu, setChangemenu };
 
   return (
-    <Router>
+    <Router basename="https://ilink.onrender.com">
       <CookiesProvider>
         <AuthContext.Provider value={UserDataValue}>
           <FormDataContext.Provider value={FormDataValue}>
@@ -173,7 +173,7 @@ const Menu = () => {
     e.preventDefault();
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("formDataId");
-    window.location.assign("/https://ilink.onrender.com/auth/login");
+    window.location.assign("/auth/login");
     cookie.remove("access_token", { path: "/" });
   };
   return (
