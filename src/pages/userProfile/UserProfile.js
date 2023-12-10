@@ -51,12 +51,12 @@ export const UserProfile = () => {
   // handle update submit
   const HandleSubmit = async (e) => {
     e.preventDefault();
+    const { username, email, fname, lname, avatar, age, country, state } =
+      userData;
     await axios
       .put(
         `https://ilinks-api.onrender.com/user/${userId}`,
-        {
-          ...userData,
-        },
+        { username, email, fname, lname, avatar, age, country, state },
         { headers: { accept: "*/*", "Content-type": "application/json" } }
       )
       .then((res) => {

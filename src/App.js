@@ -84,7 +84,7 @@ function App() {
                     <Routes>
                       <Route path="/" exact element={<Home />} />
                       {/* not found page */}
-                      <Route path="*" element={<PageNotFound />} />
+                      <Route path="/*" element={<PageNotFound />} />
                       {/* form page */}
                       <Route
                         path="/formpage"
@@ -92,16 +92,16 @@ function App() {
                           userData.verifed ? <FormPage /> : <NotVerifedPage />
                         }
                       >
-                        <Route path="profile" element={<Profile />} />
-                        <Route path="skills" element={<SkillsSection />} />
-                        <Route path="socialLinks" element={<SocialLinks />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/skills" element={<SkillsSection />} />
+                        <Route path="/socialLinks" element={<SocialLinks />} />
                       </Route>
                       {/* auth pages */}
                       <Route path="/auth" element={<Authpage />}>
-                        <Route path="login" element={<Login />} />
-                        <Route path="register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
                         <Route
-                          path={`verifyemail/:id`}
+                          path={`/verifyemail/:id`}
                           element={<VerifyEmail />}
                         />
                       </Route>
