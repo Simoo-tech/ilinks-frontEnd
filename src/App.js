@@ -173,7 +173,7 @@ const Menu = () => {
     e.preventDefault();
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("formDataId");
-    window.location.assign("https://ilink.onrender.com/auth/login");
+    window.location.assign("/https://ilink.onrender.com/auth/login");
     cookie.remove("access_token", { path: "/" });
   };
   return (
@@ -207,7 +207,7 @@ const Menu = () => {
           </Link>
           <Link
             onClick={() => setChangemenu(false)}
-            to="settings"
+            to="/myilink"
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <LiaLinkSolid />
@@ -215,7 +215,7 @@ const Menu = () => {
           </Link>
           <Link
             onClick={() => setChangemenu(false)}
-            to="settings"
+            to="/settings"
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <IoIosSettings />
