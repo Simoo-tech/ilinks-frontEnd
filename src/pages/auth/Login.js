@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import bgImage from "../../assets/authImg.webp";
 import { BiArrowBack } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiFillLock } from "react-icons/ai";
 import { ErrorMes } from "./errorMes";
 import { useCookies } from "react-cookie";
@@ -63,6 +63,7 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
     setError("");
   };
   // handle submit
+  const navigate = useNavigate();
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
@@ -73,7 +74,7 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
         setLoading(true);
         window.localStorage.setItem("userID", res.data.userID);
         window.localStorage.setItem("formDataId", res.data.formData);
-        window.location.assign("/");
+        navigate("/");
         setCookie("access_token", res.data.token, { path: "/" });
       })
       .catch((err) => {

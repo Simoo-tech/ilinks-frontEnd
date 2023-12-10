@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../context/context";
 import bgImage from "../../assets/authImg.webp";
@@ -59,6 +59,7 @@ const Form = ({ setUserData, setCookie }) => {
   const [error, setError] = useState(``);
 
   // handle submit function
+  const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +74,7 @@ const Form = ({ setUserData, setCookie }) => {
       .then((res) => {
         setLoading(true);
         const userID = res.data.userId;
-        window.location.assign(`/auth/verifyemail/${userID}`);
+        navigate(`/auth/verifyemail/${userID}`);
         setUserData(res.data);
         setCookie("access_token", res.data.token, { path: "/" });
         window.localStorage.setItem("userID", res.data.userId);

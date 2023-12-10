@@ -1,5 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import axios from "axios";
 import "./App.css";
@@ -55,7 +61,7 @@ function App() {
   const MenuValue = { changemenu, setChangemenu };
 
   return (
-    <Router basename="https://ilink.onrender.com">
+    <Router>
       <CookiesProvider>
         <AuthContext.Provider value={UserDataValue}>
           <FormDataContext.Provider value={FormDataValue}>
@@ -168,12 +174,12 @@ const Message = () => {
 const Menu = () => {
   const { changemenu, setChangemenu } = useContext(MenuContext);
   const { userData } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const SignOut = (e) => {
     e.preventDefault();
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("formDataId");
-    window.location.assign("/auth/login");
+    navigate("/auth/login");
     cookie.remove("access_token", { path: "/" });
   };
   return (
@@ -197,30 +203,36 @@ const Menu = () => {
           </p>
         </div>
         <div className="flex flex-col w-full justify-center ">
-          <Link
-            onClick={() => setChangemenu(false)}
-            to={`/userprofile/${userData._id}`}
+          <button
+            onClick={() => {
+              setChangemenu(false);
+              navigate(`/userprofile/${userData._id}`);
+            }}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <BsFillPersonFill />
             my profile
-          </Link>
-          <Link
-            onClick={() => setChangemenu(false)}
-            to="/myilink"
+          </button>
+          <button
+            onClick={() => {
+              setChangemenu(false);
+              navigate(`/userprofile/${userData._id}`);
+            }}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <LiaLinkSolid />
             my ilink
-          </Link>
-          <Link
-            onClick={() => setChangemenu(false)}
-            to="/settings"
+          </button>
+          <button
+            onClick={() => {
+              setChangemenu(false);
+              navigate(`/userprofile/${userData._id}`);
+            }}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <IoIosSettings />
             Settings
-          </Link>
+          </button>
         </div>
         <button
           className={`text-lg flex justify-center w-full items-center gap-2 py-3 text-white capitalize rounded-xl`}
