@@ -173,7 +173,7 @@ const Menu = () => {
     e.preventDefault();
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("formDataId");
-    window.location.assign("/Ilinks/auth/login");
+    window.location.assign("https://ilink.onrender.com/auth/login");
     cookie.remove("access_token", { path: "/" });
   };
   return (
@@ -199,7 +199,7 @@ const Menu = () => {
         <div className="flex flex-col w-full justify-center ">
           <Link
             onClick={() => setChangemenu(false)}
-            to={`https://ilinks-api.onrender.com/Ilinks/userprofile/${userData._id}`}
+            to={`https://ilinks-api.onrender.com/userprofile/${userData._id}`}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <BsFillPersonFill />
