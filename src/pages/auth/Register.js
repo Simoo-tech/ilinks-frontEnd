@@ -73,7 +73,7 @@ const Form = ({ setUserData, setCookie }) => {
       .then((res) => {
         setLoading(true);
         const userID = res.data.userId;
-        window.location.assign(`/Ilinks/auth/verifyemail/${userID}`);
+        window.location.assign(`/auth/verifyemail/${userID}`);
         setUserData(res.data);
         setCookie("access_token", res.data.token, { path: "/" });
         window.localStorage.setItem("userID", res.data.userId);
