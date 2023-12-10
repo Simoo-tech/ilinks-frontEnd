@@ -125,7 +125,7 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
     const FetchUser = async () => {
       if (userID) {
         await axios
-          .get(`https://ilink.onrender.com/user/${userID}`)
+          .get(`https://ilinks-api.onrender.com/user/${userID}`)
           .then((res) => {
             setLoading(true);
             setUserData(res.data);
@@ -135,7 +135,7 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
       }
       if (FormID !== "undefined" && FormID) {
         await axios
-          .get(`https://ilink.onrender.com/formdata/${FormID}`)
+          .get(`https://ilinks-api.onrender.com/formdata/${FormID}`)
           .then((res) => {
             setFormData(res.data);
             console.log(res.data);
@@ -199,7 +199,7 @@ const Menu = () => {
         <div className="flex flex-col w-full justify-center ">
           <Link
             onClick={() => setChangemenu(false)}
-            to={`http://localhost:3000/Ilinks/userprofile/${userData._id}`}
+            to={`https://ilinks-api.onrender.com/Ilinks/userprofile/${userData._id}`}
             className="flex justify-center border-b-[1px] items-center gap-2 text-white text-lg capitalize text-center py-3 font-semibold"
           >
             <BsFillPersonFill />

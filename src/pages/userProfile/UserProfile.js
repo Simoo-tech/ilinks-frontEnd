@@ -51,20 +51,11 @@ export const UserProfile = () => {
   // handle update submit
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const { username, email, lname, fname, avatar, state, country, age } =
-      userData;
     await axios
       .put(
-        `https://ilink.onrender.com/user/${userId}`,
+        `https://ilinks-api.onrender.com/user/${userId}`,
         {
-          username,
-          email,
-          lname,
-          fname,
-          avatar,
-          state,
-          country,
-          age,
+          ...userData,
         },
         { headers: { accept: "*/*", "Content-type": "application/json" } }
       )
@@ -93,13 +84,13 @@ export const UserProfile = () => {
   const DeleteAccount = async (e) => {
     e.preventDefault();
     await axios
-      .delete(`http://localhost:8000/user/${userId}`)
+      .delete(`https://ilinks-api.onrender.com/user/${userId}`)
       .then(async (res) => {
         window.location.assign("/Ilinks/auth/login");
         cookie.remove("access_token", { path: "/" });
         window.localStorage.removeItem("userID");
         await axios
-          .delete(`http://localhost:8000/formdata/${formDataId}`)
+          .delete(`https://ilinks-api.onrender.com/formdata/${formDataId}`)
           .then(window.localStorage.removeItem("formDataId"))
           .catch((err) => {
             setMessage({
