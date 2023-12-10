@@ -66,21 +66,23 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
   const navigate = useNavigate();
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post("https://ilinks-api.onrender.com/auth/login", {
-        ...userLogin,
-      })
-      .then((res) => {
-        setLoading(true);
-        window.localStorage.setItem("userID", res.data.userID);
-        window.localStorage.setItem("formDataId", res.data.formData);
-        navigate("/");
-        setCookie("access_token", res.data.token, { path: "/" });
-      })
-      .catch((err) => {
-        setError(err.response.data.message);
-      })
-      .finally(() => setLoading(false));
+    setLoading(true);
+    try {
+      await axios
+        .post("https://ilinks-api.onrender.com/auth/login", {
+          ...userLogin,
+        })
+        .then((res) => {
+          setLoading(false);
+          window.localStorage.setItem("userID", res.data.userID);
+          window.localStorage.setItem("formDataId", res.data.formData);
+          document.location.href = "/";
+          setCookie("access_token", res.data.token, { path: "/" });
+        });
+    } catch (err) {
+      setLoading(false);
+      setError(err.response.data.message);
+    }
   };
   return (
     <form

@@ -82,8 +82,7 @@ function App() {
                     />
                     <Message />
                     <Routes>
-                      <Route index element={<Home />} />
-                      <Route path="home" element={<Home />} />
+                      <Route path="/" element={<Home />} />
                       {/* not found page */}
                       <Route path="*" element={<PageNotFound />} />
                       {/* form page */}
