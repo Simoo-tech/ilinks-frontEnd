@@ -1,0 +1,21 @@
+.menu {
+  height: calc(100% - 57px);
+}
+
+.profile,
+.social-links,
+.skills {
+  height: calc(100% - 64px);
+}
+
+.preview .section-about {
+  height: calc(100% - 51px);
+}
+
+.Home {
+  height: calc(100% - 64px);
+}
+
+.profile {
+  height: calc(100% - 51px);
+}
