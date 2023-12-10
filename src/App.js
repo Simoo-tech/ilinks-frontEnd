@@ -55,7 +55,7 @@ function App() {
   const MenuValue = { changemenu, setChangemenu };
 
   return (
-    <Router basename="/Ilinks">
+    <Router>
       <CookiesProvider>
         <AuthContext.Provider value={UserDataValue}>
           <FormDataContext.Provider value={FormDataValue}>
@@ -125,7 +125,7 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
     const FetchUser = async () => {
       if (userID) {
         await axios
-          .get(`http://localhost:8000/user/${userID}`)
+          .get(`https://ilink.onrender.com/user/${userID}`)
           .then((res) => {
             setLoading(true);
             setUserData(res.data);
@@ -135,7 +135,7 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
       }
       if (FormID !== "undefined" && FormID) {
         await axios
-          .get(`http://localhost:8000/formdata/${FormID}`)
+          .get(`https://ilink.onrender.com/formdata/${FormID}`)
           .then((res) => {
             setFormData(res.data);
             console.log(res.data);

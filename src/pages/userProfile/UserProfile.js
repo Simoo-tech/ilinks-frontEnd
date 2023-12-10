@@ -55,7 +55,7 @@ export const UserProfile = () => {
       userData;
     await axios
       .put(
-        `http://localhost:8000/user/${userId}`,
+        `https://ilink.onrender.com/user/${userId}`,
         {
           username,
           email,

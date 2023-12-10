@@ -20,7 +20,10 @@ export default function Login() {
     <div
       className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center `}
     >
-      <div className="white-container bg-white h-[95%] sm:w-11/12 lg:w-4/6 flex flex-col sm:py-5 justify-between relative items-center rounded-md">
+      <div
+        className="white-container bg-white h-[95%] sm:w-11/12 lg:w-4/6 flex flex-col sm:py-5
+      justify-between relative items-center rounded-md"
+      >
         <div className="back-to-home w-full text-base flex flex-row items-center ml-6">
           <Link
             to="/"
@@ -63,7 +66,7 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:8000/auth/login", {
+      .post("https://ilink.onrender.com/auth/login", {
         ...userLogin,
       })
       .then((res) => {

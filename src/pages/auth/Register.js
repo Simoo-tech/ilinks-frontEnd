@@ -64,7 +64,7 @@ const Form = ({ setUserData, setCookie }) => {
     e.preventDefault();
     const { username, email, password, passwordcon } = user;
     await axios
-      .post("http://localhost:8000/auth/register", {
+      .post("https://ilink.onrender.com/auth/register", {
         username,
         email,
         password,
