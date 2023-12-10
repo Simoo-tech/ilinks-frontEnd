@@ -82,12 +82,13 @@ function App() {
                     />
                     <Message />
                     <Routes>
-                      <Route path="/" exact element={<Home />} />
+                      <Route index element={<Home />} />
+                      <Route path="home" element={<Home />} />
                       {/* not found page */}
                       <Route path="*" element={<PageNotFound />} />
                       {/* form page */}
                       <Route
-                        path="/formpage"
+                        path="formpage"
                         element={
                           userData.verifed ? <FormPage /> : <NotVerifedPage />
                         }
@@ -97,7 +98,7 @@ function App() {
                         <Route path="socialLinks" element={<SocialLinks />} />
                       </Route>
                       {/* auth pages */}
-                      <Route path="/auth" element={<Authpage />}>
+                      <Route path="auth" element={<Authpage />}>
                         <Route path="login" element={<Login />} />
                         <Route path="register" element={<Register />} />
                         <Route
@@ -106,10 +107,7 @@ function App() {
                         />
                       </Route>
                       {/* user profile */}
-                      <Route
-                        path="/userprofile/:id"
-                        element={<UserProfile />}
-                      />
+                      <Route path="userprofile/:id" element={<UserProfile />} />
                     </Routes>
                   </div>
                 )}
@@ -181,6 +179,7 @@ const Menu = () => {
     window.localStorage.removeItem("formDataId");
     navigate("/auth/login");
     cookie.remove("access_token", { path: "/" });
+    setChangemenu(false);
   };
   return (
     <div

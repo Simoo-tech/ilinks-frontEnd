@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Phone } from "../component/PhoneView";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import Header from "../component/Header";
@@ -49,13 +49,13 @@ const Home = () => {
               Facebook, Instagram, TikTok and share your portfolio, share your
               awesome work, we're helping you to find your best opportunity
             </p>
-            <Link
+            <NavLink
               to={cookies.access_token ? `/formpage/profile` : "/auth/login"}
               className={` font-bold sm:text-base md:text-xl py-2 px-4 rounded-xl capitalize w-fit 
               ease-in-out duration-200 text-mainColor2 border-2 border-mainColor2 hover:text-white hover:bg-mainColor2 `}
             >
               create your Ilink now
-            </Link>
+            </NavLink>
           </div>
           <Phone />
         </div>
