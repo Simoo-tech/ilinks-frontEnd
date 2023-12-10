@@ -73,7 +73,7 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
         setLoading(true);
         window.localStorage.setItem("userID", res.data.userID);
         window.localStorage.setItem("formDataId", res.data.formData);
-        window.location.assign("/");
+        window.location.assign("/https://ilink.onrender.com");
         setCookie("access_token", res.data.token, { path: "/" });
       })
       .catch((err) => {
