@@ -3,13 +3,17 @@ import { MdError } from "react-icons/md";
 
 export const ErrorMes = ({ error }) => {
   return (
-    <div className="error-message">
+    <div className="error-message flex justify-center">
       <span
         className={`${
-          error ? "block" : "hidden"
-        }  text-base font-semibold capitalize text-red-400 rounded-2xl flex items-center gap-1 border-solid border-2 border-red-400 py-1 px-3 `}
+          error ? "visible" : "invisible"
+        }  lg:text-sm font-semibold capitalize text-white bg-red-500 rounded-2xl flex items-center
+        gap-2 border-solid py-1 px-3 w-fit max-w-xs
+        sm:text-xs 
+      
+        `}
       >
-        <MdError /> {error}
+        <MdError size={"25"} /> {error}
       </span>
     </div>
   );

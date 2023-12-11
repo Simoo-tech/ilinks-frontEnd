@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
-import { AuthContext, ModeContext } from "../../context/context";
+import { AuthContext } from "../../context/context";
 import { MdMarkEmailUnread } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ErrorMes } from "./errorMes";
 import axios from "axios";
 
 export const VerifyEmail = () => {
-  const { mode } = useContext(ModeContext);
   const { userData, setUserData } = useContext(AuthContext);
   const [codeVal, setCodeVal] = useState();
   const [error, setError] = useState(false);
@@ -17,6 +16,7 @@ export const VerifyEmail = () => {
   const userId = userData._id;
   const idChecker = userId === id;
   // handle submit
+  const navigate = useNavigate();
   const HandleSubmit = async (e) => {
     e.preventDefault();
     if (Number(userData.code) === Number(codeVal)) {
@@ -28,8 +28,9 @@ export const VerifyEmail = () => {
           verifed: true,
         })
         .then((res) => {
-          // setUserData({ ...userData, verifed: res.data.verifed });
-          window.location.assign("/Ilinks");
+          setUserData({ ...userData, verifed: res.data.verifed });
+          navigate("/");
+          window.location.reload();
         })
         .catch((err) => console.log(err));
     } else {
@@ -39,9 +40,8 @@ export const VerifyEmail = () => {
 
   return idChecker ? (
     <div
-      className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center ${
-        mode === "dark" ? "bg-colorDark2" : "bg-colorGreen"
-      }`}
+      className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center bg-colorDark2
+    `}
     >
       <div className="white-container bg-white h-[70%] sm:w-11/12 lg:w-3/6 flex flex-col sm:py-5 justify-between relative items-center rounded-md">
         {userData.verifed ? (
@@ -107,9 +107,7 @@ export const VerifyEmail = () => {
     </div>
   ) : (
     <div
-      className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center ${
-        mode === "dark" ? "bg-colorDark2" : "bg-colorGreen"
-      }`}
+      className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center bg-colorDark2`}
     >
       <div className="white-container bg-white h-[70%] sm:w-11/12 lg:w-3/6 flex sm:py-5 justify-center relative items-center rounded-md">
         <h1 className="text-4xl font-semibold text-center capitalize">

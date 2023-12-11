@@ -4,18 +4,15 @@
 
 .profile,
 .social-links,
-.skills {
+.skills,
+.preview .section-about,
+.Home,
+.profile,
+.auth .login,
+.auth .register {
   height: calc(100% - 64px);
 }
 
-.preview .section-about {
-  height: calc(100% - 51px);
-}
-
-.Home {
-  height: calc(100% - 64px);
-}
-
-.profile {
-  height: calc(100% - 51px);
+.from-image {
+  height: calc(100% - 40px);
 }

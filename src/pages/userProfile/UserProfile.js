@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import Header from "../../component/Header";
@@ -79,6 +79,7 @@ export const UserProfile = () => {
       });
   };
   // handle delete account
+  const navigate = useNavigate();
   const [showMsg, setShowMsg] = useState(false);
   const formDataId = window.localStorage.getItem("formDataId");
   const DeleteAccount = async (e) => {
@@ -86,9 +87,10 @@ export const UserProfile = () => {
     await axios
       .delete(`https://ilinks-api.onrender.com/user/${userId}`)
       .then(async (res) => {
-        window.location.assign("/Ilinks/auth/login");
         cookie.remove("access_token", { path: "/" });
         window.localStorage.removeItem("userID");
+        navigate("/auth/login");
+        window.location.reload();
         await axios
           .delete(`https://ilinks-api.onrender.com/formdata/${formDataId}`)
           .then(window.localStorage.removeItem("formDataId"))

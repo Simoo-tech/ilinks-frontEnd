@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,
   useNavigate,
 } from "react-router-dom";
 import "./App.css";
@@ -127,23 +126,25 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
   useEffect(() => {
     const FetchUser = async () => {
       if (userID) {
+        setLoading(true);
         await axios
           .get(`https://ilinks-api.onrender.com/user/${userID}`)
           .then((res) => {
-            setLoading(true);
             setUserData(res.data);
-            console.log(res.data);
-          })
-          .finally(() => setLoading(false));
+            setLoading(false);
+          });
       }
       if (FormID !== "undefined" && FormID) {
         await axios
           .get(`https://ilinks-api.onrender.com/formdata/${FormID}`)
           .then((res) => {
             setFormData(res.data);
-            console.log(res.data);
+            setLoading(false);
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            console.error(err);
+            setLoading(false);
+          });
       }
     };
 
