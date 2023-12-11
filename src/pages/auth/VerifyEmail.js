@@ -28,7 +28,7 @@ export const VerifyEmail = () => {
         })
         .then((res) => {
           setUserData({ ...userData, verifed: res.data.verifed });
-          navigate("/");
+          window.location.assign("/");
         })
         .catch((err) => console.log(err));
     } else {

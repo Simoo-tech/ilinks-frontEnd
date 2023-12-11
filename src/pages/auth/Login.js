@@ -15,7 +15,7 @@ export default function Login() {
   const [error, setError] = useState(``);
   const navigate = useNavigate();
   return cookie.access_token ? (
-    navigate("/Ilinks")
+    navigate("/")
   ) : (
     <div className={`login flex justify-center items-center `}>
       <div
@@ -83,8 +83,8 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
         setLoading(false);
         window.localStorage.setItem("userID", res.data.userID);
         window.localStorage.setItem("formDataId", res.data.formData);
-        navigate("/");
         setCookie("access_token", res.data.token, { path: "/" });
+        window.location.assign("/");
       })
       .catch((err) => {
         setLoading(false);

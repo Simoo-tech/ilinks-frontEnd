@@ -43,6 +43,38 @@ import { IoIosSettings } from "react-icons/io";
 import { LiaLinkSolid } from "react-icons/lia";
 
 function App() {
+  // fetch user data
+  const userID = window.localStorage.getItem("userID");
+  const FormID = window.localStorage.getItem("formDataID");
+  const FetchUser = async () => {
+    if (formData) {
+      setLoading(true);
+      await axios
+        .get(`https://ilinks-api.onrender.com/user/${userID}`)
+        .then((res) => {
+          setUserData(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => setLoading(false));
+    }
+    if (FormID !== "undefined" && FormID) {
+      setLoading(true);
+      await axios
+        .get(`https://ilinks-api.onrender.com/formdata/${FormID}`)
+        .then((res) => {
+          setFormData(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => setLoading(false));
+    }
+  };
+  useEffect(() => {
+    FetchUser();
+  }, []);
   //////////////////// context  /////////////////
   const [userData, setUserData] = useState([]);
   const [formData, setFormData] = useState({});
@@ -58,7 +90,7 @@ function App() {
   const ShowMessage = { message, setMessage };
   const FormDataValue = { formData, setFormData };
   const MenuValue = { changemenu, setChangemenu };
-  console.log(loading);
+
   return (
     <Router>
       <CookiesProvider>
@@ -73,12 +105,6 @@ function App() {
                     className={`App bg-colorDark1 duration-700 ease-in-out overflow-hidden relative h-full `}
                   >
                     <Menu />
-                    <FetchUserData
-                      setUserData={setUserData}
-                      setLoading={setLoading}
-                      setFormData={setFormData}
-                      formData={formData}
-                    />
                     <Message />
                     <Routes>
                       <Route path="/" element={<Home />} />
@@ -119,40 +145,6 @@ function App() {
 }
 export default App;
 
-function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
-  const userID = window.localStorage.getItem("userID");
-  const FormID = window.localStorage.getItem("formDataID");
-
-  useEffect(() => {
-    const FetchUser = async () => {
-      if (userID) {
-        setLoading(true);
-        await axios
-          .get(`https://ilinks-api.onrender.com/user/${userID}`)
-          .then((res) => {
-            setUserData(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          })
-          .finally(() => setLoading(false));
-      }
-      if (FormID !== "undefined" && FormID) {
-        await axios
-          .get(`https://ilinks-api.onrender.com/formdata/${FormID}`)
-          .then((res) => {
-            setFormData(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    };
-
-    FetchUser();
-  }, []);
-}
-
 const Message = () => {
   // message style
 
@@ -178,9 +170,9 @@ const Menu = () => {
     e.preventDefault();
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("formDataId");
-    navigate("/auth/login");
     cookie.remove("access_token", { path: "/" });
     setChangemenu(false);
+    window.location.assign("/auth/login");
   };
   return (
     <div

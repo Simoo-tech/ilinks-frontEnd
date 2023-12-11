@@ -11,12 +11,12 @@ import { useCookies } from "react-cookie";
 import { LoadingBtn } from "../../component/LoadingBtn";
 export default function Register() {
   const [cookie, setCookie] = useCookies(["access_token"]);
-
+  const navigate = useNavigate();
   // context
   const { userData, setUserData } = useContext(AuthContext);
 
   return cookie.access_token && userData.verifed ? (
-    window.location.assign("/Ilinks")
+    navigate("/")
   ) : (
     <div className={`register flex justify-center items-center  `}>
       <div
@@ -70,7 +70,6 @@ const Form = ({ setUserData, setCookie }) => {
   const [error, setError] = useState(``);
 
   // handle submit function
-  const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +88,7 @@ const Form = ({ setUserData, setCookie }) => {
         setCookie("access_token", res.data.token, { path: "/" });
         window.localStorage.setItem("userID", res.data.userId);
         setUserData(res.data);
-        navigate(`/auth/verifyemail/${userID}`);
+        window.location.assign(`/auth/verifyemail/${userID}`);
       })
       .catch((error) => {
         setLoading(false);

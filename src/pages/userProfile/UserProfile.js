@@ -79,7 +79,6 @@ export const UserProfile = () => {
       });
   };
   // handle delete account
-  const navigate = useNavigate();
   const [showMsg, setShowMsg] = useState(false);
   const formDataId = window.localStorage.getItem("formDataId");
   const DeleteAccount = async (e) => {
@@ -89,8 +88,7 @@ export const UserProfile = () => {
       .then(async (res) => {
         cookie.remove("access_token", { path: "/" });
         window.localStorage.removeItem("userID");
-        navigate("/auth/login");
-        window.location.reload();
+        window.location.assign("/auth/login");
         await axios
           .delete(`https://ilinks-api.onrender.com/formdata/${formDataId}`)
           .then(window.localStorage.removeItem("formDataId"))
