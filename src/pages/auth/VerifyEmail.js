@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/context";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { ErrorMes } from "./errorMes";
 import axios from "axios";
 
@@ -43,9 +42,9 @@ export const VerifyEmail = () => {
       className={`login flex justify-center sm:h-screen lg:h-[90.9vh] items-center bg-colorDark2
     `}
     >
-      <div className="white-container bg-white h-[70%] sm:w-11/12 lg:w-3/6 flex flex-col sm:py-5 justify-between relative items-center rounded-md">
+      <div className="white-container bg-white h-[70%] sm:w-11/12 lg:w-3/6 flex flex-col sm:py-5 md:py-2 justify-between relative items-center rounded-md">
         {userData.verifed ? (
-          <div className="flex flex-col justify-center h-full items-center gap-5">
+          <div className="flex flex-col justify-evenly h-full items-center gap-5">
             <div className="flex items-center">
               <MdMarkEmailUnread size={30} />
               <p className="text-3xl font-bold capitalize">
@@ -56,15 +55,15 @@ export const VerifyEmail = () => {
               your email is verified you can make your portfolio now
             </p>
             <button
-              onClick={() => window.location.assign(`/Ilinks/formpage/profile`)}
-              className="bg-blue-600 text-2xl capitalize py-2 px-4 rounded-lg text-white w-6/12"
+              onClick={() => navigate(`/formpage/profile`)}
+              className="bg-mainColor2 text-2xl capitalize py-2 px-4 rounded-lg text-white w-6/12"
             >
               create my portfolio
             </button>
           </div>
         ) : (
           <div className="flex items-center justify-evenly flex-col h-full">
-            <div className="title flex flex-col items-center gap-2">
+            <div className="title flex flex-col items-center gap-7">
               <div className="error-msg">
                 <ErrorMes error={error} />
               </div>
@@ -86,7 +85,7 @@ export const VerifyEmail = () => {
                 type="text"
                 maxLength={6}
                 className={`${
-                  error ? "border-red-500" : "border-blue-500"
+                  error ? "border-red-500" : "border-mainColor2"
                 } border-2 py-2 px-3 rounded-lg outline-none`}
                 onChange={(e) => {
                   setCodeVal(e.target.value);
@@ -97,7 +96,7 @@ export const VerifyEmail = () => {
             </div>
             <button
               onClick={HandleSubmit}
-              className="bg-blue-600 text-xl py-2 px-4 rounded-lg text-white w-full"
+              className="bg-mainColor2 text-xl py-2 px-4 rounded-lg text-white w-full"
             >
               Verify code
             </button>

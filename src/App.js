@@ -58,7 +58,7 @@ function App() {
   const ShowMessage = { message, setMessage };
   const FormDataValue = { formData, setFormData };
   const MenuValue = { changemenu, setChangemenu };
-
+  console.log(loading);
   return (
     <Router>
       <CookiesProvider>
@@ -131,20 +131,22 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
           .get(`https://ilinks-api.onrender.com/user/${userID}`)
           .then((res) => {
             setUserData(res.data);
-            setLoading(false);
-          });
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+          .finally(() => setLoading(false));
       }
       if (FormID !== "undefined" && FormID) {
         await axios
           .get(`https://ilinks-api.onrender.com/formdata/${FormID}`)
           .then((res) => {
             setFormData(res.data);
-            setLoading(false);
           })
           .catch((err) => {
             console.error(err);
-            setLoading(false);
-          });
+          })
+          .finally(() => setLoading(false));
       }
     };
 
