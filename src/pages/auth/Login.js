@@ -84,7 +84,6 @@ const Form = ({ userLogin, setUserLogin, error, setError, setCookie }) => {
         window.localStorage.setItem("userID", res.data.userID);
         window.localStorage.setItem("formDataId", res.data.formData);
         navigate("/");
-        window.location.reload();
         setCookie("access_token", res.data.token, { path: "/" });
       })
       .catch((err) => {

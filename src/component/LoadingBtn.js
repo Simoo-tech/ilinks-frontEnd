@@ -4,8 +4,8 @@ import { ThreeCircles } from "react-loader-spinner";
 export const LoadingBtn = () => {
   return (
     <ThreeCircles
-      height="30"
-      width="30"
+      height="25"
+      width="25"
       color="white"
       wrapperStyle={{}}
       wrapperClass=""

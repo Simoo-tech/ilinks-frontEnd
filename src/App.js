@@ -145,8 +145,7 @@ function FetchUserData({ setUserData, setLoading, setFormData, formData }) {
           })
           .catch((err) => {
             console.error(err);
-          })
-          .finally(() => setLoading(false));
+          });
       }
     };
 

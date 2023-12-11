@@ -90,7 +90,6 @@ const Form = ({ setUserData, setCookie }) => {
         window.localStorage.setItem("userID", res.data.userId);
         setUserData(res.data);
         navigate(`/auth/verifyemail/${userID}`);
-        window.location.reload();
       })
       .catch((error) => {
         setLoading(false);
