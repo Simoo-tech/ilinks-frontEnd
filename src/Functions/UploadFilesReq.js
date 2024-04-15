@@ -1,4 +1,5 @@
 import axios from "axios";
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export async function UploadFiles({
   FinalImg,
@@ -12,7 +13,7 @@ export async function UploadFiles({
   const file = new FormData();
   file.append("file", FinalImg);
   await axios
-    .put(`http://localhost:5000/api/upload-files/${requestUrl}`, file, {
+    .put(`${serverPath}upload-files/${requestUrl}`, file, {
       onUploadProgress: (e) => {
         setUploading(parseInt((e.loaded / e.total) * 100));
       },

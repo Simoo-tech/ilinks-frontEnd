@@ -1,6 +1,7 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import { CreateIlinkData } from "./UserIlinkDataReq";
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // send verification code
 export const SendCode = async ({
@@ -11,7 +12,9 @@ export const SendCode = async ({
 }) => {
   setBtn("Loading");
   await axios
-    .post("http://localhost:5000/api/verify-email", { email: userData.email })
+    .post(`${serverPath}verify-email`, {
+      email: userData.email,
+    })
     .then((res) => {
       cookie.save("verifyCode", res.data.newCode, { path: "/" });
       navigate(`/auth/verify-email/${userData._id}`);
@@ -34,14 +37,14 @@ export const VerifyCodeSubmit = async ({
     setBtn("Loading");
     setError({ active: false });
     await axios
-      .put(`http://localhost:5000/api/user/${userData._id}`, {
+      .put(`${serverPath}user/${userData._id}`, {
         verifed: true,
       })
       .then((res) => {
         setBtn("Done");
         CreateIlinkData({ userData });
         window.location.replace(
-          `/${res.data.user.username}/ilink-preview/profile`
+          `/${res.data.user.username}ilink-preview/profile`
         );
         cookie.remove("verifyCode", { path: "/" });
       })
@@ -63,11 +66,11 @@ export const RegisterSubmit = async ({
   setBtn,
   values,
   setError,
-  navigate,
+
 }) => {
   setBtn("Loading");
   await axios
-    .post("http://localhost:5000/api/auth/register", {
+    .post(`${serverPath}auth/register `, {
       ...values,
     })
     .then((res) => {
@@ -80,7 +83,7 @@ export const RegisterSubmit = async ({
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
       window.location.replace(
-        `/${res.data.newUser.username}/ilink-preview/profile`
+        `/${res.data.newUser.username}ilink-preview/profile`
       );
     })
     .catch((err) => {
@@ -93,7 +96,7 @@ export const RegisterSubmit = async ({
 export const LoginSubmit = async ({ values, setError, setBtn }) => {
   setBtn("Loading");
   await axios
-    .post(`http://localhost:5000/api/auth/login`, {
+    .post(`${serverPath}auth/login`, {
       ...values,
     })
     .then((res) => {
@@ -108,7 +111,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
       window.location.replace(
-        `/${res.data.user.username}/ilink-preview/profile`
+        `/${res.data.user.username}ilink-preview/profile`
       );
     })
     .catch((err) => {
@@ -122,7 +125,9 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
 export const checkToken = async ({ userID, token, setValid, setLoading }) => {
   setLoading(true);
   await axios
-    .post(`http://localhost:5000/api/auth/resetpassword/${userID}`, { token })
+    .post(`${serverPath}auth/resetpassword/${userID}`, {
+      token,
+    })
     .then(() => {
       setValid(true);
     })
@@ -134,7 +139,7 @@ export const checkToken = async ({ userID, token, setValid, setLoading }) => {
 /////// handle submit reset password
 export const ResetPasswordSubmit = async ({ values, userID }) => {
   await axios
-    .put(`http://localhost:5000/api/auth/resetpassword/${userID}`, {
+    .put(`${serverPath}auth/resetpassword/${userID}`, {
       ...values,
     })
     .then((res) => {
@@ -154,7 +159,7 @@ export const SendResetLink = async ({
   if (btn === "NeedAction") {
     setBtn("Loading");
     await axios
-      .post(`http://localhost:5000/api/auth/resetpassword`, { email })
+      .post(`${serverPath}auth/resetpassword`, { email })
       .then((res) => {
         if (cookie.load("ExpTime")) {
           cookie.remove("ExpTime", { path: "/" });

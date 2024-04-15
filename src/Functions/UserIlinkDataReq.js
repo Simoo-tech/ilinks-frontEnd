@@ -1,4 +1,5 @@
 import axios from "axios";
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export const IlinksDataFetch = async ({
   username,
@@ -6,7 +7,7 @@ export const IlinksDataFetch = async ({
   setFormData,
 }) => {
   await axios
-    .post(`http://localhost:5000/api/ilinkData`, { username })
+    .post(`${serverPath}ilinkData`, { username })
     .then((res) => {
       setUserData(res.data);
       setFormData(res.data.formData);

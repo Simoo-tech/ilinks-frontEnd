@@ -1,6 +1,7 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import UserImg from "../assets/userIcon.webp";
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export const Fetch_Check_Data = async ({
   setLoading,
@@ -15,7 +16,7 @@ export const Fetch_Check_Data = async ({
   if (username) {
     setLoading(true);
     axios
-      .post(`http://localhost:5000/api/userIlink`, { username: username })
+      .post(`${serverPath}userIlink`, { username: username })
       .then((res) => {
         setUserViewData(res.data);
       })
@@ -29,7 +30,7 @@ export const Fetch_Check_Data = async ({
   if (User_Data_cookies) {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/user/${User_Data_cookies}`)
+      .get(`${serverPath}user/${User_Data_cookies}`)
       .then((res) => {
         setUserData(res.data);
         if (!res.data.avatar) {
@@ -58,7 +59,5 @@ export const Fetch_Check_Data = async ({
 };
 
 export const JobSearchData = async ({ setJobs }) => {
-  await axios
-    .get("http://localhost:5000/api/user")
-    .then((res) => setJobs(res.data));
+  await axios.get(`${serverPath}user`).then((res) => setJobs(res.data));
 };

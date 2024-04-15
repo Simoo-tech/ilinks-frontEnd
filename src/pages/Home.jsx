@@ -113,6 +113,7 @@ export default function Home({ setUserVerified }) {
           >
             {/* build btn */}
             <button
+              type="button"
               id="job-search-btn"
               onClick={() => {
                 if (!verifed && _id) {

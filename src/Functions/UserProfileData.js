@@ -2,6 +2,7 @@ import axios from "axios";
 import { SignOut } from "./SignOutFunction";
 import { useContext } from "react";
 import { UserD1 } from "../context";
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export const UpdateProfileSubmit = async ({
   values,
@@ -14,7 +15,7 @@ export const UpdateProfileSubmit = async ({
   setBtn("Loading");
   await axios
     .put(
-      `http://localhost:5000/api/user/${userData._id}`,
+      `${serverPath}user/${userData._id}`,
       {
         ...values,
       },

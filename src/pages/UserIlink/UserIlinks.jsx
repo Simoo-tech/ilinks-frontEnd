@@ -38,7 +38,6 @@ export default function UserIlinks() {
   // share button
   const [shareBtn, setShareBtn] = useState(false);
 
-  console.log(userViewData);
   // skills map show
   const Skills = IlinkData?.skills?.map((skill, i) => {
     return skill.skillname && skill.skillperc ? (
