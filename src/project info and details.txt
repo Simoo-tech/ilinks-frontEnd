@@ -1,0 +1,5 @@
+Cookies Names
+- user data cookies ( user_D1 )
+- user token cookies ( user_T1 ) 
+- user ilink data ( user_I1 )
+ 

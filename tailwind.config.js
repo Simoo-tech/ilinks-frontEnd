@@ -4,13 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        colorDark2: "#222222",
-        colorDark1: " #0D0D0D",
+        primaryColor: "#001021",
+        color1: "#ec5b53",
+        color2: "#fffcf9",
+        color3: "#a33327",
+
         colorBottonsDark: "white",
         colorBorderDark: "#404040",
-        colorBlue1: "#16213E",
         colorBlue2: "#141E46",
-        colorSimo1: "#ec5b53",
         colorTheme2: "#fefafa",
         colorPink: "#fc8452",
         colorRed: "#C70039",
@@ -19,7 +20,6 @@ module.exports = {
         colorGreen3: "#def2f1",
         colorGreen4: "#feffff",
         mainColor1: "#c7493a",
-        mainColor2: "#a33327",
         mainColor3: "#689775",
         mainColor4: "#917164",
         mainColor5: "#ad8174",
@@ -35,27 +35,23 @@ module.exports = {
           "100%": { left: "100%" },
         },
       },
-    },
-    screens: {
-      sm: "350px",
-      md: "768px",
-      lg: "996px",
-      xl: "1440px",
-    },
-    container: {
-      center: true,
-      padding: {
-        sm: ".1rem",
-        lg: ".1rem",
-        xl: ".2rem",
+      container: {
+        center: true,
+        padding: {
+          sm: "1.5rem",
+          md: "2rem",
+          lg: "2rem",
+          xl: "2.5rem",
+        },
+      },
+      screens: {
+        "2xl": "1535px",
+        xl: "1279px",
+        lg: "1023px",
+        md: "700px",
+        sm: "350px",
       },
     },
   },
   plugins: [require("tailwindcss-3d")],
 };
-
-// #c7493a
-// #a33327
-// #689775
-// #917164
-// #ad8174

@@ -21,22 +21,14 @@ a {
   margin: 0;
   padding: 0;
 }
-.hidden {
-  display: none !important;
-}
 
-body #root {
-  height: 100vh;
-  overflow: hidden;
-}
 ::-webkit-scrollbar {
-  display: none;
+  width: 5px;
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+::-webkit-scrollbar-track {
+  background: #001021;
 }
-input[type="number"] {
-  -moz-appearance: textfield;
+::-webkit-scrollbar-thumb {
+  background: #a33327;
+  border-radius: 50px !important;
 }

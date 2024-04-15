@@ -1,18 +1,23 @@
-.menu {
-  height: calc(100% - 57px);
+.section-h {
+  height: calc(100vh - 64px);
 }
 
-.profile,
-.social-links,
-.skills,
-.preview .section-about,
-.Home,
-.profile,
-.auth .login,
-.auth .register {
-  height: calc(100% - 64px);
+.ilinks-h {
+  height: calc(100vh - 68px);
 }
 
 .from-image {
   height: calc(100% - 40px);
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+.shape {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+#ilink-data-preview #container::-webkit-scrollbar {
+  width: 0px;
 }
