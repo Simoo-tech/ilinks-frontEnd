@@ -62,12 +62,7 @@ export const VerifyCodeSubmit = async ({
 };
 
 // Register
-export const RegisterSubmit = async ({
-  setBtn,
-  values,
-  setError,
-
-}) => {
+export const RegisterSubmit = async ({ setBtn, values, setError }) => {
   setBtn("Loading");
   await axios
     .post(`${serverPath}auth/register `, {
@@ -83,7 +78,7 @@ export const RegisterSubmit = async ({
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
       window.location.replace(
-        `/${res.data.newUser.username}ilink-preview/profile`
+        `/${res.data.newUser.username}/ilink-preview/profile`
       );
     })
     .catch((err) => {
@@ -111,7 +106,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
       window.location.replace(
-        `/${res.data.user.username}ilink-preview/profile`
+        `/${res.data.user.username}/ilink-preview/profile`
       );
     })
     .catch((err) => {

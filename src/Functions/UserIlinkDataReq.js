@@ -19,11 +19,11 @@ export const CreateIlinkData = async ({ userData }) => {
   console.log("sadwa");
   const { _id } = userData;
   await axios
-    .post(`http://localhost:5000/api/ilinkData/createIlink`, {
+    .post(`${serverPath}ilinkData/createIlink`, {
       userID: _id,
     })
     .then(async (res) => {
-      await axios.put(`http://localhost:5000/api/ilinkData`, {
+      await axios.put(`${serverPath}ilinkData`, {
         IlinkID: res.data.UserIlinkData,
         userID: res.data.userID,
       });
@@ -35,7 +35,7 @@ export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
   setBtn("Loading");
   await axios
     .put(
-      `http://localhost:5000/api/ilinkData/updateData/${userData.IlinkData._id}`,
+      `${serverPath}ilinkData/updateData/${userData.IlinkData._id}`,
       userData.IlinkData
     )
     .then((res) => {

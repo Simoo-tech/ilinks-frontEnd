@@ -1,9 +1,13 @@
+#App {
+  height: 100dvh;
+}
+
 .section-h {
-  height: calc(100vh - 64px);
+  height: calc(100dvh - 64px);
 }
 
 .ilinks-h {
-  height: calc(100vh - 68px);
+  height: calc(100dvh - 68px);
 }
 
 .from-image {

@@ -72,7 +72,7 @@ export default function App() {
           ) : (
             <main
               id="App"
-              className="bg-primaryColor relative h-screen sm:overflow-y-scroll lg:overflow-y-hidden"
+              className="bg-primaryColor relative sm:overflow-y-scroll lg:overflow-y-hidden"
             >
               <Routes>
                 <Route
