@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
