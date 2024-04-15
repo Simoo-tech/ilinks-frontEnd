@@ -13,14 +13,11 @@ export default function Home({ setUserVerified }) {
   const { userData } = useContext(UserD1);
   const { verifed, _id } = userData;
   const navigate = useNavigate();
-  const textAnimtaion = useRef();
   const [jobs, setJobs] = useState();
   const [jobsFilter, setJobsFilter] = useState(jobs);
   const [searchJob, setSearchJob] = useState("");
 
   useEffect(() => {
-    textAnimtaion.current.classList.remove("opacity-0", "-top-[400px]");
-    textAnimtaion.current.classList.add("opactiy-100", "sm:top-0", "lg:top-0");
     JobSearchData({ setJobs });
   }, []);
 
@@ -74,10 +71,11 @@ export default function Home({ setUserVerified }) {
         {/* text & input */}
         <div
           id="left-containers"
-          className=" relative flex flex-col gap-5 -top-[400px] opacity-0 duration-700 ease-linear section-h        
-            sm:w-full sm:items-center sm:text-center sm:justify-start sm:pt-10
-            lg:w-6/12 lg:items-start lg:text-start lg:justify-center"
-          ref={textAnimtaion}
+          className={` relative flex flex-col gap-5 duration-700 ease-linear section-h        
+            sm:w-full sm:items-center sm:text-center ${
+              jobsFilter ? "sm:justify-start" : "sm:justify-center"
+            } sm:pt-10
+            lg:w-6/12 lg:items-start lg:text-start lg:justify-center`}
         >
           <div>
             <h1
