@@ -70,9 +70,17 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
   return (
     <div
       id="ilink-data-preview"
-      className="absolute top-[18px] left-[21px] z-10 flex items-center justify-between flex-col w-[86%] h-[93.7%] rounded-[30px] 
+      className="absolute top-[18px] left-[21px] z-10 flex items-center justify-start flex-col w-[86%] h-[93.7%] rounded-[30px] 
        bg-[#eee] "
     >
+      {/* Copy right */}
+      <div
+        className="w-full  flex flex-col items-center bg-primaryColor py-2
+     text-white capitalize "
+      >
+        <Logo align="self-center" textSize="base" imgSize="15" />
+        <p className="text-xs font-semibold">watermark</p>
+      </div>
       {/* project details show */}
       {showDetails && (
         <div
@@ -118,7 +126,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
       {/* container */}
       <div
         id="container"
-        className=" w-full overflow-y-scroll rounded-[30px] p-2 pb-10"
+        className=" w-full overflow-y-scroll rounded-[30px] pt-3 px-3"
       >
         {/* user name and avtar */}
         <div
@@ -244,7 +252,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           </ul>
         </div>
         {/* user skills */}
-        {IlinkData?.skills.length >1 && (
+        {IlinkData?.skills.length > 1 && (
           <div
             id="skills"
             className="w-full flex flex-col gap-4 items-center mb-5"
@@ -256,7 +264,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           </div>
         )}
         {/* user portfolio */}
-        {IlinkData?.portfolio.length >1 && (
+        {IlinkData?.portfolio.length > 1 && (
           <div
             id="portfolio"
             className="w-full flex flex-col gap-4 items-center mb-5"
@@ -267,14 +275,6 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
             {Portfolios}
           </div>
         )}
-      </div>
-      {/* Copy right */}
-      <div
-        className="w-full absolute bottom-0 flex flex-col items-center bg-primaryColor py-2
-       text-white capitalize opacity-40 rounded-b-[30px] z-10"
-      >
-        <Logo align="self-center" textSize="lg" imgSize="15" />
-        <p className="text-xs font-semibold">watermark</p>
       </div>
     </div>
   );

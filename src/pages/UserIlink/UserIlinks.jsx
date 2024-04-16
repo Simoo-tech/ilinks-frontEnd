@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Loading } from "../../components/loading";
 import { Fetch_Check_Data } from "../../Functions/Fetch&Check_Data";
@@ -17,12 +17,19 @@ import {
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
-import { FaEye } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
+import cookie from "react-cookies";
 
 export default function UserIlinks() {
   const { username } = useParams();
   const [userViewData, setUserViewData] = useState({ IlinkData: {} });
   const [loading, setLoading] = useState(false);
+  const [ScrollToSec, setScrollToSec] = useState();
+  const [details, setDetails] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const { avatar, fname, lname, jobtitle, about, IlinkData } = userViewData;
+  // share button
+  const [shareBtn, setShareBtn] = useState(false);
 
   useEffect(() => {
     Fetch_Check_Data({
@@ -31,12 +38,6 @@ export default function UserIlinks() {
       setLoading,
     });
   }, []);
-  const [ScrollToSec, setScrollToSec] = useState();
-  const [details, setDetails] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
-  const { avatar, fname, lname, jobtitle, about, IlinkData } = userViewData;
-  // share button
-  const [shareBtn, setShareBtn] = useState(false);
 
   // skills map show
   const Skills = IlinkData?.skills?.map((skill, i) => {
@@ -94,8 +95,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
       </Helmet>
       <div
         id="user-ilink"
-        className="relative bg-white
-      flex flex-col items-center h-screen overflow-y-scroll py-4"
+        className="relative bg-white flex flex-col items-center h-screen overflow-y-scroll pb-4 gap-2"
         onScroll={(e) => setScrollToSec(e.target.scrollTop)}
       >
         {/* share content and bottom */}
@@ -110,7 +110,27 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           setShareBtn={setShareBtn}
           userViewData={userViewData}
         />
-
+        {/* Copy right */}
+        <div className="py-1 px-6 w-full h-fit flex items-center justify-center bg-primaryColor text-white">
+          <div id="logo" className="flex justify-center items-center flex-col">
+            {" "}
+            <Logo
+              align="self-center"
+              textSize={"sm:text-sm lg:text-2xl"}
+              imgSize="1rem"
+            />
+            <p className=" font-semibold">watermark</p>
+          </div>
+          {cookie.load("user_D1") && (
+            <Link
+              to={`/${username}/ilink-preview/profile`}
+              className="absolute right-2 top-2 flex items-center gap-2 border-2 border-white p-2 uppercase font-medium cursor-pointer z-30"
+            >
+              edit ilink data
+              <FaEdit className="" />
+            </Link>
+          )}
+        </div>
         {/* container */}
         <div
           id="container"
@@ -308,20 +328,6 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
               {Portfolios}
             </div>
           )}
-        </div>
-        {/* Copy right */}
-        <div
-          className="py-1 px-6 absolute bottom-0 h-fit flex flex-col items-center justify-center bg-primaryColor
-       text-white capitalize opacity-50 z-10 
-       sm:w-full sm:text-sm
-       lg:top-0 lg:left-0 lg:w-fit "
-        >
-          <Logo
-            align="self-center"
-            textSize={"sm:text-sm lg:text-2xl"}
-            imgSize="1rem"
-          />
-          <p className=" font-semibold">watermark</p>
         </div>
       </div>
     </>

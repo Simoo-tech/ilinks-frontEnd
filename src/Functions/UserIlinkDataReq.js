@@ -1,20 +1,6 @@
 import axios from "axios";
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
-export const IlinksDataFetch = async ({
-  username,
-  setUserData,
-  setFormData,
-}) => {
-  await axios
-    .post(`${serverPath}ilinkData`, { username })
-    .then((res) => {
-      setUserData(res.data);
-      setFormData(res.data.formData);
-    })
-    .catch((err) => console.log(err));
-};
-
 export const CreateIlinkData = async ({ userData }) => {
   console.log("sadwa");
   const { _id } = userData;

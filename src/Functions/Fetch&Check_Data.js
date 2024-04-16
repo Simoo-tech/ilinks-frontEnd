@@ -20,14 +20,10 @@ export const Fetch_Check_Data = async ({
       .then((res) => {
         setUserViewData(res.data);
       })
-      .finally(() =>
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000)
-      );
+      .finally(() => setLoading(false));
   }
   // user login data fetch
-  if (User_Data_cookies) {
+  if (User_Data_cookies && !username) {
     setLoading(true);
     axios
       .get(`${serverPath}user/${User_Data_cookies}`)

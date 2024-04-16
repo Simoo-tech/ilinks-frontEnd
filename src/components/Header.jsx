@@ -67,11 +67,18 @@ export const Menu = ({ changemenu, setChangemenu }) => {
   const { userData } = useContext(UserD1);
   const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(["user_I1", "ExpTime"]);
-  const { avatar, username, jobtitle } = userData;
+  const { avatar, username, jobtitle, IlinkData } = userData;
+
+  function checkIlinkData() {
+    if (IlinkData.portfolio.length > 1 && IlinkData.skills.length) {
+      setChangemenu(false);
+      navigate(`userIlinks/${username}`);
+    }
+  }
   return (
     <menu
       className={`menu flex-col items-end absolute top-0 h-screen
-    w-full duration-300 z-50  ${
+    w-full duration-300 z-50 ${
       changemenu && true
         ? " opacity-[100%] flex right-0 "
         : "opacity-0 hidden -right-[100px] "
@@ -109,15 +116,9 @@ export const Menu = ({ changemenu, setChangemenu }) => {
             profile
           </button>
           <button
-            onClick={() => {
-              setChangemenu(false);
-              navigate(
-                userData.IlinkData
-                  ? `userIlinks/${username}`
-                  : `${userData.username}/ilink-preview/profile`
-              );
-            }}
-            className="flex sm:justify-center lg:justify-start border-b-[1px] items-center gap-2 text-white text-base capitalize text-center py-2 font-semibold"
+            onClick={checkIlinkData}
+            className="flex border-b-[1px] items-center gap-2 text-white text-base capitalize text-center py-2 font-semibold 
+            sm:justify-center lg:justify-start "
           >
             <LiaLinkSolid />
             my ilink

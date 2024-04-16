@@ -8,10 +8,26 @@ import { MdErrorOutline } from "react-icons/md";
 import { UpdateIlinkData } from "../../Functions/UserIlinkDataReq";
 
 export default function SkillsSection() {
+  const { userData, setUserData } = useContext(UserD1);
+
   // animation
   const [animation, setAnimation] = useState(true);
   useEffect(() => {
     setAnimation(false);
+    if (userData.IlinkData.skills.length === 0) {
+      setUserData({
+        ...userData,
+        IlinkData: {
+          ...userData.IlinkData,
+          skills: [
+            {
+              skillname: "",
+              skillperc: null,
+            },
+          ],
+        },
+      });
+    }
   }, []);
 
   return (
@@ -39,47 +55,49 @@ const Form = () => {
   const { userData, setUserData } = useContext(UserD1);
   const navigate = useNavigate();
   const [btn, setBtn] = useState("NeedAction");
-
-  const [skills, setSkills] = useState([{ skillname: "", skillperc: null }]);
-  useEffect(() => {
-    if (userData.IlinkData?.skills) {
-      setSkills(userData.IlinkData.skills);
-    }
-  }, []);
-  useEffect(() => {
-    setUserData({
-      ...userData,
-      IlinkData: { ...userData.IlinkData, skills },
-    });
-  }, [skills]);
+  const [percErr, setPercErr] = useState([]);
+  const { IlinkData } = userData;
 
   // handle add button
   const AddSkill = (e) => {
-    setSkills([...skills, { skillname: "", skillperc: null }]);
+    setUserData({
+      ...userData,
+      IlinkData: {
+        ...userData.IlinkData,
+        skills: [
+          ...userData.IlinkData.skills,
+          { skillname: "", skillperc: null },
+        ],
+      },
+    });
   };
 
   // handle change value
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    const onchangeval = [...skills];
-    onchangeval[i][name] = value;
-    setSkills(onchangeval);
+    const onChange = [...userData.IlinkData.skills];
+    onChange[i][name] = value;
+    setUserData({
+      ...userData,
+      IlinkData: { ...userData.IlinkData, skills: onChange },
+    });
   };
 
   // handle delete links
   const handleDeleteSkill = (i) => {
-    const onDelete = [...skills];
+    const onDelete = [...userData.IlinkData.skills];
     onDelete.splice(i, 1);
-    setSkills(onDelete);
+    setUserData({
+      ...userData,
+      IlinkData: { ...userData.IlinkData, skills: onDelete },
+    });
   };
-
-  const [percErr, setPercErr] = useState([]);
 
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault(), setUserData({ ...userData, skills });
-        UpdateIlinkData({ userData, setBtn, navigate, path: "portfolio" });
+        e.preventDefault(),
+          UpdateIlinkData({ userData, setBtn, navigate, path: "portfolio" });
       }}
       className="flex flex-col w-full justify-between lg:max-h-full h-full "
     >
@@ -89,7 +107,7 @@ const Form = () => {
        md:grid-cols-2 
        lg:grid-cols-3 lg:max-h-[95%]"
       >
-        {skills.map((skill, i) => (
+        {IlinkData.skills.map((skill, i) => (
           // skill
           <div
             key={i}
@@ -157,14 +175,10 @@ const Form = () => {
             <button
               onClick={(e) => {
                 handleDeleteSkill(i);
-                setUserData({
-                  ...userData,
-                  IlinkData: { ...userData.IlinkData, skills },
-                });
               }}
               type="button"
               className={`${
-                skills.length <= 1 ? "hidden" : "block"
+                IlinkData.skills?.length <= 1 ? "hidden" : "block"
               } rounded-md p-1 bg-red-500 z-20 absolute top-2 right-2 `}
             >
               <FaTrash size={14} color="white" />
@@ -172,11 +186,11 @@ const Form = () => {
           </div>
         ))}
         {/* add skill button */}
-        {percErr ? null : (
+        {percErr.length > 1 ? null : (
           <div
             id="add-skill-btn"
             className={`w-8/12 h-fit flex-col justify-center items-center
-    ${skills.length >= 20 ? "hidden" : "flex"}`}
+            ${IlinkData.skills.length >= 20 ? "hidden" : "flex"}`}
           >
             <p className="mb-1 text-lg capitalize w-fit">add skill</p>
             <button

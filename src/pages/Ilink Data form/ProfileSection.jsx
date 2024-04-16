@@ -5,6 +5,8 @@ import { Form, Field, Formik } from "formik";
 import { BtnsActions } from "../../components/BtnsActions";
 import { useNavigate } from "react-router-dom";
 import { ProfilePic } from "../../components/ProfilePic";
+import { MdError } from "react-icons/md";
+
 //  yup
 import * as Yup from "yup";
 // formik
@@ -31,10 +33,13 @@ export default function Profile() {
     lname: Yup.string()
       .required("last name field is required")
       .min(3, "at leasrt 3 characters"),
-    age: Yup.date().required("Age field is required"),
-    jobtitle: Yup.string().required("Job title field is required"),
-    country: Yup.string().required("Country field is required"),
-    state: Yup.string().required("this field is required"),
+    about: Yup.string()
+      .required("about field is required")
+      .min(10, "at leasrt 10 characters"),
+    age: Yup.date(),
+    jobtitle: Yup.string(),
+    country: Yup.string(),
+    state: Yup.string(),
   });
 
   return (
@@ -97,7 +102,7 @@ export default function Profile() {
                 <ProfilePic userData={userData} />
                 <div
                   id="form-group-about "
-                  className="flex flex-col gap-2 sm:w-full lg:w-6/12 h-full"
+                  className="flex flex-col gap-2 sm:w-full lg:w-6/12 h-full relative"
                 >
                   <label htmlFor="about" className="capitalize ">
                     about
@@ -109,13 +114,18 @@ export default function Profile() {
                     className="border-2 outline-none p-2 shadow-md max-h-[128px] h-full
                 rounded-lg sm:text-sm lg:text-base"
                   />
+                  {errors.about && touched.about ? (
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.about}
+                    </span>
+                  ) : null}
                 </div>
               </div>
               <div
                 id="middle"
                 className=" grid sm:grid-cols-1 lg:grid-cols-2 gap-2 justify-center items-center"
               >
-                <div id="first-name" className="flex flex-col gap-2 ">
+                <div id="first-name" className="flex flex-col gap-2 relative">
                   <label htmlFor="firstname" className="capitalize ">
                     first name
                   </label>
@@ -127,10 +137,12 @@ export default function Profile() {
                     value={values.fname}
                   />
                   {errors.fname && touched.fname ? (
-                    <span className="text-red-500 text-sm">{errors.fname}</span>
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.fname}
+                    </span>
                   ) : null}
                 </div>
-                <div id="last-name" className="flex  flex-col gap-2 ">
+                <div id="last-name" className="flex  flex-col gap-2 relative">
                   <label htmlFor="lname" className="capitalize ">
                     last name
                   </label>
@@ -142,10 +154,12 @@ export default function Profile() {
                     value={values.lname}
                   />
                   {errors.lname && touched.lname ? (
-                    <span className="text-red-500 text-sm">{errors.lname}</span>
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.lname}
+                    </span>
                   ) : null}
                 </div>
-                <div id="age" className="  flex flex-col gap-2 ">
+                <div id="age" className="  flex flex-col gap-2 relative">
                   <label htmlFor="age" className="capitalize ">
                     your age
                   </label>
@@ -157,12 +171,14 @@ export default function Profile() {
                     value={values.age}
                   />
                   {errors.age && touched.age ? (
-                    <span className="text-red-500 text-sm">{errors.age}</span>
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.age}
+                    </span>
                   ) : null}
                 </div>
-                <div id="jobtitle" className=" flex flex-col  gap-2 ">
+                <div id="jobtitle" className=" flex flex-col gap-2 relative">
                   <label htmlFor="jobtitle" className="capitalize ">
-                    Job Title
+                    Job Title ( your job name )
                   </label>
                   <Field
                     placeholder="Ex: Front End Developer"
@@ -173,17 +189,16 @@ export default function Profile() {
                     value={values.jobtitle}
                   />
                   {errors.jobtitle && touched.jobtitle ? (
-                    <span className="text-red-500 text-sm">
-                      {errors.jobtitle}
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.jobtitle}
                     </span>
                   ) : null}
                 </div>
-                <div id="country" className="flex flex-col gap-2  ">
+                <div id="country" className="flex flex-col gap-2 relative ">
                   <label htmlFor="country" className="capitalize ">
                     country
                   </label>
                   <Field
-                    placeholder="egypt"
                     type="text"
                     name="country"
                     className="border-2 outline-none p-2 shadow-md
@@ -191,17 +206,16 @@ export default function Profile() {
                     value={values.country}
                   />
                   {errors.country && touched.country ? (
-                    <span className="text-red-500 text-sm">
-                      {errors.country}
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.country}
                     </span>
                   ) : null}
                 </div>
-                <div id="state" className="flex flex-col gap-2 ">
+                <div id="state" className="flex flex-col gap-2 relative">
                   <label htmlFor="state" className="capitalize ">
                     state
                   </label>
                   <Field
-                    placeholder="cairo"
                     type="text"
                     name="state"
                     className="border-2 outline-none p-2 shadow-md
@@ -209,7 +223,9 @@ export default function Profile() {
                     value={values.state}
                   />
                   {errors.state && touched.state ? (
-                    <span className="text-red-500 text-sm">{errors.state}</span>
+                    <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
+                      <MdError /> {errors.state}
+                    </span>
                   ) : null}
                 </div>
               </div>

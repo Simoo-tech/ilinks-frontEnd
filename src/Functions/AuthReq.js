@@ -43,10 +43,12 @@ export const VerifyCodeSubmit = async ({
       .then((res) => {
         setBtn("Done");
         CreateIlinkData({ userData });
-        window.location.replace(
-          `/${res.data.user.username}ilink-preview/profile`
-        );
-        cookie.remove("verifyCode", { path: "/" });
+        setTimeout(() => cookie.remove("verifyCode", { path: "/" }), 2000);
+        setTimeout(() => {
+          window.location.replace(
+            `/${res.data.user.username}/ilink-preview/profile`
+          );
+        }, 2000);
       })
       .catch(() => setBtn("NeedAction"));
   } else {
@@ -95,19 +97,25 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       ...values,
     })
     .then((res) => {
+      const data = res.data.user;
       const ExpireDate = 1 * 60 * 60;
       if (cookie.load("ExpTime")) {
         cookie.remove("ExpTime", { path: "/" });
       }
       setBtn("NeedAction");
-      cookie.save("user_D1", res.data.user._id, {
+      cookie.save("user_D1", data._id, {
         path: "/",
         maxAge: ExpireDate,
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
-      window.location.replace(
-        `/${res.data.user.username}/ilink-preview/profile`
-      );
+      if (
+        data.IlinkData.skills.length > 1 &&
+        data.IlinkData.portfolio.length > 1
+      ) {
+        window.location.replace(`/userIlinks/${data.username}`);
+      } else {
+        window.location.replace(`/${data.username}/ilink-preview/profile`);
+      }
     })
     .catch((err) => {
       setBtn("NeedAction");

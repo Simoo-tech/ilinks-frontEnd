@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "../App.css";
 import { Helmet } from "react-helmet-async";
@@ -24,8 +24,8 @@ export default function Home({ setUserVerified }) {
   // filter jobs
   useEffect(() => {
     const res = jobs?.filter((item) => {
-      if (item?.jobtitle.toLowerCase().startsWith(searchJob)) {
-        return item?.jobtitle.toLowerCase().startsWith(searchJob);
+      if (item?.jobtitle.toLowerCase().includes(searchJob)) {
+        return item?.jobtitle.toLowerCase().includes(searchJob);
       } else {
         return false;
       }
@@ -36,18 +36,25 @@ export default function Home({ setUserVerified }) {
   // show jobs list
   const JobsList = jobsFilter?.map((item) => {
     return (
-      <li key={item._id} className="flex items-center justify-between">
-        <img
-          src={item.avatar ? item.avatar : UserImg}
-          alt="job-img"
-          className="min-w-[30px] h-[30px] rounded-full "
-        />
-        <p className="capitalize text-sm font-medium text-center w-4/12">
-          {item.username}
-        </p>
-        <p className="capitalize text-sm font-medium text-center w-4/12">
-          {item.jobtitle}
-        </p>
+      <li key={item._id}>
+        <Link
+          target="_blank"
+          to={`/userIlinks/${item.username}`}
+          className="flex items-center justify-between"
+        >
+          <img
+            loading="lazy"
+            src={item.avatar ? item.avatar : UserImg}
+            alt="job-img"
+            className="min-w-[30px] h-[30px] rounded-full "
+          />
+          <p className="capitalize text-sm font-medium text-center w-4/12">
+            {item.username}
+          </p>
+          <p className="capitalize text-sm font-medium text-center w-4/12">
+            {item.jobtitle}
+          </p>
+        </Link>
       </li>
     );
   });

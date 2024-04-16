@@ -62,7 +62,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
       setZoom((prev) => prev - 0.2);
     }
   }, [zoom]);
-  
+
   // handle upload
   const UploadImg = () => {
     const canvas = editor.current.getImage();
@@ -95,7 +95,9 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
     >
       <div
         id="img-upload"
-        className="min-w-[800px] h-[600px] min-h-[600px] bg-white flex justify-between items-center relative rounded-xl p-5"
+        className=" bg-white flex justify-between items-center relative rounded-xl p-5 h-fit
+        sm:min-w-[90%] sm:min-h-[60%]
+         lg:min-w-[800px] lg:min-h-[600px]"
       >
         <IoCloseOutline
           size={30}
@@ -126,13 +128,13 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
           )
         ) : (
           // avatar input and tools
-          <div className="flex flex-col w-full h-[90%] items-center justify-between gap-5">
+          <div className="flex flex-col w-full items-center justify-between gap-5">
             {imgSrc && (
               <div
                 id="tools"
                 className={`${
                   cropShape ? "flex-row" : "flex-col"
-                } flex items-center justify-between w-full h-full`}
+                } flex items-center justify-between gap-5 h-fit w-fit`}
               >
                 {/* crop shape */}
                 {cropShape ? (
@@ -159,12 +161,12 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                   ref={editor}
                   style={{
                     width: "fit-content",
-                    maxWidth: "100%",
-                    maxHeight: "100%",
+                    width: "80%",
+                    height: "50%",
                   }}
                   borderRadius={cropShapeType}
                   width={shape === "rectangle" ? 850 : 420}
-                  height={shape === "rectangle" ? 406+0 : 420}
+                  height={shape === "rectangle" ? 406 + 0 : 420}
                   image={imgSrc}
                   border={0}
                   color={[255, 255, 255, 0.6]}
@@ -236,7 +238,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                       }
                     }}
                     className="file:text-white file:border-none file:bg-blue-500 file:px-3 file:py-2 file:mr-3
-                border-[2px] border-blue-500 sm:w-full md:w-auto selection:text-orange-600 rounded-xl"
+                border-[2px] border-blue-500 sm:w-8/12 md:w-auto selection:text-orange-600 rounded-xl"
                   />
                 </div>
               )}
