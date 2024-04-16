@@ -7,7 +7,6 @@ import phoneShape from "../assets/phoneShape.png";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { UserD1 } from "../context";
 import { JobSearchData } from "../Functions/Fetch&Check_Data";
-import UserImg from "../assets/userIcon.webp";
 
 export default function Home({ setUserVerified }) {
   const { userData } = useContext(UserD1);
@@ -44,8 +43,8 @@ export default function Home({ setUserVerified }) {
         >
           <img
             loading="lazy"
-            src={item.avatar ? item.avatar : UserImg}
-            alt="job-img"
+            src={item.avatar}
+            alt="user-job-img"
             className="min-w-[30px] h-[30px] rounded-full "
           />
           <p className="capitalize text-sm font-medium text-center w-4/12">
@@ -59,6 +58,7 @@ export default function Home({ setUserVerified }) {
     );
   });
 
+  console.log(jobsFilter);
   return (
     <>
       <Helmet>

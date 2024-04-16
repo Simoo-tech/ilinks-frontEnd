@@ -252,7 +252,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           </ul>
         </div>
         {/* user skills */}
-        {IlinkData?.skills.length > 1 && (
+        {IlinkData?.skills.length >= 1 && (
           <div
             id="skills"
             className="w-full flex flex-col gap-4 items-center mb-5"
@@ -264,7 +264,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           </div>
         )}
         {/* user portfolio */}
-        {IlinkData?.portfolio.length > 1 && (
+        {IlinkData?.portfolio.length >= 1 && (
           <div
             id="portfolio"
             className="w-full flex flex-col gap-4 items-center mb-5"
