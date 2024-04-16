@@ -17,7 +17,7 @@ export default function PhonePreview() {
         className="h-fit w-fit flex-col items-center justify-center relative sm:hidden lg:flex"
       >
         <div id="phone" className="relative z-10">
-          <img src={phoneShape} alt="Vecteezy.com" width={290} className=" " />
+          <img src={phoneShape} alt="Vecteezy.com" width={290}  />
           <Phone />
         </div>
         {IlinkData?.portfolio?.length > 1 && IlinkData?.skills?.length > 1 ? (
