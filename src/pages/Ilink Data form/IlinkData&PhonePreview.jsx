@@ -20,7 +20,7 @@ export default function PhonePreview() {
           <img src={phoneShape} alt="Vecteezy.com" width={290} className=" " />
           <Phone />
         </div>
-        {IlinkData.portfolio.length > 1 && IlinkData.skills.length ? (
+        {IlinkData?.portfolio?.length > 1 && IlinkData?.skills?.length ? (
           <Link
             to={`/userIlinks/${userData.username}`}
             className="border-2 border-black py-2 px-6 font-medium uppercase duration-300 rounded-lg

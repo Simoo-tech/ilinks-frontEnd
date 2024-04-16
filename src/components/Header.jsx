@@ -70,7 +70,7 @@ export const Menu = ({ changemenu, setChangemenu }) => {
   const { avatar, username, jobtitle, IlinkData } = userData;
 
   function checkIlinkData() {
-    if (IlinkData.portfolio.length >= 1 && IlinkData.skills.length >= 1) {
+    if (IlinkData?.portfolio?.length >= 1 && IlinkData?.skills?.length >= 1) {
       setChangemenu(false);
       navigate(`userIlinks/${username}`);
     }
