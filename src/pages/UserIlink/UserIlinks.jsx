@@ -95,7 +95,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
       </Helmet>
       <div
         id="user-ilink"
-        className="relative bg-white flex flex-col items-center h-screen overflow-y-scroll pb-4 gap-2"
+        className="relative bg-white flex flex-col items-center overflow-y-scroll pb-4 gap-2"
         onScroll={(e) => setScrollToSec(e.target.scrollTop)}
       >
         {/* share content and bottom */}
