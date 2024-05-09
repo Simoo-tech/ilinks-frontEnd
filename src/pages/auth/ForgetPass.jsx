@@ -3,7 +3,7 @@ import { MdErrorOutline, MdMarkEmailUnread } from "react-icons/md";
 import { AiOutlineMail } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-import { SendResetLink } from "../../Functions/AuthReq";
+import { SendResetLink } from "../../lib/AuthReq";
 import { Logo } from "../../components/Logo";
 import { Helmet } from "react-helmet-async";
 import { BtnsActions } from "../../components/BtnsActions";
