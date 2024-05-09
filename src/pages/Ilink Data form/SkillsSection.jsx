@@ -107,7 +107,7 @@ const Form = () => {
        md:grid-cols-2 
        lg:grid-cols-3 lg:max-h-[95%]"
       >
-        {IlinkData.skills.map((skill, i) => (
+        {IlinkData?.skills?.map((skill, i) => (
           // skill
           <div
             key={i}
@@ -178,7 +178,7 @@ const Form = () => {
               }}
               type="button"
               className={`${
-                IlinkData.skills?.length <= 1 ? "hidden" : "block"
+                IlinkData?.skills?.length <= 1 ? "hidden" : "block"
               } rounded-md p-1 bg-red-500 z-20 absolute top-2 right-2 `}
             >
               <FaTrash size={14} color="white" />
@@ -190,7 +190,7 @@ const Form = () => {
           <div
             id="add-skill-btn"
             className={`w-8/12 h-fit flex-col justify-center items-center
-            ${IlinkData.skills.length >= 20 ? "hidden" : "flex"}`}
+            ${IlinkData?.skills?.length >= 20 ? "hidden" : "flex"}`}
           >
             <p className="mb-1 text-lg capitalize w-fit">add skill</p>
             <button

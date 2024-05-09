@@ -146,7 +146,6 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       UpdateIlinkData({ userData, setBtn, navigate, path: "shareIlink" });
     }
   };
-  console.log(userData);
   return (
     <form
       onSubmit={(e) => {
@@ -159,7 +158,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
         className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 items-center col-span-full
       sm:my-3 md:p-3 w-full "
       >
-        {portfolio.map((pro, i) => (
+        {portfolio?.map((pro, i) => (
           <div
             id="portfolio-details"
             key={pro._id ? pro._id : i}
