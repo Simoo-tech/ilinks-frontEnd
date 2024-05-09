@@ -18,12 +18,11 @@ export const CreateIlinkData = async ({ userData }) => {
 };
 
 export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
+  const { _id } = userData?.IlinkData;
+
   setBtn("Loading");
   await axios
-    .put(
-      `${serverPath}ilinkData/updateData/${userData?.IlinkData?._id}`,
-      userData.IlinkData
-    )
+    .put(`${serverPath}ilinkData/updateData/${_id}`, userData.IlinkData)
     .then((res) => {
       if (path === "shareIlink") {
         navigate(`/${userData.username}/${path}`);
