@@ -165,8 +165,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                     ref={editor}
                     style={{
                       width: "fit-content",
-                      width: "80%",
-                      height: "50%",
+                      height: 50,
                     }}
                     borderRadius={cropShapeType}
                     width={shape === "rectangle" ? 850 : 420}

@@ -108,8 +108,8 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       });
       cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
       if (
-        data.IlinkData.skills.length > 1 &&
-        data.IlinkData.portfolio.length > 1
+        data?.IlinkData?.skills?.length > 1 &&
+        data?.IlinkData?.portfolio?.length > 1
       ) {
         window.location.replace(`/userIlinks/${data.username}`);
       } else {
