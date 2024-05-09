@@ -17,7 +17,7 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     setAnimation(false);
-    if (userData?.IlinkData?.portfolio.length === 0) {
+    if (userData?.IlinkData?.portfolio?.length === 0) {
       setUserData({
         ...userData,
         IlinkData: {
@@ -75,7 +75,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   const [btn, setBtn] = useState("NeedAction");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const { portfolio } = userData.IlinkData;
+  const { portfolio } = userData?.IlinkData;
 
   // handle add portfolio
   const AddPortfolio = () => {
@@ -123,7 +123,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   };
 
   // validation
-  const ProValidation = userData.IlinkData.portfolio.map((por, i) => {
+  const ProValidation = userData?.IlinkData?.portfolio?.map((por, i) => {
     const imgValid = por.imgurl;
     return imgValid;
   });

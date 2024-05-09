@@ -14,7 +14,7 @@ export default function SkillsSection() {
   const [animation, setAnimation] = useState(true);
   useEffect(() => {
     setAnimation(false);
-    if (userData?.IlinkData?.skills.length === 0) {
+    if (userData?.IlinkData?.skills?.length === 0) {
       setUserData({
         ...userData,
         IlinkData: {
