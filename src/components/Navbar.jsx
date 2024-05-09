@@ -65,7 +65,6 @@ export const Navbar = ({ changemenu, setChangemenu }) => {
 export const Menu = ({ changemenu, setChangemenu }) => {
   const { userData } = useContext(UserD1);
   const navigate = useNavigate();
-  const [cookies, setCookies] = useCookies(["user_I1", "ExpTime"]);
   const { avatar, username, jobtitle, IlinkData } = userData;
 
   function checkIlinkData() {
