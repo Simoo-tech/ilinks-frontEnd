@@ -1,12 +1,13 @@
 import axios from "axios";
-const serverPath = import.meta.env.VITE_SOME_SERVER_API;
+import cookie from "react-cookies";
 
-export const CreateIlinkData = async ({ userData }) => {
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
+const ID = cookie.load("user_D1");
+export const CreateIlinkData = async () => {
   console.log("sadwa");
-  const { _id } = userData;
   await axios
     .post(`${serverPath}ilinkData/createIlink`, {
-      userID: _id,
+      userID: ID,
     })
     .then(async (res) => {
       await axios.put(`${serverPath}ilinkData`, {
@@ -18,11 +19,9 @@ export const CreateIlinkData = async ({ userData }) => {
 };
 
 export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
-  const { _id } = userData?.IlinkData;
-
   setBtn("Loading");
   await axios
-    .put(`${serverPath}ilinkData/updateData/${_id}`, userData.IlinkData)
+    .put(`${serverPath}ilinkData/updateData/${ID}`, userData.IlinkData)
     .then((res) => {
       if (path === "shareIlink") {
         navigate(`/${userData.username}/${path}`);
