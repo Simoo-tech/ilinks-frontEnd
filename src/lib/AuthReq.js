@@ -1,7 +1,6 @@
 import axios from "axios";
 import cookie from "react-cookies";
 import { CreateIlinkData } from "./UserIlinkDataReq";
-const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // send verification code
 export const SendCode = async ({

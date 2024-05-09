@@ -48,7 +48,7 @@ const FormSocialLinks = () => {
   const { userData, setUserData } = useContext(UserD1);
   // handle change function
   const HandleChange = (e) => {
-    const SocialLinks = userData.IlinkData?.socialMediaLinks;
+    const SocialLinks = userData?.IlinkData?.socialMediaLinks;
     setUserData({
       ...userData,
       IlinkData: {
@@ -63,56 +63,56 @@ const FormSocialLinks = () => {
       name: "facebookUrl",
       labelName: "Facebook",
       icon: <BsFacebook className="text-blue-700 rounded-full" size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.facebookUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.facebookUrl,
       type: "url",
     },
     {
       name: "githubUrl",
       labelName: "Github",
       icon: <BsGithub className=" text-white rounded-full " size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.githubUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.githubUrl,
       type: "url",
     },
     {
       name: "twitterUrl",
       labelName: "Twitter",
       icon: <FaTwitter className="text-blue-500" size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.twitterUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.twitterUrl,
       type: "url",
     },
     {
       name: "instagramUrl",
       labelName: "Instagram",
       icon: <BsInstagram className="text-red-600 " size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.instagramUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.instagramUrl,
       type: "url",
     },
     {
       name: "tiktokUrl",
       labelName: "Tiktok",
       icon: <FaTiktok size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.tiktokUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.tiktokUrl,
       type: "url",
     },
     {
       name: "whatsappUrl",
       labelName: "Whatsapp",
       icon: <BsWhatsapp className=" text-green-500" size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.whatsappUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.whatsappUrl,
       type: "text",
     },
     {
       name: "youtubeUrl",
       labelName: "Youtube",
       icon: <BsYoutube className=" text-red-600" size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.youtubeUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.youtubeUrl,
       type: "url",
     },
     {
       name: "linkedinUrl",
       labelName: "Linkedin",
       icon: <BsLinkedin className="text-blue-700" size={30} />,
-      val: userData.IlinkData?.socialMediaLinks?.linkedinUrl,
+      val: userData?.IlinkData?.socialMediaLinks?.linkedinUrl,
       type: "url",
     },
   ];

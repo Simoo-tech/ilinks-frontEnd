@@ -21,7 +21,7 @@ export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
   setBtn("Loading");
   await axios
     .put(
-      `${serverPath}ilinkData/updateData/${userData.IlinkData._id}`,
+      `${serverPath}ilinkData/updateData/${userData?.IlinkData?._id}`,
       userData.IlinkData
     )
     .then((res) => {

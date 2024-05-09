@@ -13,7 +13,7 @@ import * as Yup from "yup";
 
 export default function Profile() {
   const { userData, setUserData } = useContext(UserD1);
-  const [btn, setBtn] = useState("NoAction");
+  const [btn, setBtn] = useState("NeedAction");
   const [animation, setAnimation] = useState(true);
   const navigate = useNavigate();
   const { age, jobtitle, country, state, fname, lname, about } = userData;
