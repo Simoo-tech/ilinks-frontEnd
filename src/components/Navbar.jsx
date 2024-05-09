@@ -6,7 +6,6 @@ import { LiaLinkSolid } from "react-icons/lia";
 import { BsFillPersonFill } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import { SignOut } from "../lib/SignOutFunction";
-import { useCookies } from "react-cookie";
 import { Logo } from "./Logo";
 import { UserD1 } from "../context";
 
