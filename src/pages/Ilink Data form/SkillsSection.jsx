@@ -186,7 +186,7 @@ const Form = () => {
           </div>
         ))}
         {/* add skill button */}
-        {percErr.length > 1 ? null : (
+        {percErr?.length > 1 ? null : (
           <div
             id="add-skill-btn"
             className={`w-8/12 h-fit flex-col justify-center items-center
