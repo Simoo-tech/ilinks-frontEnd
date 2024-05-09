@@ -66,7 +66,6 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
         </div>
       )
   );
-  console.log(userData);
 
   return (
     <div

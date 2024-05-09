@@ -19,7 +19,6 @@ import { FaTwitter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { FaEdit, FaEye } from "react-icons/fa";
 import cookie from "react-cookies";
-import { ToTop } from "../../components/ToTop";
 
 export default function UserIlinks() {
   const { username } = useParams();

@@ -12,7 +12,7 @@ export const SendCode = async ({
 }) => {
   setBtn("Loading");
   await axios
-    .post(`${serverPath}verify-email`, {
+    .post(`${serverPath}send-verify-email`, {
       email: userData.email,
     })
     .then((res) => {
@@ -71,7 +71,6 @@ export const RegisterSubmit = async ({ setBtn, values, setError }) => {
       ...values,
     })
     .then((res) => {
-      console.log(res.data);
       setError(null);
       const ExpireDate = 1 * 60 * 60;
       cookie.save("user_D1", res.data.newUser._id, {
