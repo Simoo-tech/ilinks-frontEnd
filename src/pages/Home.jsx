@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "../App.css";
 import { Helmet } from "react-helmet-async";
-import phoneShape from "../assets/phoneShape.png";
+import phoneShape from "/assets/phoneShape.png";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { UserD1 } from "../context";
-import { JobSearchData } from "../Functions/Fetch&Check_Data";
+import { JobSearchData } from "../lib/Fetch&Check_Data";
 
 export default function Home({ setUserVerified }) {
   const { userData } = useContext(UserD1);
@@ -58,7 +58,6 @@ export default function Home({ setUserVerified }) {
     );
   });
 
-  console.log(jobsFilter);
   return (
     <>
       <Helmet>
@@ -73,7 +72,7 @@ export default function Home({ setUserVerified }) {
         id="landing"
         className="container max-w-full flex items-center w-full flex-reverse sm:h-fit  
         sm:flex-col sm:gap-5 sm:justify-center 
-        lg:flex-row lg:justify-between "
+        lg:flex-row lg:justify-center "
       >
         {/* text & input */}
         <div
@@ -82,30 +81,29 @@ export default function Home({ setUserVerified }) {
             sm:w-full sm:items-center sm:text-center ${
               jobsFilter ? "sm:justify-start" : "sm:justify-center"
             } sm:pt-10
-            lg:w-6/12 lg:items-start lg:text-start lg:justify-center`}
+            lg:w-8/12 lg:items-center lg:justify-center lg:pt-0`}
         >
           <div>
             <h1
-              className="w-full text-white flex font-bold
-            sm:text-2xl sm:text-center sm:flex-col
+              className="w-full text-white flex font-bold flex-col gap-2
+            sm:text-2xl text-center 
             md:text-2xl
-            lg:flex-row lg:text-start
             xl:text-5xl uppercase "
             >
               Start building your
             </h1>
             <span
-              className="text-color3 w-full xl:text-5xl uppercase lg:text-start font-extrabold
-              sm:text-2xl sm:text-center sm:flex-col flex lg:flex-row md:text-2xl"
+              className="text-color3 w-full  uppercase font-extrabold
+              text-2xl xl:text-5xl"
             >
               Ilinks now!
             </span>
           </div>
           <p
-            className="text-gray-300 leading-7 
-              sm:w-full sm:text-center sm:text-sm
-              md:text-center md:text-lg
-              lg:w-10/12 lg:text-justify xl:text-lg"
+            className="text-gray-300 leading-7 text-center
+              sm:w-full sm:text-sm
+              md:text-lg
+              lg:w-10/12 xl:text-lg"
           >
             Create your Ilinks now, which allows you to share all your links
             Facebook, Instagram, TikTok and share your portfolio, share your
@@ -129,7 +127,7 @@ export default function Home({ setUserVerified }) {
                   navigate("/auth/sign-in");
                 }
               }}
-              className="font-bold py-2 px-4 rounded-xl capitalize sm:col-span-full md:col-span-4
+              className="font-bold py-2 px-4 rounded-xl capitalize sm:col-span-full md:col-span-4 text-lg
             ease-in-out duration-200 text-color3 border-2 border-color3 hover:text-white hover:bg-color3 "
             >
               build your Ilink
@@ -188,7 +186,7 @@ export default function Home({ setUserVerified }) {
           </form>
         </div>
         {/* phone  */}
-        <div
+        {/* <div
           id="phoneShape"
           className="relative justify-center items-center section-h
           sm:hidden
@@ -206,7 +204,7 @@ export default function Home({ setUserVerified }) {
               className="relative h-full "
             />
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

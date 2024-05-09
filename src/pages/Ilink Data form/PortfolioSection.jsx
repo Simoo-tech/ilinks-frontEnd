@@ -6,8 +6,8 @@ import { FiPlus } from "react-icons/fi";
 import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
 import { UserD1 } from "../../context";
 import CropImg from "../../components/CropImg";
-import { UpdateIlinkData } from "../../Functions/UserIlinkDataReq";
-import { BsArrowRight } from "react-icons/bs";
+import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
+import { BsArrowLeft } from "react-icons/bs";
 
 export default function PortfolioSection() {
   // animation
@@ -17,7 +17,7 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     setAnimation(false);
-    if (userData.IlinkData.portfolio.length === 0) {
+    if (userData?.IlinkData?.portfolio.length === 0) {
       setUserData({
         ...userData,
         IlinkData: {
@@ -146,7 +146,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       UpdateIlinkData({ userData, setBtn, navigate, path: "shareIlink" });
     }
   };
-
+  console.log(userData);
   return (
     <form
       onSubmit={(e) => {
@@ -155,31 +155,98 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       }}
       className="grid grid-cols-12 h-fit items-center justify-center w-full "
     >
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 items-center col-span-full sm:my-3 md:p-3 w-full ">
+      <div
+        className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 items-center col-span-full
+      sm:my-3 md:p-3 w-full "
+      >
         {portfolio.map((pro, i) => (
           <div
             id="portfolio-details"
             key={pro._id ? pro._id : i}
-            style={{ background: `url("${pro?.imgurl}")` }}
+            style={{
+              background: `url("${pro?.imgurl}") no-repeat center black`,
+              backgroundSize: "contain",
+            }}
             className={`${
-              !pro.imgurl ? "before:bg-black" : "before:bg-black/60"
-            } grid gap-1 p-4 pt-10 border-[1px] rounded-xl relative border-black overflow-hidden bg-cover bg-center
-          grid-cols-3 grid-flow-row grid-rows-1
-            before:absolute before:w-full before:h-full `}
+              !pro.imgurl ? "before:bg-primaryColor" : "before:bg-black/60"
+            } 
+            grid gap-1 p-4 border-[1px] rounded-xl overflow-hidden relative border-black 
+            grid-cols-3 grid-flow-row grid-rows-1 before:absolute before:w-full before:h-full `}
           >
             {/* error validation */}
             <span
-              className={`text-red-500 absolute top-1 rounded-lg right-[80px] capitalize bg-white py-1 px-4 flex items-center gap-2 
-               duration-500 ease-in-out  ${
-                 error?.num === i
-                   ? "right-[90px] opacity-100"
-                   : " -right-[80px] opacity-0 "
-               }`}
+              className={`text-red-500 absolute top-4 rounded-lg capitalize
+              bg-white py-1 px-4 flex items-center gap-2 
+              duration-500 ease-in-out  ${
+                error?.num === i
+                  ? "left-44 opacity-100"
+                  : " -right-[80px] opacity-0 "
+              }`}
             >
-              {error?.message} <BsArrowRight />
+              <BsArrowLeft />
+              {error?.message}
             </span>
+            <div
+              id="project-top"
+              className="col-span-full justify-between flex items-center relative border-b-2 pb-4 "
+            >
+              {/* top section show project image */}
+              {!pro.imgurl ? (
+                // upload project image
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUploadArea(i);
+                    setError(null);
+                    setBtn("NeedAction");
+                  }}
+                  id="choose-image"
+                  className={`flex items-center justify-center gap-1 cursor-pointer py-1 
+                  rounded-md bg-neutral-400 px-2 capitalize
+                  ${
+                    error?.num === i && error?.element === "imgurl"
+                      ? "text-red-400 border-red-400"
+                      : "text-white border-white"
+                  }`}
+                >
+                  Choose image
+                  <PiImagesSquareLight size={21} className="white" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUploadArea(i);
+                    setError(null);
+                    setBtn("NeedAction");
+                  }}
+                  id="choose-image"
+                  className={`flex items-center justify-center gap-1 cursor-pointer py-1 capitalize
+              rounded-md bg-neutral-400 px-2 
+              ${
+                error?.num === i && error?.element === "imgurl"
+                  ? "text-red-400 border-red-400"
+                  : "text-white border-white"
+              }`}
+                >
+                  <span> change image</span>
+                  <PiImagesSquareLight size={22} className="white" />
+                </button>
+              )}
+              {/* delete project btn */}
+              {userData.IlinkData.portfolio.length > 1 && (
+                <button
+                  id="delete-portfolio-btn"
+                  onClick={() => handleDeletePortfolio(i)}
+                  type="button"
+                  className="rounded-lg p-[4px] bg-red-500 z-20"
+                >
+                  <FaTrash size={17} color="white" />
+                </button>
+              )}
+            </div>
             {/* text input */}
-            <div className="text flex flex-col gap-2 h-fit justify-center col-span-3 relative border-black">
+            <div className="text flex flex-col gap-2 h-fit justify-center col-span-3 relative mt-4">
               <div
                 id="top-container-inputs"
                 className="grid sm:grid-cols-1 md:grid-cols-2 gap-3"
@@ -195,7 +262,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   <input
                     value={pro.protitle}
                     required
-                    maxLength={10}
+                    maxLength={22}
                     onChange={(e) => HandleChange(e, i)}
                     type="text"
                     name="protitle"
@@ -248,7 +315,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                 <input
                   value={pro.cleintname}
                   required
-                  maxLength={10}
+                  maxLength={22}
                   onChange={(e) => HandleChange(e, i)}
                   type="text"
                   name="cleintname"
@@ -303,40 +370,6 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                 />
               </div>
             </div>
-            {/* image */}
-            {/* show project image */}
-            {!pro.imgurl && (
-              // upload project image
-              <button
-                type="button"
-                onClick={() => {
-                  setUploadArea(i);
-                  setError(null);
-                  setBtn("NeedAction");
-                }}
-                id="image"
-                className={`flex flex-col items-center justify-center gap-2 absolute top-[5px] right-12 cursor-pointer border-[1px] p-1
-                   ${
-                     error?.num === i && error?.element === "imgurl"
-                       ? "text-red-400 border-red-400"
-                       : "text-white border-white"
-                   }`}
-              >
-                <PiImagesSquareLight size={21} className="white" />
-              </button>
-            )}
-            {/* delete project btn */}
-            {userData.IlinkData.portfolio.length > 1 && (
-              <button
-                id="delete-portfolio-btn"
-                onClick={() => handleDeletePortfolio(i)}
-                type="button"
-                className="rounded-lg p-[4px] absolute 
-              right-2 top-2 bg-red-500 z-20"
-              >
-                <FaTrash size={17} color="white" />
-              </button>
-            )}
           </div>
         ))}
       </div>

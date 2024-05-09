@@ -12,7 +12,7 @@ import { FaTwitter } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
 import { UserD1 } from "../../context";
-import { UpdateIlinkData } from "../../Functions/UserIlinkDataReq";
+import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import { Form, Formik } from "formik";
 
 export default function SocialLinks() {

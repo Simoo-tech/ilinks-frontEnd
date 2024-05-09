@@ -1,6 +1,6 @@
 import axios from "axios";
 import cookie from "react-cookies";
-import UserImg from "../assets/userIcon.webp";
+import UserImg from "/assets/userIcon.webp";
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export const Fetch_Check_Data = async ({
@@ -28,10 +28,11 @@ export const Fetch_Check_Data = async ({
     axios
       .get(`${serverPath}user/${User_Data_cookies}`)
       .then((res) => {
-        setUserData(res.data);
         if (!res.data.avatar) {
           const data = res.data;
           setUserData({ avatar: UserImg, ...data });
+        } else {
+          setUserData(res.data);
         }
         if (!res.data.verifed) {
           setMessage({

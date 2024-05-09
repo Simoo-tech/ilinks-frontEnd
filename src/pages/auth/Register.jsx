@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineUser, AiOutlineMail, AiFillLock } from "react-icons/ai";
 import { ErrorMes } from "../../components/errorMes";
-import { RegisterSubmit } from "../../Functions/AuthReq";
+import { RegisterSubmit } from "../../lib/AuthReq";
 import { Helmet } from "react-helmet-async";
 import { Logo } from "../../components/Logo";
 import { FaRegCheckCircle, FaRegCircle } from "react-icons/fa";

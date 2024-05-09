@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
-import phoneShape from "../../assets/phoneShape.png";
+import React, { Suspense, lazy, useContext } from "react";
+import phoneShape from "/assets/phoneShape.png";
 import { Link, Outlet } from "react-router-dom";
-import Phone from "./PhoneDataShow";
 import { UserD1 } from "../../context";
+import { Loading } from "../../components/loading";
+
+const Phone = lazy(() => import("./PhoneDataShow"));
 
 export default function PhonePreview() {
   const { userData } = useContext(UserD1);
@@ -17,10 +19,12 @@ export default function PhonePreview() {
         className="h-fit w-fit flex-col items-center justify-center relative sm:hidden lg:flex"
       >
         <div id="phone" className="relative z-10">
-          <img src={phoneShape} alt="Vecteezy.com" width={290}  />
-          <Phone />
+          <img src={phoneShape} alt="Vecteezy.com" width={290} />
+          <Suspense fallback={<Loading />}>
+            <Phone />
+          </Suspense>
         </div>
-        {IlinkData?.portfolio?.length > 1 && IlinkData?.skills?.length > 1 ? (
+        {IlinkData?.portfolio?.length >= 1 && IlinkData?.skills?.length >= 1 ? (
           <Link
             to={`/userIlinks/${userData.username}`}
             className="border-2 border-black py-2 px-6 font-medium uppercase duration-300 rounded-lg

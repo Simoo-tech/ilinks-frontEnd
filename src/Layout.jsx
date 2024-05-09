@@ -1,7 +1,7 @@
 import React, { lazy, useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "./components/Header.jsx";
-import { Menu } from "./components/Header.jsx";
+import { Navbar } from "./components/Navbar.jsx";
+import { Menu } from "./components/Navbar.jsx";
 import { Message } from "./components/Message.jsx";
 import { UserD1 } from "./context.js";
 
@@ -29,7 +29,7 @@ export default function Layout({
           />
         </>
       )}
-      <Header changemenu={changemenu} setChangemenu={setChangemenu} />
+      <Navbar changemenu={changemenu} setChangemenu={setChangemenu} />
       <Outlet />
     </div>
   );

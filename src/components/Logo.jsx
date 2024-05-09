@@ -1,6 +1,5 @@
-import { FaLink } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import LogoImg from "/assets/main-logo.webp";
 export const Logo = ({ align, textSize, imgSize }) => {
   return (
     <Link
@@ -12,11 +11,7 @@ export const Logo = ({ align, textSize, imgSize }) => {
         align ? align : "self-start"
       }`}
     >
-      <FaLink
-        className="rotate-[-45deg] text-mainColor1 "
-        size={imgSize ? imgSize : "20px"}
-      />
-      Links
+      <img src={LogoImg} alt="logo" width={imgSize ? imgSize : 110} />
     </Link>
   );
 };

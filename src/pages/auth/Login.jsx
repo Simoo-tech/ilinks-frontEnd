@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineMail, AiFillLock } from "react-icons/ai";
 import { ErrorMes } from "../../components/errorMes";
 import { Helmet } from "react-helmet-async";
-import { LoginSubmit } from "../../Functions/AuthReq";
+import { LoginSubmit } from "../../lib/AuthReq";
 import { Logo } from "../../components/Logo";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Field, Formik, Form } from "formik";

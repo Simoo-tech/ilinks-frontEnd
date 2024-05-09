@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserD1 } from "../../context";
-import { UpdateProfileSubmit } from "../../Functions/UserProfileData";
+import { UpdateProfileSubmit } from "../../lib/UserProfileData";
 import { Form, Field, Formik } from "formik";
 import { BtnsActions } from "../../components/BtnsActions";
 import { useNavigate } from "react-router-dom";

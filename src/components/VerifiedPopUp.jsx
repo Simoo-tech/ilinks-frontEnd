@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { SendCode } from "../Functions/AuthReq";
+import { SendCode } from "../lib/AuthReq";
 import { BtnsActions } from "./BtnsActions";
 import { UserD1 } from "../context";
 

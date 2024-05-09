@@ -66,20 +66,20 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
         </div>
       )
   );
+  console.log(userData);
 
   return (
     <div
       id="ilink-data-preview"
       className="absolute top-[18px] left-[21px] z-10 flex items-center justify-start flex-col w-[86%] h-[93.7%] rounded-[30px] 
-       bg-[#eee] "
+      bg-[#eee] "
     >
       {/* Copy right */}
       <div
         className="w-full  flex flex-col items-center bg-primaryColor py-2
-     text-white capitalize "
+    text-white capitalize "
       >
-        <Logo align="self-center" textSize="base" imgSize="15" />
-        <p className="text-xs font-semibold">watermark</p>
+        <Logo align="self-center" textSize="base" imgSize={60} />
       </div>
       {/* project details show */}
       {showDetails && (
@@ -103,7 +103,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
             <h4 className="text-sm capitalize bg-gray-200 p-1 w-full text-center  break-all">
               Title : {details.protitle}
             </h4>
-            <p className="text-xs capitalize  break-all">
+            <p className="text-xs capitalize break-all">
               For ( Cleint name ) : {details.cleintname}
             </p>
             <p className="text-xs capitalize ">Type : {details.protype}</p>
@@ -133,7 +133,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           id="top-user-avatar-name"
           className="text-white conatiner w-full max-w-full relative flex items-center flex-col gap-4 "
         >
-          <Avatar round size="80px" src={avatar} />
+          <Avatar round size="80" src={avatar} color="darkBlue" />
           <div
             id="user-info"
             className="flex flex-col items-center text-black max-w-full text-center gap-1"
@@ -147,7 +147,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
             >
               {jobtitle}
             </p>
-            <p id="about" className="text-xs ">
+            <p id="about" className="text-xs truncate max-w-full ">
               {about}
             </p>
           </div>

@@ -5,12 +5,12 @@ import { BiLogOut } from "react-icons/bi";
 import { LiaLinkSolid } from "react-icons/lia";
 import { BsFillPersonFill } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
-import { SignOut } from "../Functions/SignOutFunction";
+import { SignOut } from "../lib/SignOutFunction";
 import { useCookies } from "react-cookie";
 import { Logo } from "./Logo";
 import { UserD1 } from "../context";
 
-export const Header = ({ changemenu, setChangemenu }) => {
+export const Navbar = ({ changemenu, setChangemenu }) => {
   const { userData } = useContext(UserD1);
   const { _id, avatar } = userData;
   return (

@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState } from "react";
 import { AiFillLock } from "react-icons/ai";
-import { ResetPasswordSubmit, checkToken } from "../../Functions/AuthReq";
+import { ResetPasswordSubmit, checkToken } from "../../lib/AuthReq";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa6";
 import * as Yup from "yup";

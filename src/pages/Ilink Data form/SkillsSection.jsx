@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
 import { UserD1 } from "../../context";
 import { MdErrorOutline } from "react-icons/md";
-import { UpdateIlinkData } from "../../Functions/UserIlinkDataReq";
+import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 
 export default function SkillsSection() {
   const { userData, setUserData } = useContext(UserD1);
@@ -14,7 +14,7 @@ export default function SkillsSection() {
   const [animation, setAnimation] = useState(true);
   useEffect(() => {
     setAnimation(false);
-    if (userData.IlinkData.skills.length === 0) {
+    if (userData?.IlinkData?.skills.length === 0) {
       setUserData({
         ...userData,
         IlinkData: {

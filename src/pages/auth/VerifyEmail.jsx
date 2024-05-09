@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { ErrorMes } from "../../components/errorMes";
-import { VerifyCodeSubmit } from "../../Functions/AuthReq";
+import { VerifyCodeSubmit } from "../../lib/AuthReq";
 import { BtnsActions } from "../../components/BtnsActions";
 import { Logo } from "../../components/Logo";
 import { UserD1 } from "../../context";

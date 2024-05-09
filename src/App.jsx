@@ -4,8 +4,8 @@ import "./App.css";
 import { HelmetProvider } from "react-helmet-async";
 import { Loading } from "./components/loading.jsx";
 import cookie from "react-cookies";
-import { SessionTime } from "./Functions/SessionTime.js";
-import { Fetch_Check_Data } from "./Functions/Fetch&Check_Data.js";
+import { SessionTime } from "./lib/SessionTime.js";
+import { Fetch_Check_Data } from "./lib/Fetch&Check_Data.js";
 import { UserD1 } from "./context.js";
 
 // lazy import pages
@@ -56,7 +56,6 @@ export default function App() {
     Fetch_Check_Data({
       setMessage,
       setUserData,
-      userData,
       setLoading,
     });
     // start session time

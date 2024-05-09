@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Loading } from "../../components/loading";
-import { Fetch_Check_Data } from "../../Functions/Fetch&Check_Data";
+import { Fetch_Check_Data } from "../../lib/Fetch&Check_Data";
 import { Link, useParams } from "react-router-dom";
 import ShareContent, { ShareBtn } from "./Share";
 import Avatar from "react-avatar";
@@ -19,23 +19,24 @@ import { FaTwitter } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { FaEdit, FaEye } from "react-icons/fa";
 import cookie from "react-cookies";
+import { ToTop } from "../../components/ToTop";
 
 export default function UserIlinks() {
   const { username } = useParams();
   const [userViewData, setUserViewData] = useState({ IlinkData: {} });
   const [loading, setLoading] = useState(false);
-  const [ScrollToSec, setScrollToSec] = useState();
   const [details, setDetails] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const { avatar, fname, lname, jobtitle, about, IlinkData } = userViewData;
+  const userCookies = cookie.load("user_D1");
   // share button
   const [shareBtn, setShareBtn] = useState(false);
 
   useEffect(() => {
     Fetch_Check_Data({
-      setUserViewData,
       username,
       setLoading,
+      setUserViewData,
     });
   }, []);
 
@@ -60,7 +61,11 @@ export default function UserIlinks() {
   });
   // portfolio map show
   const Portfolios = IlinkData?.portfolio?.map((por, i) => (
-    <div key={i} id="img-holder" className="relative overflow-hidden group ">
+    <div
+      key={i}
+      id="img-holder"
+      className="relative overflow-hidden group bg-primaryColor"
+    >
       {por.imgurl && <img src={por.imgurl} alt="portfolio-img" />}
       <div
         className="content absolute -bottom-[100px] group-hover:bottom-0 duration-300 left-0 w-full 
@@ -96,7 +101,6 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
       <div
         id="user-ilink"
         className="relative bg-white flex flex-col items-center overflow-y-scroll pb-4 gap-2"
-        onScroll={(e) => setScrollToSec(e.target.scrollTop)}
       >
         {/* share content and bottom */}
         <ShareContent
@@ -104,6 +108,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           setShareBtn={setShareBtn}
           close={true}
           userViewData={userViewData}
+          opacity={50}
         />
         <ShareBtn
           shareBtn={shareBtn}
@@ -111,23 +116,31 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           userViewData={userViewData}
         />
         {/* Copy right */}
-        <div className="py-1 px-6 w-full h-fit flex items-center justify-center bg-primaryColor text-white">
+        <div
+          className={`py-3 px-6 w-full h-fit flex items-center ${
+            userCookies ? "justify-between" : "justify-center"
+          } 
+        bg-primaryColor text-white`}
+        >
           <div id="logo" className="flex justify-center items-center flex-col">
-            {" "}
             <Logo
               align="self-center"
               textSize={"sm:text-sm lg:text-2xl"}
-              imgSize="1rem"
+              imgSize="100"
             />
-            <p className=" font-semibold">watermark</p>
+            {!userCookies && (
+              <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
+            )}
           </div>
-          {cookie.load("user_D1") && (
+          {/* Edit ilink */}
+          {userCookies && (
             <Link
               to={`/${username}/ilink-preview/profile`}
-              className="absolute right-2 top-2 flex items-center gap-2 border-2 border-white p-2 uppercase font-medium cursor-pointer z-30"
+              className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
+              font-medium cursor-pointer rounded-lg sm:text-sm md:text-base "
             >
               edit ilink data
-              <FaEdit className="" />
+              <FaEdit />
             </Link>
           )}
         </div>
@@ -140,7 +153,8 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
           {showDetails && (
             <div
               id="details"
-              className="absolute top-0 left-0 z-50 w-full h-full bg-black/50 flex justify-center items-center  "
+              className="absolute top-0 left-0 z-50 w-full h-full bg-black/80 flex 
+              justify-center items-center "
             >
               <IoMdClose
                 className="absolute right-4 top-4 p-1 bg-white rounded-full"
@@ -153,36 +167,69 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
               />
               <div
                 id="details-content"
-                className="bg-white w-fit h-fit p-2 flex flex-col gap-2"
+                className="bg-white  max-w-full grid grid-cols-3
+                place-content-center gap-5 p-3 rounded-xl
+                sm:w-full sm:h-5/6
+                lg:w-10/12 lg:h-fit "
               >
-                <h4 className=" text-xl capitalize bg-gray-200 p-1 w-full text-center break-all font-bold">
-                  Title : {details.protitle}
-                </h4>
-                <p className=" text-lg capitalize  break-all">
-                  For ( Cleint name ) :
-                  <span className="font-semibold ml-2">
-                    {details.cleintname}
-                  </span>
-                </p>
-                <p className=" capitalize ">
-                  Type :
-                  <span className="font-semibold ml-2">{details.protype}</span>
-                </p>
-                <p className=" capitalize break-all w-full">
-                  description :
-                  <span className="font-semibold ml-2">{details.prodesc}</span>
-                </p>
-                <img src={details.imgurl} alt="img-show" width={800} />
-                {details.prourl && (
-                  <Link
-                    target="_blank"
-                    to={details.prourl}
-                    className="  rounded-lg text-white bg-color1 py-1 px-3 capitalize flex self-center items-center gap-2"
+                {/* project text details */}
+                <div
+                  id="details-text"
+                  className="sm:col-span-3 lg:col-span-1 flex flex-col justify-between"
+                >
+                  <h4
+                    className=" lg:text-xl capitalize bg-gray-200 p-1 w-full text-center
+                  break-all font-bold"
                   >
-                    view project
-                    <FaEye />
-                  </Link>
-                )}
+                    Project Name :
+                    <span className="font-normal ml-1">{details.protitle}</span>
+                  </h4>
+                  <div
+                    id="project-details"
+                    className="flex flex-col gap-5 h-full border-t-4 p-3 text-white border-white bg-color1"
+                  >
+                    <p className=" text-xl capitalize break-all">
+                      For ( Cleint name ) :
+                      <span className="font-semibold ml-2">
+                        {details.cleintname}
+                      </span>
+                    </p>
+                    <p className=" lg:text-xl capitalize ">
+                      Type :
+                      <span className="font-semibold ml-2">
+                        {details.protype}
+                      </span>
+                    </p>
+                    <p className="lg:text-xl capitalize break-all w-full">
+                      description :
+                      <span className="font-semibold ml-2">
+                        {details.prodesc}
+                      </span>
+                    </p>
+                    {details.prourl || details.imgurl ? (
+                      <Link
+                        target="_blank"
+                        to={details.prourl ? details.prourl : details.imgurl}
+                        className="rounded-lg text-white bg-primaryColor py-2 px-3 capitalize
+                        flex items-center justify-center gap-3 lg:text-lg"
+                      >
+                        view project
+                        <FaEye />
+                      </Link>
+                    ) : null}
+                  </div>
+                </div>
+                {/* project image details */}
+                <div
+                  id="details-image"
+                  className="sm:hidden lg:block col-span-2 bg-primaryColor"
+                >
+                  <img
+                    src={details.imgurl}
+                    alt="img-show"
+                    className="max-w-full"
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -191,7 +238,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
             id="top-user-avatar-name"
             className="text-white conatiner w-full max-w-full relative flex items-center flex-col gap-4 "
           >
-            <Avatar round size="150px" src={avatar} />
+            <Avatar round size={150} src={avatar} />
             <div
               id="user-info"
               className="flex flex-col items-center text-black max-w-full text-center gap-1"
@@ -208,7 +255,7 @@ flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-bl
               >
                 {jobtitle}
               </p>
-              <p id="about" className="">
+              <p id="about" className="text-pretty max-w-full break-normal">
                 {about}
               </p>
             </div>

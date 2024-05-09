@@ -118,6 +118,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       setBtn("NeedAction");
       setError(err.response.data.message);
     });

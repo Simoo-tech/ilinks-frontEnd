@@ -12,7 +12,7 @@ export default function ShareIlink() {
         setShareBtn={setShareBtn}
         close={false}
         userData={userData}
-        postion="relative"
+        postion="relative" 
       />
     </div>
   );
