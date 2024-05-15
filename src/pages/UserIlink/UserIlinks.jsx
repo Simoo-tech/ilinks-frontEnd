@@ -231,7 +231,7 @@ export default function UserIlinks() {
         {/* user name and avtar */}
         <div
           id="top-user-avatar-name"
-          className="text-white w-full relative flex items-center flex-col gap-4 "
+          className="text-white w-full relative flex items-center flex-col gap-4 p-2 border-2 border-primaryColor "
         >
           {username ? (
             <Avatar src={userData.avatar} round size="150" />
