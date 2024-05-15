@@ -63,7 +63,7 @@ export default function UserIlinks() {
     <div
       key={i}
       className={`card relative overflow-hidden group bg-primaryColor shadow-xl ${
-        username ? "sm:w-72 lg:w-96" : "w-full"
+        username ? "sm:w-80 lg:w-96" : "w-full"
       } `}
     >
       <figure>

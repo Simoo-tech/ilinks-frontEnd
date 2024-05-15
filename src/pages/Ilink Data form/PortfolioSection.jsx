@@ -272,7 +272,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   id="delete-portfolio-btn"
                   onClick={() => handleDeletePortfolio(i)}
                   type="button"
-                  className="rounded-lg p-[4px] bg-red-500 z-20"
+                  className="rounded-lg p-[4px] bg-red-500 "
                 >
                   <FaTrash size={17} color="white" />
                 </button>

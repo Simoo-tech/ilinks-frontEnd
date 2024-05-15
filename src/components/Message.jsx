@@ -36,7 +36,7 @@ export const Message = () => {
     <div
       className={`${
         active ? "right-3" : " -right-[240px] "
-      } fixed top-20 w-[240px] h-[200px] shadow-xl z-40 flex items-center justify-center duration-700 ease-in-out`}
+      } fixed top-20 w-[240px] h-[200px] shadow-xl z-50 flex items-center justify-center duration-700 ease-in-out`}
     >
       <div className=" capitalize w-full h-full relative flex ">
         {/* left bottom */}
