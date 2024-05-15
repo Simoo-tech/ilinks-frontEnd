@@ -78,7 +78,7 @@ export default function UserIlinks() {
           title: {por.protitle}
           <div
             className={`${
-              username ? "text-base p-4" : "text-sm p-2"
+              username ? "text-base px-4 py-2" : "text-sm p-2"
             } badge text-white capitalize bg-color3 font-light`}
           >
             {por.protype}
