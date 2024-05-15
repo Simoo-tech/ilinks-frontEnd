@@ -101,7 +101,7 @@ export default function UserIlinks() {
 
   return loading && username ? (
     // skeleton loading
-    <div className="flex flex-col h-full items-center justify-center bg-white ">
+    <div className="flex flex-col h-full items-center justify-center bg-white px-5">
       <div className="container overflow-y-scroll max-w-full py-5 h-full flex flex-col items-center gap-7 ">
         <div className="flex gap-4 items-center">
           <div className="skeleton w-44 h-44 rounded-full shrink-0"></div>
