@@ -64,12 +64,11 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
         window.location.replace(`/`);
       }
     } else {
-      console.log(res.response.data.message);
       setError(res.response.data.message);
       setBtn("NeedAction");
     }
   } catch (error) {
-    setError(res.response.data.message);
+    setError(error.response.data.message);
     setBtn("NeedAction");
     console.log(error);
   }
