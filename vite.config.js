@@ -7,5 +7,10 @@ export default defineConfig(() => {
       outDir: "build",
     },
     plugins: [react()],
+    esbuild: {
+      supported: {
+        "top-level-await": true,
+      },
+    },
   };
 });
