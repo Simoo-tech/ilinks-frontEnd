@@ -68,7 +68,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       setBtn("NeedAction");
     }
   } catch (error) {
-    setError(error.response.data.message);
+    setError("Email or Password is not correct");
     setBtn("NeedAction");
     console.log(error);
   }
