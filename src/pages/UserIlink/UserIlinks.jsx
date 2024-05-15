@@ -78,7 +78,7 @@ export default function UserIlinks() {
           title: {por.protitle}
           <div
             className={`${
-              username ? "text-base px-4 py-2" : "text-sm p-2"
+              username ? "text-base px-4 py-3" : "text-sm p-2"
             } badge text-white capitalize bg-color3 font-light`}
           >
             {por.protype}
@@ -104,11 +104,11 @@ export default function UserIlinks() {
     <div className="flex flex-col h-full items-center justify-center bg-white ">
       <div className="container overflow-y-scroll max-w-full py-5 px-5 h-full flex flex-col items-center gap-7 ">
         <div className="flex gap-4 items-center">
-          <div className="skeleton w-44 h-44 rounded-full shrink-0"></div>
+          <div className="skeleton w-44 h-44 rounded-full shrink-0" />
         </div>
         <div className="flex flex-col gap-6 w-full items-center">
-          <div className="skeleton h-4 flex w-4/12"></div>
-          <div className="skeleton h-4 flex w-6/12"></div>
+          <div className="skeleton h-4 flex w-4/12" />
+          <div className="skeleton h-4 flex w-6/12" />
           {/* social links */}
           <div className="flex gap-4 ">
             <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
@@ -129,22 +129,22 @@ export default function UserIlinks() {
         </h3>
         <div className=" w-full flex justify-center gap-5 flex-wrap">
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
         </div>
         {/* projects */}
@@ -156,22 +156,22 @@ export default function UserIlinks() {
         </h3>
         <div className=" w-full flex justify-center gap-5 flex-wrap">
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
           <div className="flex flex-col gap-4 w-72">
-            <div className="skeleton h-32 w-full"></div>
-            <div className="skeleton h-4 w-28"></div>
-            <div className="skeleton h-4 w-full"></div>
-            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-32 w-full" />
+            <div className="skeleton h-4 w-28" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-full" />
           </div>
         </div>
       </div>
@@ -231,10 +231,15 @@ export default function UserIlinks() {
         {/* user name and avtar */}
         <div
           id="top-user-avatar-name"
-          className="text-white w-full relative flex items-center flex-col gap-4 p-2 border-2 border-primaryColor "
+          className="text-white w-full relative flex items-center flex-col gap-4 p-2 "
         >
           {username ? (
-            <Avatar src={userData.avatar} round size="150" />
+            <Avatar
+              src={userData.avatar}
+              round
+              size="150"
+              className="border-2 border-primaryColor "
+            />
           ) : (
             <ProfilePic userData={userData} />
           )}
