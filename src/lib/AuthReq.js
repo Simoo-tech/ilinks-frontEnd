@@ -12,7 +12,7 @@ export const RegisterSubmit = async ({ setBtn, values, setError }) => {
       {
         ...values,
       },
-      { timeout: 5000, timeoutErrorMessage: "request time out " }
+      { timeout: 10000, timeoutErrorMessage: "request time out " }
     );
     if (res.data.success) {
       cookie.save("UD_1", res.data.Access_Token, {
@@ -40,7 +40,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       {
         ...values,
       },
-      { timeout: 5000, timeoutErrorMessage: "request time out " }
+      { timeout: 10000, timeoutErrorMessage: "request time out " }
     );
     if (res.data.success) {
       const data = res.data.user;

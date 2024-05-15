@@ -67,7 +67,7 @@ export default function UserIlinks() {
       } `}
     >
       <figure>
-        <img src={por.imgurl} alt="project-img" />
+        <img src={por.imgurl} alt="project-img" loading="lazy" />
       </figure>
       <div className={`card-body ${!username && "p-4"}`}>
         <h2
