@@ -64,7 +64,7 @@ export default function ShareContent({
   };
   // download qr code
   const DownloadQR = () => {
-    saveSvgAsPng(document.getElementById("QRCode"), "QRCode.pdf", {
+    saveSvgAsPng(document.getElementById("QRCode"), "QRCode.png", {
       scale: 8,
     });
   };
