@@ -28,21 +28,21 @@ export const BtnsActions = ({
           ) : null}
         </button>
       ) : null}
-
       {btn === "Loading" ? (
-        <button
-          disabled={!btn && true}
-          className={`cursor-progress ${btnStyle} min-w-[100px] flex items-center justify-center gap-2  `}
+        <span
+          disabled={true}
+          className={`cursor-progress ${btnStyle} flex items-center justify-center gap-2 `}
         >
-          <LoadingBtn size={25} />
-        </button>
+          Loading
+          <span className="loading loading-spinner loading-sm" />
+        </span>
       ) : null}
       {btn === "Done" ? (
         <button
-          disabled={!btn && true}
+          disabled={true}
           className={`flex items-center justify-center ${btnStyle} gap-3 cursor-pointer `}
         >
-          {DoneText}
+          Data saved
           <FaCheck color="green" />
         </button>
       ) : null}

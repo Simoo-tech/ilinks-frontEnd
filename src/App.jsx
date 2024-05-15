@@ -1,16 +1,13 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { HelmetProvider } from "react-helmet-async";
-import { Loading } from "./components/loading.jsx";
 import cookie from "react-cookies";
-import { SessionTime } from "./lib/SessionTime.js";
 import { Fetch_Check_Data } from "./lib/Fetch&Check_Data.js";
-import { UserD1 } from "./context.js";
+import { useAuth } from "./context/AuthContext.jsx";
+import { Loading } from "./components/loading.jsx";
 
 // lazy import pages
 const Home = lazy(() => import("./pages/Home.jsx"));
-const Layout = lazy(() => import("./Layout.jsx"));
 // auth components
 const ForgetPass = lazy(() => import("./pages/auth/ForgetPass.jsx"));
 const Login = lazy(() => import("./pages/auth/Login.jsx"));
@@ -27,108 +24,74 @@ const Profile = lazy(() =>
 const SocialLinks = lazy(() =>
   import("./pages/Ilink Data form/socialLinksSection.jsx")
 );
-const ShareIlink = lazy(() => import("./pages/Ilink Data form/ShareIlink.jsx"));
+const ShareIlink = lazy(() => import("./pages/ShareIlink.jsx"));
 const SkillsSection = lazy(() =>
   import("./pages/Ilink Data form/SkillsSection.jsx")
 );
 const PortfolioSection = lazy(() =>
   import("./pages/Ilink Data form/PortfolioSection.jsx")
 );
-const IlinkDataPreview = lazy(() =>
-  import("./pages/Ilink Data form/IlinkData&PhonePreview.jsx")
-);
+
 ////////
+const resData = await Fetch_Check_Data();
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
-  const [userVerified, setUserVerified] = useState(false);
-  const [message, setMessage] = useState({
-    title: "",
-    active: false,
-    body: "",
-    unRead: false,
-  });
-  // context values
-  const [userData, setUserData] = useState({});
-  const UserDataVal = { userData, setUserData };
-
-  useEffect(() => {
-    Fetch_Check_Data({
-      setMessage,
-      setUserData,
-      setLoading,
-    });
-    // start session time
-    SessionTime();
-  }, []);
+  const [userData, setUserData] = useAuth();
+  if (cookie.load("UD_1")) {
+    useEffect(() => {
+      setUserData({ ...userData, ...resData });
+    }, []);
+  }
+  // start session time
 
   return (
-    <HelmetProvider>
+    <main
+      id="App"
+      data-theme="light"
+      className=" relative sm:overflow-y-scroll lg:overflow-y-hidden"
+    >
       <Suspense fallback={<Loading />}>
-        <UserD1.Provider value={UserDataVal}>
-          {loading ? (
-            <Loading />
-          ) : (
-            <main
-              id="App"
-              className="bg-primaryColor relative sm:overflow-y-scroll lg:overflow-y-hidden"
-            >
-              <Routes>
-                <Route
-                  element={
-                    <Layout
-                      message={message}
-                      setMessage={setMessage}
-                      userVerified={userVerified}
-                      setUserVerified={setUserVerified}
-                    />
-                  }
-                >
-                  <Route
-                    path="/"
-                    element={
-                      <Home
-                        setUserVerified={setUserVerified}
-                        userVerified={userVerified}
-                      />
-                    }
-                  />
-                  {/* not found page */}
-                  <Route path="*" element={<PageNotFound />} />
-                  {/* user Ilink form and phone preview */}
-                  <Route
-                    path={`${userData.username}/ilink-preview`}
-                    element={<IlinkDataPreview />}
-                  >
-                    <Route path="profile" element={<Profile />} />
-                    <Route path="socialLinks" element={<SocialLinks />} />
-                    <Route path="skills" element={<SkillsSection />} />
-                    <Route path="portfolio" element={<PortfolioSection />} />
-                  </Route>
-                  <Route
-                    path={`${userData.username}/shareIlink`}
-                    element={<ShareIlink />}
-                  />
-                </Route>
-                {/* auth pages */}
-                <Route path="auth/sign-in" element={<Login />} />
-                <Route path="auth/sign-up" element={<Register />} />
-                <Route path="auth/forgetpassword" element={<ForgetPass />} />
-                <Route
-                  path={`auth/reset-password/${cookie.load("reset_token")}`}
-                  element={<ResetPass setLoading={setLoading} />}
-                />
-                <Route
-                  path={`auth/verify-email/${userData._id}`}
-                  element={<VerifyEmail />}
-                />
-                {/* user ilinks */}
-                <Route path={`userIlinks/:username`} element={<UserIlinks />} />
-              </Routes>
-            </main>
-          )}
-        </UserD1.Provider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* not found page */}
+          <Route path="*" element={<PageNotFound />} />
+          {/* user Ilink form and phone preview */}
+          <Route
+            path={`${userData?.username}/profile-data-page`}
+            element={<Profile />}
+          />
+          <Route
+            path={`${userData?.username}/socialLinks-data-page`}
+            element={<SocialLinks />}
+          />
+          <Route
+            path={`${userData?.username}/skills-data-page`}
+            element={<SkillsSection />}
+          />
+          <Route
+            path={`${userData?.username}/portfolio-data-page`}
+            element={<PortfolioSection />}
+          />
+          <Route
+            path={`${userData?.username}/ilink-share`}
+            element={<ShareIlink />}
+          />
+          {/* auth pages */}
+          <Route path="auth/sign-in" element={<Login />} />
+          <Route path="auth/sign-up" element={<Register />} />
+          <Route path="auth/forgetpassword" element={<ForgetPass />} />
+          <Route
+            path={`auth/reset-password/${cookie.load("reset_token")}`}
+            element={<ResetPass />}
+          />
+          <Route
+            path={`auth/verify-email/${userData?._id}`}
+            element={<VerifyEmail />}
+          />
+          {/* user ilinks */}
+          <Route path={`userIlinks/:username`} element={<UserIlinks />} />
+        </Routes>
       </Suspense>
-    </HelmetProvider>
+    </main>
   );
 }

@@ -1,15 +1,16 @@
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
-import { UserD1 } from "../context";
-import { UploadFiles } from "../lib/UploadFilesReq";
+import { UploadFiles } from "../../lib/UploadFilesReq";
 // icons
 import { MdError } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaMinus, FaPlus, FaCheckCircle } from "react-icons/fa";
 import { PiUserSquareFill, PiUserCircleFill } from "react-icons/pi";
+import { useAuth } from "../../context/AuthContext";
 
 function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
-  const { userData, setUserData } = useContext(UserD1);
+  const [userData, setUserData] = useAuth();
+
   const [imgSrc, setImgSrc] = useState();
   const [error, setError] = useState();
   const [zoom, setZoom] = useState(1);
@@ -43,7 +44,6 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
       setError("File type not supported");
       setImgSrc();
     }
-    console.log(e);
   };
 
   // handle zoom in photo
@@ -55,7 +55,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
 
   // handle zoom out photo
   const ZoomOut = useCallback(() => {
-    if (zoom >= 1) {
+    if (zoom > 1) {
       setZoom((prev) => prev - 0.2);
     }
   }, [zoom]);
@@ -85,17 +85,17 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
       0.8
     );
   };
-
   return (
     <div
       id="Upload_photo"
-      className="absolute z-50 w-full h-full bg-black/60 top-0 left-0 flex justify-center items-center"
+      className="fixed z-50 w-full h-full bg-black/60 top-0 left-0 flex justify-center items-center"
     >
       <div
         id="img-upload"
-        className=" bg-white flex flex-col justify-center gap-5 items-center relative rounded-xl p-5 h-fit
-        sm:min-w-[90%] sm:min-h-[60%]
-        lg:min-w-[800px] lg:min-h-[600px]"
+        className=" bg-white flex flex-col justify-center gap-5 items-center relative rounded-xl p-5
+        sm:min-w-[90%] sm:min-h-[90%] sm:max-w-[95%] sm:max-h-[95%]
+        md:min-w-[70%] md:min-h-[75%]
+        lg:min-w-[35%] lg:min-h-[70%]"
       >
         <IoCloseOutline
           size={30}
@@ -107,7 +107,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
         {uploading ? (
           // after uploading
           uploading === 100 ? (
-            <div className="w-full justify-center flex items-center gap-5">
+            <div className="w-full justify-center flex items-center gap-5 text-black">
               <p className="text-2xl">Image uploaded</p>
               <FaCheckCircle size={30} color="green" />
             </div>
@@ -138,7 +138,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                   id="tools"
                   className={`${
                     cropShape ? "flex-row" : "flex-col"
-                  } flex items-center justify-between gap-5 h-fit w-fit`}
+                  } flex items-center justify-between h-fit w-fit`}
                 >
                   {/* crop shape */}
                   {cropShape ? (
@@ -163,15 +163,11 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                   {/* image preview */}
                   <AvatarEditor
                     ref={editor}
-                    style={{
-                      width: "fit-content",
-                      height: 50,
-                    }}
                     borderRadius={cropShapeType}
-                    width={shape === "rectangle" ? 850 : 420}
-                    height={shape === "rectangle" ? 406 + 0 : 420}
+                    width={shape === "rectangle" ? 800 : 310}
+                    height={shape === "rectangle" ? 380 : 310}
                     image={imgSrc}
-                    border={0}
+                    border={10}
                     color={[255, 255, 255, 0.6]}
                     scale={zoom}
                   />
@@ -179,7 +175,9 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                   <div
                     id="scale-btns"
                     className={` ${
-                      cropShape ? "flex-col w-2/12" : "flex-row w-fit mt-5"
+                      cropShape
+                        ? "flex-col w-2/12"
+                        : "flex-row w-fit mt-5 text-black"
                     } flex gap-5 items-center `}
                   >
                     <p>Zoom: {parseInt(zoom * 100)}%</p>
@@ -240,8 +238,10 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                           HandleChangePhoto(e.target.files[0]);
                         }
                       }}
-                      className="file:text-white file:border-none file:bg-blue-500 file:px-3 file:py-2 file:mr-3
-                border-[2px] border-blue-500 sm:w-8/12 md:w-auto selection:text-orange-600 rounded-xl"
+                      className="file:text-white file:bg-blue-500 file:border-none file:px-3 file:py-2 file:mr-3
+                        text-black border-[2px] border-blue-500 
+                        selection:text-orange-600 rounded-xl
+                        sm:w-8/12 md:w-auto "
                     />
                   </div>
                 )}

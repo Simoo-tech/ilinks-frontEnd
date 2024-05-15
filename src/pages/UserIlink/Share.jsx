@@ -7,12 +7,14 @@ import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
 import { saveSvgAsPng } from "save-svg-as-png";
+import { useAuth } from "../../context/AuthContext";
 
-export const ShareBtn = ({ setShareBtn, userViewData }) => {
-  const { email, IlinkData } = userViewData;
+export const ShareBtn = ({ setShareBtn }) => {
+  const [userData] = useAuth();
+  const { email, IlinkData } = userData;
 
   return (
-    <div className="fixed bottom-5 right-5 flex flex-col gap-3 z-40">
+    <div className="fixed bottom-20 right-5 flex flex-col gap-3 z-40">
       {email && (
         <Link
           target="_blank"
@@ -70,7 +72,7 @@ export default function ShareContent({
   return (
     <section
       id="share-ilink-section"
-      className={`w-full h-full z-40 top-0 left-0 justify-center items-center
+      className={`w-full h-full z-30 top-0 left-0 justify-center items-center
       ${postion ? postion : "fixed"}  ${shareBtn ? "flex" : "hidden"} 
     before:bg-primaryColor ${
       opacity && `before:opacity-90`

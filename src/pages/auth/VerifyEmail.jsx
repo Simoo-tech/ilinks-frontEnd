@@ -1,34 +1,26 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { MdMarkEmailUnread } from "react-icons/md";
-import { ErrorMes } from "../../components/errorMes";
-import { VerifyCodeSubmit } from "../../lib/AuthReq";
-import { BtnsActions } from "../../components/BtnsActions";
-import { Logo } from "../../components/Logo";
-import { UserD1 } from "../../context";
-import cookie from "react-cookies";
+import { ErrorMes } from "../../components/Tools/errorMes";
+import { VerifyCodeSubmit } from "../../lib/EmailVerification";
+import { BtnsActions } from "../../components/Tools/BtnsActions";
+import { Logo } from "../../components/Tools/Logo";
+import { useAuth } from "../../context/AuthContext";
 
 export default function VerifyEmail() {
-  const { userData } = useContext(UserD1);
-  // check if user verified
-  const checkVerifiedUser = () => {
-    if (verifed) {
-      navigate("/");
-    }
-  };
-  useEffect(() => checkVerifiedUser(), []);
-  // variables
-  const { email, verifed } = userData;
+  const [userData] = useAuth();
+  const { code, email, verifed } = userData;
+
+  // btn state and error
   const [btn, setBtn] = useState("NoAction");
   const [error, setError] = useState({ active: false, text: null });
   const navigate = useNavigate();
 
-  const code = cookie.load("verifyCode");
   const [codeVal, setCodeVal] = useState({});
   const OtpBox = useRef([]);
 
-  const correctCode = code === Object.values(codeVal).join("");
-  const CodeLength = code?.split("");
+  const correctCode = String(code) === Object.values(codeVal).join("");
+  const CodeLength = String(code).split("");
 
   function HandleChange(e, i) {
     if (OtpBox.current[i].value !== "") {
@@ -73,7 +65,9 @@ export default function VerifyEmail() {
     );
   });
 
-  return (
+  return verifed ? (
+    <Navigate to={"/"} />
+  ) : (
     <section
       id="verify-email"
       className="flex flex-col h-full items-center w-full container max-w-full py-3 gap-10"
@@ -89,7 +83,6 @@ export default function VerifyEmail() {
           <ErrorMes
             error={error.active}
             text={error.text}
-            size="lg"
             color="red-500"
             icon={20}
           />
@@ -127,7 +120,8 @@ export default function VerifyEmail() {
           </div>
           <BtnsActions
             btn={btn}
-            btnStyle="bg-primaryColor sm:text-sm md:text-lg py-2 w-5/12 font-medium rounded-lg text-white capitalize"
+            btnStyle="bg-primaryColor sm:text-sm md:text-lg py-2 w-5/12 
+            font-medium rounded-lg text-white capitalize"
             ActionText="verify email"
             DoneText="email verified"
           />

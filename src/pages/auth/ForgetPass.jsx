@@ -4,9 +4,9 @@ import { AiOutlineMail } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { SendResetLink } from "../../lib/AuthReq";
-import { Logo } from "../../components/Logo";
+import { Logo } from "../../components/Tools/Logo";
 import { Helmet } from "react-helmet-async";
-import { BtnsActions } from "../../components/BtnsActions";
+import { BtnsActions } from "../../components/Tools/BtnsActions";
 
 export default function ForgetPass() {
   const [email, setEmail] = useState();

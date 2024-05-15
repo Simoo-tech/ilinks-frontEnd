@@ -10,11 +10,12 @@ import {
 import { FaTiktok } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
-import { UserD1 } from "../../context";
+import { Next_Prev_Btns } from "../../components/Tools/Next_Prev_Btns";
+import { useAuth } from "../../context/AuthContext";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import { Form, Formik } from "formik";
-
+import PreviewData from "./PreviewData";
+import Layout from "../../components/Layout";
 
 export default function SocialLinks() {
   // animation
@@ -24,97 +25,101 @@ export default function SocialLinks() {
   }, []);
 
   return (
-    <section
-      className={`${
-        animation ? "opacity-0" : "opacity-100"
-      }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
-      sm:overflow-y-scroll 
-      lg:overflow-hidden lg:justify-between `}
-    >
-      <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
-        <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-          Social Links
-        </h1>
-        <h2 className="text-base capitalize font-light">
-          Add some social media links
-        </h2>
-      </div>
-      <FormSocialLinks />
-    </section>
+    <Layout>
+      <PreviewData>
+        <section
+          className={`${
+            animation ? "opacity-0" : "opacity-100"
+          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
+    sm:overflow-y-scroll 
+    lg:overflow-hidden lg:justify-between `}
+        >
+          <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
+            <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
+              Social Links
+            </h1>
+            <h2 className="text-base capitalize font-light">
+              Add some social media links
+            </h2>
+          </div>
+          <FormComp />
+        </section>
+      </PreviewData>
+    </Layout>
   );
 }
 
-const FormSocialLinks = () => {
+const FormComp = () => {
   const [btn, setBtn] = useState("NeedAction");
-
-  const { userData, setUserData } = useContext(UserD1);
+  const [userData, setUserData] = useAuth();
+  const socialLinks = userData?.IlinkData?.socialMediaLinks;
   // handle change function
   const HandleChange = (e) => {
-    const SocialLinks = userData?.IlinkData?.socialMediaLinks;
     setUserData({
       ...userData,
       IlinkData: {
         ...userData.IlinkData,
-        socialMediaLinks: { ...SocialLinks, [e.target.name]: e.target.value },
+        socialMediaLinks: { ...socialLinks, [e.target.name]: e.target.value },
       },
     });
   };
+  const links = socialLinks;
   // input style and handle to show
   const Inputs = [
     {
       name: "facebookUrl",
       labelName: "Facebook",
       icon: <BsFacebook className="text-blue-700 rounded-full" size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.facebookUrl,
+      val: links?.facebookUrl,
       type: "url",
     },
     {
       name: "githubUrl",
       labelName: "Github",
       icon: <BsGithub className=" text-white rounded-full " size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.githubUrl,
+      val: links?.githubUrl,
       type: "url",
     },
     {
       name: "twitterUrl",
       labelName: "Twitter",
       icon: <FaTwitter className="text-blue-500" size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.twitterUrl,
+      val: links?.twitterUrl,
       type: "url",
     },
     {
       name: "instagramUrl",
       labelName: "Instagram",
       icon: <BsInstagram className="text-red-600 " size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.instagramUrl,
+      val: links?.instagramUrl,
       type: "url",
     },
     {
       name: "tiktokUrl",
       labelName: "Tiktok",
       icon: <FaTiktok size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.tiktokUrl,
+      val: links?.tiktokUrl,
       type: "url",
     },
     {
       name: "whatsappUrl",
       labelName: "Whatsapp",
       icon: <BsWhatsapp className=" text-green-500" size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.whatsappUrl,
+      val: links?.whatsappUrl,
       type: "text",
     },
     {
       name: "youtubeUrl",
       labelName: "Youtube",
       icon: <BsYoutube className=" text-red-600" size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.youtubeUrl,
+      val: links?.youtubeUrl,
       type: "url",
     },
     {
       name: "linkedinUrl",
       labelName: "Linkedin",
       icon: <BsLinkedin className="text-blue-700" size={30} />,
-      val: userData?.IlinkData?.socialMediaLinks?.linkedinUrl,
+      val: links?.linkedinUrl,
       type: "url",
     },
   ];
@@ -127,7 +132,12 @@ const FormSocialLinks = () => {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-            UpdateIlinkData({ userData, setBtn, navigate, path: "skills" });
+            UpdateIlinkData({
+              userData,
+              setBtn,
+              navigate,
+              path: "skills-data-page",
+            });
           }}
           className="flex flex-col w-full justify-between lg:max-h-full h-full "
         >
@@ -147,7 +157,7 @@ const FormSocialLinks = () => {
                     onChange={(e) => HandleChange(e)}
                     type={input.type}
                     name={input.name}
-                    value={input.val ? input.val : ""}
+                    value={socialLinks ? input.val : ""}
                     placeholder={`https://example/${input.name.toLowerCase()}.com/`}
                     className="outline-none p-2 w-full rounded-md shadow-md "
                   />
@@ -156,7 +166,7 @@ const FormSocialLinks = () => {
             ))}
           </div>
           <Next_Prev_Btns
-            prev={`/${userData.username}/ilink-preview/profile`}
+            prev={`/${userData.username}/profile-data-page`}
             btn={btn}
           />
         </Form>

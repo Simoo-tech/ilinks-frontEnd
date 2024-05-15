@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import CropImg from "./CropImg";
+import CropImg from "./Tools/CropImg";
 import Avatar from "react-avatar";
+import { useAuth } from "../context/AuthContext";
 
-export const ProfilePic = ({ userData }) => {
+export const ProfilePic = () => {
+  const [userData] = useAuth();
   const [uploadArea, setUploadArea] = useState(false);
   const { avatar } = userData;
+
   return (
     <>
       <button
@@ -17,10 +20,11 @@ export const ProfilePic = ({ userData }) => {
         <Avatar
           src={avatar}
           round
-          size="160px"
+          size={"110px"}
           alt="avatar"
-          className="relative before:rounded-full before:absolute before:bg-black/70 before:top-0 bg-zinc-400
-          before:left-0 before:w-full before:h-full group-hover:before:bg-black/50 before:z-10"
+          className="before:rounded-full before:absolute before:bg-black/70 before:top-0 
+          before:left-0 before:w-full before:h-full group-hover:before:bg-black/50 before:z-10
+          relative bg-zinc-400"
         />
         <CiEdit className=" absolute z-10" size={35} color="white" />
       </button>

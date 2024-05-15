@@ -1,9 +1,9 @@
 import { lazy, useState } from "react";
 import { BsTrash } from "react-icons/bs";
-import { DeleteAccountSubmit } from "../lib/UserProfileData.js";
+import { DeleteAccountSubmit } from "../../lib/UserProfileData.js";
 
 // lazy import
-const Loading = lazy(() => import("./loading.jsx"));
+const Loading = lazy(() => import("../loading.jsx"));
 
 // delete message with input
 export const DeleteAccountMessage = ({

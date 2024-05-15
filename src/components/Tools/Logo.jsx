@@ -11,7 +11,12 @@ export const Logo = ({ align, textSize, imgSize }) => {
         align ? align : "self-start"
       }`}
     >
-      <img src={LogoImg} alt="logo" width={imgSize ? imgSize : 110} />
+      <img
+        src={LogoImg}
+        loading="lazy"
+        alt="logo"
+        width={imgSize ? imgSize : 110}
+      />
     </Link>
   );
 };

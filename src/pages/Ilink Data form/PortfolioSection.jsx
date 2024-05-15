@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { PiImagesSquareLight } from "react-icons/pi";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaEye } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
-import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
-import { UserD1 } from "../../context";
-import CropImg from "../../components/CropImg";
+import { Next_Prev_Btns } from "../../components/Tools/Next_Prev_Btns";
+import { useAuth } from "../../context/AuthContext";
+import CropImg from "../../components/Tools/CropImg";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import { BsArrowLeft } from "react-icons/bs";
+import PreviewData from "./PreviewData";
+import Layout from "../../components/Layout";
 
 export default function PortfolioSection() {
   // animation
   const [animation, setAnimation] = useState(true);
   const [uploadArea, setUploadArea] = useState(null);
-  const { userData, setUserData } = useContext(UserD1);
-
+  const [userData, setUserData] = useAuth();
   useEffect(() => {
     setAnimation(false);
     if (userData?.IlinkData?.portfolio?.length === 0) {
@@ -38,36 +39,39 @@ export default function PortfolioSection() {
   }, []);
 
   return (
-    <>
-      <section
-        id="portfolio_form"
-        className={`${
-          animation ? "opacity-0" : "opacity-100"
-        }  h-full flex flex-col items-center sm:px-2 md:px-5 shadow-xl duration-300 ease-in-out relative overflow-y-scroll`}
-      >
-        <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
-          <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-            portfolio
-          </h1>
-          <h2 className="text-base capitalize font-light">
-            Showcasing some of my best work
-          </h2>
-        </div>
-        <Form
-          setUploadArea={setUploadArea}
-          userData={userData}
-          setUserData={setUserData}
-        />
-      </section>
-      {uploadArea !== null && (
-        <CropImg
-          shape="rectangle"
-          setUploadArea={setUploadArea}
-          uploadArea={uploadArea}
-          requestUrl={`portfolioImg/${userData.IlinkData._id}`}
-        />
-      )}
-    </>
+    <Layout>
+      <PreviewData>
+        <section
+          id="portfolio_form"
+          className={`${
+            animation ? "opacity-0" : "opacity-100"
+          } max-h-full h-full flex flex-col items-center sm:px-2 md:px-5 shadow-xl duration-300 
+          ease-in-out relative overflow-y-scroll`}
+        >
+          <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
+            <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
+              portfolio
+            </h1>
+            <h2 className="text-base capitalize font-light">
+              Showcasing some of my best work
+            </h2>
+          </div>
+          <Form
+            setUploadArea={setUploadArea}
+            userData={userData}
+            setUserData={setUserData}
+          />
+        </section>
+        {uploadArea !== null && (
+          <CropImg
+            shape="rectangle"
+            setUploadArea={setUploadArea}
+            uploadArea={uploadArea}
+            requestUrl={`portfolioImg/${userData.IlinkData._id}`}
+          />
+        )}
+      </PreviewData>
+    </Layout>
   );
 }
 
@@ -75,28 +79,47 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   const [btn, setBtn] = useState("NeedAction");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const { portfolio } = userData?.IlinkData;
+  const { IlinkData } = userData;
 
   // handle add portfolio
   const AddPortfolio = () => {
     setError(null);
-    setUserData({
-      ...userData,
-      IlinkData: {
-        ...userData.IlinkData,
-        portfolio: [
-          ...userData.IlinkData.portfolio,
-          {
-            imgurl: null,
-            protitle: "",
-            protype: "",
-            cleintname: "",
-            prourl: "",
-            prodesc: "",
-          },
-        ],
-      },
-    });
+    if (IlinkData?.portfolio) {
+      setUserData({
+        ...userData,
+        IlinkData: {
+          ...userData.IlinkData,
+          portfolio: [
+            ...userData.IlinkData.portfolio,
+            {
+              imgurl: null,
+              protitle: "",
+              protype: "",
+              cleintname: "",
+              prourl: "",
+              prodesc: "",
+            },
+          ],
+        },
+      });
+    } else {
+      setUserData({
+        ...userData,
+        IlinkData: {
+          ...userData.IlinkData,
+          portfolio: [
+            {
+              imgurl: null,
+              protitle: "",
+              protype: "",
+              cleintname: "",
+              prourl: "",
+              prodesc: "",
+            },
+          ],
+        },
+      });
+    }
   };
   // handle change
   const HandleChange = (e, i) => {
@@ -128,7 +151,10 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
     return imgValid;
   });
   const Validation = (type) => {
-    if (ProValidation.includes(null)) {
+    if (
+      userData?.IlinkData?.portfolio?.length >= 1 &&
+      ProValidation.includes(null)
+    ) {
       const num = ProValidation.indexOf(null);
       setError({
         message: "choose an image",
@@ -143,34 +169,33 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       AddPortfolio();
     }
     if (type === "submit") {
-      UpdateIlinkData({ userData, setBtn, navigate, path: "shareIlink" });
+      UpdateIlinkData({
+        userData,
+        setBtn,
+        navigate,
+        path: "ilink-share",
+      });
     }
   };
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         Validation("submit");
       }}
-      className="grid grid-cols-12 h-fit items-center justify-center w-full "
+      className="grid grid-cols-12 place-content-between w-full lg:max-h-full h-full "
     >
       <div
-        className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 items-center col-span-full
-      sm:my-3 md:p-3 w-full "
+        className="grid sm:grid-cols-1 lg:grid-cols-2  justify-items-center gap-4 items-center col-span-full 
+      sm:my-3 md:p-3 w-full"
       >
-        {portfolio?.map((pro, i) => (
+        {userData?.IlinkData?.portfolio?.map((pro, i) => (
           <div
             id="portfolio-details"
             key={pro._id ? pro._id : i}
-            style={{
-              background: `url("${pro?.imgurl}") no-repeat center black`,
-              backgroundSize: "contain",
-            }}
-            className={`${
-              !pro.imgurl ? "before:bg-primaryColor" : "before:bg-black/60"
-            } 
-            grid gap-1 p-4 border-[1px] rounded-xl overflow-hidden relative border-black 
-            grid-cols-3 grid-flow-row grid-rows-1 before:absolute before:w-full before:h-full `}
+            className="grid gap-1 p-4 border-[1px] rounded-xl overflow-hidden relative border-black bg-primaryColor
+            grid-cols-3 grid-flow-row grid-rows-1 before:absolute before:w-full before:h-full"
           >
             {/* error validation */}
             <span
@@ -201,36 +226,45 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   }}
                   id="choose-image"
                   className={`flex items-center justify-center gap-1 cursor-pointer py-1 
-                  rounded-md bg-neutral-400 px-2 capitalize
-                  ${
-                    error?.num === i && error?.element === "imgurl"
-                      ? "text-red-400 border-red-400"
-                      : "text-white border-white"
-                  }`}
+                    rounded-md bg-neutral-400 px-2 capitalize
+                    ${
+                      error?.num === i && error?.element === "imgurl"
+                        ? "text-red-400 border-red-400"
+                        : "text-white border-white"
+                    }`}
                 >
                   Choose image
                   <PiImagesSquareLight size={21} className="white" />
                 </button>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setUploadArea(i);
-                    setError(null);
-                    setBtn("NeedAction");
-                  }}
-                  id="choose-image"
-                  className={`flex items-center justify-center gap-1 cursor-pointer py-1 capitalize
-              rounded-md bg-neutral-400 px-2 
-              ${
-                error?.num === i && error?.element === "imgurl"
-                  ? "text-red-400 border-red-400"
-                  : "text-white border-white"
-              }`}
-                >
-                  <span> change image</span>
-                  <PiImagesSquareLight size={22} className="white" />
-                </button>
+                <div className="flex gap-2 items-center">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUploadArea(i);
+                      setError(null);
+                      setBtn("NeedAction");
+                    }}
+                    id="choose-image"
+                    className={`flex items-center justify-center gap-1 cursor-pointer py-1 capitalize
+                    rounded-md bg-neutral-400 px-2 
+                    ${
+                      error?.num === i && error?.element === "imgurl"
+                        ? "text-red-400 border-red-400"
+                        : "text-white border-white"
+                    }`}
+                  >
+                    <span> change image</span>
+                    <PiImagesSquareLight size={22} className="white" />
+                  </button>
+                  <Link to={pro.imgurl}>
+                    <FaEye
+                      color="blue"
+                      size={30}
+                      className="bg-white rounded-lg p-1"
+                    />
+                  </Link>
+                </div>
               )}
               {/* delete project btn */}
               {userData.IlinkData.portfolio.length > 1 && (
@@ -350,47 +384,34 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   className="capitalize relative flex gap-1 text-white"
                 >
                   project description
-                  <span className="text-red-600">*</span>
                 </label>
                 <textarea
                   maxLength={100}
                   value={pro.prodesc}
-                  required
                   onChange={(e) => HandleChange(e, i)}
                   type="text"
                   name="prodesc"
                   placeholder="example is the first..."
-                  className={`rounded-lg py-2 px-3 outline-none focus-visible:border-black border-2
-                    ${
-                      error?.num === i &&
-                      error?.element === pro.prodesc &&
-                      "border-red-500"
-                    }`}
+                  className="rounded-lg py-2 px-3 outline-none focus-visible:border-black border-2"
                 />
               </div>
             </div>
           </div>
         ))}
-      </div>
-      {/* add project button */}
-      <div
-        id="add-project"
-        className="col-span-full flex justify-center flex-col items-center my-3"
-      >
-        <p className="mb-1 text-lg uppercase w-fit font-semibold ">
-          add project
-        </p>
+        {/* add project button */}
         <button
           type="button"
           onClick={() => Validation("add")}
-          className="flex flex-col justify-center items-center self-center h-fit border-2 border-black gap-1 rounded-xl w-6/12 "
+          className="flex flex-col justify-center items-center self-center border-2 border-black gap-1 rounded-xl
+          w-[150px] h-[100px] p-2 hover:bg-primaryColor hover:text-white duration-200"
         >
-          <FiPlus size={50} className="py-3 w-full" />
+          <p className="text-lg capitalize font-medium"> Add Project</p>
+          <FiPlus size={40} />
         </button>
       </div>
       <Next_Prev_Btns
-        prev={`/${userData.username}/ilink-preview/skills`}
-        displayName="finish"
+        prev={`/${userData.username}/skills-data-page`}
+        displayName="Create"
         btn={btn}
       />
     </form>

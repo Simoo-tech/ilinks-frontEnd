@@ -8,7 +8,6 @@ module.exports = {
         color1: "#ec5b53",
         color2: "#fffcf9",
         color3: "#a33327",
-
         colorBottonsDark: "white",
         colorBorderDark: "#404040",
         colorBlue2: "#141E46",
@@ -53,5 +52,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-3d")],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: true,
+    styled: true,
+    base: false,
+  },
 };

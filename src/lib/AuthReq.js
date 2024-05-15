@@ -1,154 +1,106 @@
 import axios from "axios";
 import cookie from "react-cookies";
-import { CreateIlinkData } from "./UserIlinkDataReq";
-
-// send verification code
-export const SendCode = async ({
-  userData,
-  navigate,
-  setUserVerified,
-  setBtn,
-}) => {
-  setBtn("Loading");
-  await axios
-    .post(`${serverPath}send-verify-email`, {
-      email: userData.email,
-    })
-    .then((res) => {
-      cookie.save("verifyCode", res.data.newCode, { path: "/" });
-      navigate(`/auth/verify-email/${userData._id}`);
-      setUserVerified(false);
-      setBtn("NeedAction");
-      cookie.remove("ExpTime", { path: "/" });
-    })
-    .catch((err) => console.log(err));
-};
-
-// Verify Email
-export const VerifyCodeSubmit = async ({
-  setError,
-  correctCode,
-  btn,
-  setBtn,
-  userData,
-}) => {
-  if (correctCode && btn === "NeedAction") {
-    setBtn("Loading");
-    setError({ active: false });
-    await axios
-      .put(`${serverPath}user/${userData._id}`, {
-        verifed: true,
-      })
-      .then((res) => {
-        setBtn("Done");
-        CreateIlinkData({ userData });
-        setTimeout(() => cookie.remove("verifyCode", { path: "/" }), 2000);
-        setTimeout(() => {
-          window.location.replace(
-            `/${res.data.user.username}/ilink-preview/profile`
-          );
-        }, 2000);
-      })
-      .catch(() => setBtn("NeedAction"));
-  } else {
-    if (btn === "NoAction") {
-      setError({
-        active: true,
-        text: "please enter the code that we sent it for you",
-      });
-    } else {
-      setError({ active: true, text: "Incorrect code please try again" });
-    }
-  }
-};
+const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // Register
 export const RegisterSubmit = async ({ setBtn, values, setError }) => {
-  setBtn("Loading");
-  await axios
-    .post(`${serverPath}auth/register `, {
-      ...values,
-    })
-    .then((res) => {
-      setError(null);
-      const ExpireDate = 1 * 60 * 60;
-      cookie.save("user_D1", res.data.newUser._id, {
+  try {
+    setBtn("Loading");
+    setError(null);
+    const res = await axios.post(
+      `${serverPath}auth/register `,
+      {
+        ...values,
+      },
+      { timeout: 5000, timeoutErrorMessage: "request time out " }
+    );
+    if (res.data.success) {
+      cookie.save("UD_1", res.data.Access_Token, {
         path: "/",
-        maxAge: ExpireDate,
+        maxAge: 3600000,
+        secure: true,
       });
-      cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
-      window.location.replace(
-        `/${res.data.newUser.username}/ilink-preview/profile`
-      );
-    })
-    .catch((err) => {
+      window.location.replace(`/`);
+    } else {
+      console.log(res.response.data.message);
       setBtn("NeedAction");
-      setError(err.response.data?.message);
-    });
+    }
+  } catch (error) {
+    setBtn("NeedAction");
+    console.log(error);
+  }
 };
 
 // LoginSubmit
 export const LoginSubmit = async ({ values, setError, setBtn }) => {
-  setBtn("Loading");
-  await axios
-    .post(`${serverPath}auth/login`, {
-      ...values,
-    })
-    .then((res) => {
+  try {
+    setBtn("Loading");
+    const res = await axios.post(
+      `${serverPath}auth/login`,
+      {
+        ...values,
+      },
+      { timeout: 5000, timeoutErrorMessage: "request time out " }
+    );
+    if (res.data.success) {
       const data = res.data.user;
-      const ExpireDate = 1 * 60 * 60;
-      if (cookie.load("ExpTime")) {
-        cookie.remove("ExpTime", { path: "/" });
-      }
       setBtn("NeedAction");
-      cookie.save("user_D1", data._id, {
+      console.log(data.token);
+      cookie.save("UD_1", res.data.Access_Token, {
         path: "/",
-        maxAge: ExpireDate,
+        maxAge: 3600000,
+        secure: true,
       });
-      cookie.save("user_T1", res.data.token, { path: "/", maxAge: ExpireDate });
-      if (
-        data?.IlinkData?.skills?.length > 1 &&
-        data?.IlinkData?.portfolio?.length > 1
-      ) {
-        window.location.replace(`/userIlinks/${data.username}`);
+      if (data.verified) {
+        if (
+          data?.IlinkData?.skills?.length > 1 &&
+          data?.IlinkData?.portfolio?.length > 1
+        ) {
+          window.location.replace(`/userIlinks/${data.username}`);
+        } else {
+          window.location.replace(`/${data.username}/profile-data-page`);
+        }
       } else {
-        window.location.replace(`/${data.username}/ilink-preview/profile`);
+        window.location.replace(`/`);
       }
-    })
-    .catch((err) => {
-      console.log(err);
+    } else {
+      console.log(res.response.data.message);
+      setError(res.response.data.message);
       setBtn("NeedAction");
-      setError(err.response.data.message);
-    });
+    }
+  } catch (error) {
+    setBtn("NeedAction");
+    console.log(error);
+  }
 };
 
 // reset password
 /////// check token
 export const checkToken = async ({ userID, token, setValid, setLoading }) => {
-  setLoading(true);
-  await axios
-    .post(`${serverPath}auth/resetpassword/${userID}`, {
+  try {
+    setLoading(true);
+    await axios.post(`${serverPath}auth/resetpassword/${userID}`, {
       token,
-    })
-    .then(() => {
-      setValid(true);
-    })
-    .catch(() => {
-      setValid(false);
-    })
-    .then(() => setLoading(false));
+    });
+    setValid(true);
+    setLoading(false);
+  } catch (error) {
+    setValid(false);
+    console.log(error.response.data.message);
+  }
 };
 /////// handle submit reset password
 export const ResetPasswordSubmit = async ({ values, userID }) => {
-  await axios
-    .put(`${serverPath}auth/resetpassword/${userID}`, {
+  try {
+    await axios.put(`${serverPath}auth/resetpassword/${userID}`, {
       ...values,
-    })
-    .then((res) => {
-      window.location.replace("/auth/sign-in");
-      window.localStorage.removeItem("pass_token");
-      window.localStorage.removeItem("user_ID");
     });
+    window.location.replace("/auth/sign-in");
+    window.localStorage.removeItem("pass_token");
+    window.localStorage.removeItem("user_ID");
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
 };
 /////// handle send reset password link
 export const SendResetLink = async ({
@@ -159,32 +111,28 @@ export const SendResetLink = async ({
   btn,
 }) => {
   if (btn === "NeedAction") {
-    setBtn("Loading");
-    await axios
-      .post(`${serverPath}auth/resetpassword`, { email })
-      .then((res) => {
-        if (cookie.load("ExpTime")) {
-          cookie.remove("ExpTime", { path: "/" });
-        }
-        const ExpireDate = 30 * 60;
-        setBtn("Done");
-        setTimeout(() => {
-          setSend(false);
-          cookie.save("reset_token", res.data.PassToken, {
-            path: "/",
-            maxAge: ExpireDate,
-          });
-          cookie.save("user_reset_id", res.data.userID, {
-            path: "/",
-            maxAge: ExpireDate,
-          });
-        }, 1000);
-      })
-      .catch((err) => {
-        setMsg(err.response.data.message);
-        setBtn("NeedAction");
-      });
-  } else {
-    return;
+    try {
+      setBtn("Loading");
+      await axios.post(`${serverPath}auth/resetpassword`, { email });
+      if (cookie.load("ExpTime")) {
+        cookie.remove("ExpTime", { path: "/" });
+      }
+      const ExpireDate = 30 * 60;
+      setBtn("Done");
+      setTimeout(() => {
+        setSend(false);
+        cookie.save("reset_token", res.data.PassToken, {
+          path: "/",
+          maxAge: ExpireDate,
+        });
+        cookie.save("user_reset_id", res.data.userID, {
+          path: "/",
+          maxAge: ExpireDate,
+        });
+      }, 1000);
+    } catch (error) {
+      setMsg(error.response.data.message);
+      setBtn("NeedAction");
+    }
   }
 };

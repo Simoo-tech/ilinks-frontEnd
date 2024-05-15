@@ -1,17 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Avatar from "react-avatar";
 import { BiLogOut } from "react-icons/bi";
-import { LiaLinkSolid } from "react-icons/lia";
-import { BsFillPersonFill } from "react-icons/bs";
-import { IoClose } from "react-icons/io5";
-import { SignOut } from "../lib/SignOutFunction";
-import { Logo } from "./Logo";
-import { UserD1 } from "../context";
+import { FaRegEdit, FaUserAlt, FaUserEdit } from "react-icons/fa";
 
-export const Navbar = ({ changemenu, setChangemenu }) => {
-  const { userData } = useContext(UserD1);
-  const { _id, avatar } = userData;
+import { SignOut } from "../lib/SignOutFunction";
+import { Logo } from "./Tools/Logo";
+import { useAuth } from "../context/AuthContext";
+import cookies from "react-cookies";
+
+export const Navbar = () => {
+  const [userData, setUserData] = useAuth();
+  const { avatar } = userData;
+  const userCookies = cookies.load("UD_1");
+
   return (
     <header
       id="navbar"
@@ -21,19 +22,11 @@ export const Navbar = ({ changemenu, setChangemenu }) => {
         <Logo />
         {/* user menu */}
         <div className="sm:w-8/12 lg:w-6/12 flex flex-row gap-2 justify-end items-center">
-          {_id ? (
-            <div className=" flex items-center flex-row gap-3 mr-2">
-              <Avatar
-                className="avatar bg-white cursor-pointer "
-                size="35px"
-                src={avatar}
-                round
-                onClick={() => setChangemenu(!changemenu)}
-              />
-            </div>
+          {userCookies ? (
+            <Menu />
           ) : (
             <div className=" text-right align-middle mr-2">
-              <h4 className="text-white sm:text-xs lg:text-base font-bold text-left uppercase">
+              <h4 className="text-white font-bold text-left uppercase">
                 create your
                 <span className="ml-1 text-mainColor1 font-extrabold ">
                   ilink !
@@ -42,14 +35,14 @@ export const Navbar = ({ changemenu, setChangemenu }) => {
               <div className="flex flex-row justify-start gap-2">
                 <Link
                   to="/auth/sign-in"
-                  className="text-white text-sm uppercase font-semibold"
+                  className="text-white uppercase font-semibold"
                 >
                   login
                 </Link>
-                <span className="text-white font-semibold text-sm">/</span>
+                <span className="text-white font-semibold ">/</span>
                 <Link
                   to="/auth/sign-up"
-                  className="text-white text-sm uppercase font-semibold"
+                  className="text-white uppercase font-semibold"
                 >
                   register
                 </Link>
@@ -62,78 +55,62 @@ export const Navbar = ({ changemenu, setChangemenu }) => {
   );
 };
 
-export const Menu = ({ changemenu, setChangemenu }) => {
-  const { userData } = useContext(UserD1);
+const Menu = () => {
+  const [userData] = useAuth();
   const navigate = useNavigate();
   const { avatar, username, jobtitle, IlinkData } = userData;
-
-  function checkIlinkData() {
-    if (IlinkData?.portfolio?.length >= 1 && IlinkData?.skills?.length >= 1) {
-      setChangemenu(false);
-      navigate(`userIlinks/${username}`);
-    }
-  }
+  const Links = [
+    {
+      url: `/userIlinks/${username}`,
+      name: "Profile",
+      icon: <FaUserAlt size={14} />,
+    },
+    {
+      url: `/${username}/profile-data-page`,
+      name: "  Edit Data",
+      icon: <FaRegEdit size={15} />,
+    },
+  ];
   return (
-    <menu
-      className={`menu flex-col items-end absolute top-0 h-screen
-    w-full duration-300 z-50 ${
-      changemenu && true
-        ? " opacity-[100%] flex right-0 "
-        : "opacity-0 hidden -right-[100px] "
-    }
-    before:absolute before:h-full before:top-0 before:w-full before:right-0 before:bg-black before:opacity-30 `}
-    >
-      <div className=" flex flex-col bg-colorBorderDark sm:w-full h-full lg:w-[300px] relative p-4">
-        <IoClose
-          size={25}
-          className="absolute right-3 top-3 bg-red-500 text-white rounded-full p-1 cursor-pointer"
-          onClick={() => setChangemenu(!changemenu)}
-        />
-        {/* name user */}
-        <div className="w-full mb-7 flex sm:justify-center lg:justify-start items-center gap-3">
-          <Avatar src={avatar} round size="50" className="avatar  bg-white " />
-          <div className="name flex flex-col items-start">
-            <p className="text-white sm:text-base lg:text-lg text-center  capitalize ">
-              {username}
-            </p>
-            <p className="text-gray-400 sm:text-sm lg:text-base text-center capitalize ">
-              {jobtitle}
-            </p>
-          </div>
+    <div className="dropdown dropdown-end ">
+      <div
+        tabIndex={1}
+        role="button"
+        className="btn btn-ghost btn-circle avatar "
+      >
+        <div className="w-10 rounded-full bg-white">
+          <img alt="Tailwind CSS Navbar component" src={avatar} />
         </div>
-        {/* user ilink */}
-        <div className="flex flex-col w-full">
-          <button
-            onClick={() => {
-              setChangemenu(false);
-              navigate(`${userData.username}/ilink-preview/profile`);
-            }}
-            className="flex sm:justify-center lg:justify-start border-b-[1px] items-center gap-2 text-white text-base capitalize text-center py-2 font-semibold"
-          >
-            <BsFillPersonFill />
-            profile
-          </button>
-          <button
-            onClick={checkIlinkData}
-            className="flex border-b-[1px] items-center gap-2 text-white text-base capitalize text-center py-2 font-semibold 
-            sm:justify-center lg:justify-start "
-          >
-            <LiaLinkSolid />
-            my ilink
-          </button>
-        </div>
-        {/* sign out */}
-        <button
-          className={`text-base flex sm:justify-center lg:justify-start w-full items-center gap-2 py-2 text-white capitalize rounded-xl`}
-          onClick={() => {
-            setChangemenu(false);
-            SignOut({ path: "/auth/sign-in", setCookies });
-          }}
-        >
-          <BiLogOut />
-          logout
-        </button>
       </div>
-    </menu>
+      <ul
+        tabIndex={10}
+        className="menu menu-sm dropdown-content mt-3 px-2 py-3 shadow rounded-box w-44 
+        bg-zinc-600 text-white"
+      >
+        <h2 className="px-2 text-center border-b-[1px] pb-2 font-bold border-white">
+          Hello, {username}
+        </h2>
+        <div className="flex flex-col gap-1">
+          {Links.map((link, i) => (
+            <li
+              key={i}
+              className="border-b-[1px] border-white hover:bg-zinc-800 duration-300 py-1"
+            >
+              <Link className="flex justify-between items-center" to={link.url}>
+                {link.name} {link.icon}
+              </Link>
+            </li>
+          ))}
+          <li className="hover:bg-zinc-800 duration-300">
+            <button
+              className="flex justify-between items-center "
+              onClick={() => SignOut({ path: "/auth/sign-in" })}
+            >
+              Logout <BiLogOut size={15} />
+            </button>
+          </li>
+        </div>
+      </ul>
+    </div>
   );
 };

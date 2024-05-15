@@ -1,10 +1,37 @@
+import { useState } from "react";
 import { IoMdCloseCircle, IoMdNotifications } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { SendCode } from "../lib/EmailVerification";
+import { LoadingBtn } from "./Tools/LoadingBtn";
 
-export const Message = ({ setUserVerified, message, setMessage }) => {
+export const Message = () => {
+  const [userData] = useAuth();
+  const { verifed } = userData;
+  const navigate = useNavigate();
+  const [message, setMessage] = useState(
+    !verifed
+      ? {
+          active: true,
+          title: "verify email",
+          body: "please verify your email to continue",
+          unRead: true,
+        }
+      : {
+          title: "",
+          active: false,
+          body: "",
+          unRead: false,
+        }
+  );
   const { title, active, body, unRead } = message;
-
+  const [btn, setBtn] = useState(false);
   // message style
+
+  const handleClick = () => {
+    SendCode({ userData, navigate, setMessage, setBtn });
+  };
   return (
     <div
       className={`${
@@ -35,12 +62,13 @@ export const Message = ({ setUserVerified, message, setMessage }) => {
         {/* message body */}
         <div
           id="middle "
-          className={`flex justify-center items-center flex-col h-full bg-white w-full py-4 px-3 relative`}
+          className="flex justify-center items-center flex-col h-full bg-white w-full py-4 
+          text-black px-3 relative"
         >
           <IoMdCloseCircle
             size={23}
             color="red"
-            className="absolute top-1 right-1"
+            className="absolute top-2 right-2"
             onClick={() => {
               setMessage({ ...message, active: false });
             }}
@@ -51,12 +79,15 @@ export const Message = ({ setUserVerified, message, setMessage }) => {
               <p className="text-base text-center">{body}</p>
               <button
                 className="bg-primaryColor text-white py-1 w-full text-base"
-                onClick={() => {
-                  setUserVerified(true);
-                  setMessage({ ...message, active: false });
-                }}
+                onClick={handleClick}
               >
-                Verify
+                {btn ? (
+                  <span className="flex gap-1 items-center justify-center">
+                    Sending <LoadingBtn size={20} />
+                  </span>
+                ) : (
+                  <span>Send</span>
+                )}
               </button>
             </div>
           )}

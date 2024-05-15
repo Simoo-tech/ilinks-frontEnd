@@ -1,43 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { Loading } from "../../components/loading";
-import { Fetch_Check_Data } from "../../lib/Fetch&Check_Data";
 import { Link, useParams } from "react-router-dom";
 import ShareContent, { ShareBtn } from "./Share";
-import Avatar from "react-avatar";
-import { Logo } from "../../components/Logo";
+import { Logo } from "../../components/Tools/Logo";
 import {
   BsFacebook,
   BsInstagram,
-  BsWhatsapp,
   BsYoutube,
   BsGithub,
   BsLinkedin,
   BsTiktok,
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
-import { FaEdit, FaEye } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import cookie from "react-cookies";
+import { useAuth } from "../../context/AuthContext";
+import { ProfilePic } from "../../components/ProfilePic";
+import Avatar from "react-avatar";
+import { FetchUserShow } from "../../lib/Fetch&Check_Data";
 
 export default function UserIlinks() {
+  const [userData, setUserData] = useAuth();
   const { username } = useParams();
-  const [userViewData, setUserViewData] = useState({ IlinkData: {} });
-  const [loading, setLoading] = useState(false);
-  const [details, setDetails] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
-  const { avatar, fname, lname, jobtitle, about, IlinkData } = userViewData;
-  const userCookies = cookie.load("user_D1");
+  const userCookies = cookie.load("UD_1");
+  const [loading, setLoading] = useState(true);
+  // fetch data
+  useEffect(() => {
+    if (username) {
+      FetchUserShow({ username, setUserData, setLoading });
+    }
+  }, []);
+
   // share button
   const [shareBtn, setShareBtn] = useState(false);
-
-  useEffect(() => {
-    Fetch_Check_Data({
-      username,
-      setLoading,
-      setUserViewData,
-    });
-  }, []);
+  const { fname, lname, jobtitle, about, IlinkData } = userData;
 
   // skills map show
   const Skills = IlinkData?.skills?.map((skill, i) => {
@@ -45,13 +40,18 @@ export default function UserIlinks() {
       <div
         key={i}
         id="skill"
-        className="flex flex-wrap justify-between items-center text-sm gap-1 w-full"
+        className="flex flex-wrap justify-between items-center text-sm gap-2 w-10/12"
       >
-        <p className="uppercase text-lg">{skill.skillname}</p>
-        <span className="font-light text-lg">{skill.skillperc}%</span>
+        <p className={`uppercase ${username && "text-lg"} `}>
+          {skill.skillname}
+        </p>
+        <span className={`font-light ${username && "text-lg"} `}>
+          {skill.skillperc}%
+        </span>
         <div className="w-full h-2 bg-[#ddd] relative rounded-xl ">
           <div
-            className="absolute top-0 left-0 bg-colorBorderDark w-full h-full rounded-xl max-w-full duration-200"
+            className="absolute top-0 left-0 bg-colorBorderDark w-full h-full rounded-xl 
+            max-w-full duration-200"
             style={{ width: `${skill.skillperc}%` }}
           />
         </div>
@@ -62,320 +62,370 @@ export default function UserIlinks() {
   const Portfolios = IlinkData?.portfolio?.map((por, i) => (
     <div
       key={i}
-      id="img-holder"
-      className="relative overflow-hidden group bg-primaryColor"
+      className={`card relative overflow-hidden group bg-primaryColor shadow-xl ${
+        username ? "w-96" : "w-full"
+      } `}
     >
-      {por.imgurl && <img src={por.imgurl} alt="portfolio-img" />}
-      <div
-        className="content absolute -bottom-[100px] group-hover:bottom-0 duration-300 left-0 w-full 
-flex justify-center items-end pb-5 text-white shadow-xl bg-gradient-to-t from-black to-transparent h-4/6 "
-      >
-        <button
-          type="button"
-          onClick={() => {
-            setShowDetails(true);
-            setDetails(por);
-          }}
-          className="capitalize bg-mainColor1 py-1 px-3 rounded-xl"
+      <figure>
+        <img src={por.imgurl} alt="project-img" />
+      </figure>
+      <div className={`card-body ${!username && "p-4"}`}>
+        <h2
+          className={` ${
+            username ? "text-base" : "text-sm "
+          }card-title flex justify-between capitalize`}
         >
-          see details
-        </button>
+          title: {por.protitle}
+          <div
+            className={`${
+              username ? "text-base p-4" : "text-sm p-2"
+            } badge text-white capitalize bg-color3 font-light`}
+          >
+            {por.protype}
+          </div>
+        </h2>
+        <p className={`capitalize ${!username && "text-sm"}`}>
+          description: {por.prodesc}
+        </p>
+        <p className={`${!username && "text-sm"}`}>
+          For ( Company ) : {por.cleintname}
+        </p>
+        {por.prourl && (
+          <div className="card-actions justify-center">
+            <button className="btn btn-md">View project</button>
+          </div>
+        )}
       </div>
     </div>
   ));
 
-  return loading ? (
-    <Loading />
-  ) : (
-    <>
-      {/* page Helmet */}
-      <Helmet>
-        <title>Ilinks | @{username}</title>
-        <meta name="description" content={`${username} Ilinks user profile`} />
-        <meta
-          name="keywords"
-          content="ilinks,create your portfolio, porfolio ,share your social media,facebook,twitter,instagram"
-        />
-      </Helmet>
-      <div
-        id="user-ilink"
-        className="relative bg-white flex flex-col items-center overflow-y-scroll pb-4 gap-2"
-      >
-        {/* share content and bottom */}
-        <ShareContent
-          shareBtn={shareBtn}
-          setShareBtn={setShareBtn}
-          close={true}
-          userViewData={userViewData}
-          opacity={50}
-        />
-        <ShareBtn
-          shareBtn={shareBtn}
-          setShareBtn={setShareBtn}
-          userViewData={userViewData}
-        />
-        {/* Copy right */}
-        <div
-          className={`py-3 px-6 w-full h-fit flex items-center ${
-            userCookies ? "justify-between" : "justify-center"
-          } 
-        bg-primaryColor text-white`}
-        >
-          <div id="logo" className="flex justify-center items-center flex-col">
-            <Logo
-              align="self-center"
-              textSize={"sm:text-sm lg:text-2xl"}
-              imgSize="100"
-            />
-            {!userCookies && (
-              <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
-            )}
-          </div>
-          {/* Edit ilink */}
-          {userCookies && (
-            <Link
-              to={`/${username}/ilink-preview/profile`}
-              className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
-              font-medium cursor-pointer rounded-lg sm:text-sm md:text-base "
-            >
-              edit ilink data
-              <FaEdit />
-            </Link>
-          )}
+  return loading && username ? (
+    // skeleton loading
+    <div className="flex flex-col h-full items-center justify-center bg-white ">
+      <div className="container overflow-y-scroll max-w-full py-5 h-full flex flex-col items-center gap-7 ">
+        <div className="flex gap-4 items-center">
+          <div className="skeleton w-44 h-44 rounded-full shrink-0"></div>
         </div>
-        {/* container */}
-        <div
-          id="container"
-          className=" w-full overflow-y-scroll container max-w-full flex flex-col gap-8"
+        <div className="flex flex-col gap-6 w-full items-center">
+          <div className="skeleton h-4 flex w-4/12"></div>
+          <div className="skeleton h-4 flex w-6/12"></div>
+          {/* social links */}
+          <div className="flex gap-4 ">
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+            <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
+          </div>
+        </div>
+        {/*skills */}
+        <h3
+          className="w-fit text-center border-b-2 b-2 border-black text-black
+          uppercase font-semibold col-span-full text-3xl"
         >
-          {/* project details show */}
-          {showDetails && (
-            <div
-              id="details"
-              className="absolute top-0 left-0 z-50 w-full h-full bg-black/80 flex 
-              justify-center items-center "
-            >
-              <IoMdClose
-                className="absolute right-4 top-4 p-1 bg-white rounded-full"
-                size={25}
-                color="red"
-                onClick={() => {
-                  setDetails(null);
-                  setShowDetails(false);
-                }}
-              />
-              <div
-                id="details-content"
-                className="bg-white  max-w-full grid grid-cols-3
-                place-content-center gap-5 p-3 rounded-xl
-                sm:w-full sm:h-5/6
-                lg:w-10/12 lg:h-fit "
-              >
-                {/* project text details */}
-                <div
-                  id="details-text"
-                  className="sm:col-span-3 lg:col-span-1 flex flex-col justify-between"
-                >
-                  <h4
-                    className=" lg:text-xl capitalize bg-gray-200 p-1 w-full text-center
-                  break-all font-bold"
-                  >
-                    Project Name :
-                    <span className="font-normal ml-1">{details.protitle}</span>
-                  </h4>
-                  <div
-                    id="project-details"
-                    className="flex flex-col gap-5 h-full border-t-4 p-3 text-white border-white bg-color1"
-                  >
-                    <p className=" text-xl capitalize break-all">
-                      For ( Cleint name ) :
-                      <span className="font-semibold ml-2">
-                        {details.cleintname}
-                      </span>
-                    </p>
-                    <p className=" lg:text-xl capitalize ">
-                      Type :
-                      <span className="font-semibold ml-2">
-                        {details.protype}
-                      </span>
-                    </p>
-                    <p className="lg:text-xl capitalize break-all w-full">
-                      description :
-                      <span className="font-semibold ml-2">
-                        {details.prodesc}
-                      </span>
-                    </p>
-                    {details.prourl || details.imgurl ? (
-                      <Link
-                        target="_blank"
-                        to={details.prourl ? details.prourl : details.imgurl}
-                        className="rounded-lg text-white bg-primaryColor py-2 px-3 capitalize
-                        flex items-center justify-center gap-3 lg:text-lg"
-                      >
-                        view project
-                        <FaEye />
-                      </Link>
-                    ) : null}
-                  </div>
-                </div>
-                {/* project image details */}
-                <div
-                  id="details-image"
-                  className="sm:hidden lg:block col-span-2 bg-primaryColor"
-                >
-                  <img
-                    src={details.imgurl}
-                    alt="img-show"
-                    className="max-w-full"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-          {/* user name and avtar */}
-          <div
-            id="top-user-avatar-name"
-            className="text-white conatiner w-full max-w-full relative flex items-center flex-col gap-4 "
-          >
-            <Avatar round size={150} src={avatar} />
-            <div
-              id="user-info"
-              className="flex flex-col items-center text-black max-w-full text-center gap-1"
-            >
-              <p
-                id="name"
-                className="capitalize max-w-full truncate font-medium text-2xl"
-              >
-                {fname} {lname}
-              </p>
-              <p
-                id="job-title"
-                className="capitalize max-w-full truncate text-lg"
-              >
-                {jobtitle}
-              </p>
-              <p id="about" className="text-pretty max-w-full break-normal">
-                {about}
-              </p>
-            </div>
+          skills
+        </h3>
+        <div className=" w-full flex justify-center gap-5 flex-wrap">
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
           </div>
-          {/* user social media links  */}
-          <div id="social-links">
-            <ul id="links" className="flex gap-4 my-5 justify-center ">
-              {IlinkData?.socialMediaLinks?.facebookUrl &&
-                IlinkData?.socialMediaLinks.facebookUrl !== "" && (
-                  <li>
-                    <Link
-                      className="text-blue-700 hover:scale-125 duration-200"
-                      target="_blank"
-                      to={IlinkData.socialMediaLinks.facebookUrl}
-                    >
-                      <BsFacebook size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.githubUrl &&
-                IlinkData?.socialMediaLinks.githubUrl !== "" && (
-                  <li>
-                    <Link
-                      target="_blank"
-                      className="hover:scale-125 duration-200"
-                      to={IlinkData.socialMediaLinks.githubUrl}
-                    >
-                      <BsGithub size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.instagramUrl &&
-                IlinkData?.socialMediaLinks.instagramUrl !== "" && (
-                  <li>
-                    <Link
-                      className="text-red-600 hover:scale-125 duration-200"
-                      target="_blank"
-                      to={IlinkData.socialMediaLinks.instagramUrl}
-                    >
-                      <BsInstagram size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.tiktokUrl &&
-                IlinkData?.socialMediaLinks.tiktokUrl !== "" && (
-                  <li>
-                    <Link
-                      target="_blank"
-                      className="hover:scale-125 duration-200"
-                      to={IlinkData.socialMediaLinks.tiktokUrl}
-                    >
-                      <BsTiktok size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.youtubeUrl &&
-                IlinkData?.socialMediaLinks.youtubeUrl !== "" && (
-                  <li>
-                    <Link
-                      className="text-red-600 hover:scale-125 duration-200"
-                      target="_blank"
-                      to={IlinkData.socialMediaLinks.youtubeUrl}
-                    >
-                      <BsYoutube size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.twitterUrl &&
-                IlinkData?.socialMediaLinks.twitterUrl !== "" && (
-                  <li>
-                    <Link
-                      className="text-blue-500 hover:scale-125 duration-200"
-                      target="_blank"
-                      to={IlinkData.socialMediaLinks.twitterUrl}
-                    >
-                      <FaTwitter size={25} />
-                    </Link>
-                  </li>
-                )}
-              {IlinkData?.socialMediaLinks?.linkedinUrl &&
-                IlinkData?.socialMediaLinks.linkedinUrl !== "" && (
-                  <li>
-                    <Link
-                      className="text-blue-700 hover:scale-125 duration-200"
-                      target="_blank"
-                      to={IlinkData.socialMediaLinks.linkedinUrl}
-                    >
-                      <BsLinkedin size={25} />
-                    </Link>
-                  </li>
-                )}
-            </ul>
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
           </div>
-          {/* user skills */}
-          {IlinkData?.skills && (
-            <div
-              id="skills"
-              className="w-full gap-4 justify-items-center content-center grid 
-              sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 "
-            >
-              <h3 className="text-2xl w-fit text-center border-b-2 pb-2 border-black uppercase font-semibold col-span-full">
-                My Skills
-              </h3>
-              {Skills}
-            </div>
-          )}
-          {/* user portfolio */}
-          {IlinkData.portfolio && (
-            <div
-              id="portfolio"
-              className="w-full gap-4 justify-items-center content-center grid 
-              sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 "
-            >
-              <h3 className="text-2xl w-fit text-center border-b-2 pb-2 border-black uppercase font-semibold col-span-full">
-                portfolio
-              </h3>
-              {Portfolios}
-            </div>
-          )}
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+        </div>
+        {/* projects */}
+        <h3
+          className="w-fit text-center border-b-2 b-2 border-black text-black
+            uppercase font-semibold col-span-full text-3xl"
+        >
+          portfolio
+        </h3>
+        <div className=" w-full flex justify-center gap-5 flex-wrap">
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+          <div className="flex flex-col gap-4 w-72">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
         </div>
       </div>
-    </>
+      {/* Copy right */}
+      <div
+        className={`py-3 px-5 w-full h-fit flex items-center justify-center ${
+          userCookies && username && "justify-between"
+        } bg-primaryColor text-white`}
+      >
+        <div id="logo" className="flex justify-center items-center flex-col">
+          <Logo
+            align="self-center"
+            textSize={"sm:text-sm lg:text-2xl"}
+            imgSize="80"
+          />
+          {!userCookies && username && (
+            <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
+          )}
+        </div>
+        {/* Edit ilink */}
+        {userCookies && username && (
+          <Link
+            to={`/${username}/profile-data-page`}
+            className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
+              font-medium cursor-pointer rounded-lg sm:text-sm  "
+          >
+            edit
+            <FaEdit />
+          </Link>
+        )}
+      </div>
+    </div>
+  ) : (
+    <div
+      id="user-ilink"
+      className={`relative bg-white text-black flex flex-col items-center justify-between overflow-y-scroll 
+      gap-2 w-full h-full ${!username && "pt-8 "}`}
+    >
+      {/* share content and bottom */}
+      {username && (
+        <>
+          <ShareContent
+            shareBtn={shareBtn}
+            setShareBtn={setShareBtn}
+            close={true}
+            userData={userData}
+            opacity={50}
+          />
+          <ShareBtn shareBtn={shareBtn} setShareBtn={setShareBtn} />
+        </>
+      )}
+      {/* container */}
+      <div
+        id="container"
+        className="w-full h-fit max-w-full flex flex-col gap-10 px-2"
+      >
+        {/* user name and avtar */}
+        <div
+          id="top-user-avatar-name"
+          className="text-white w-full relative flex items-center flex-col gap-4 "
+        >
+          {username ? (
+            <Avatar src={userData.avatar} round size="150" />
+          ) : (
+            <ProfilePic userData={userData} />
+          )}
+          <div
+            id="user-info"
+            className="flex flex-col items-center text-black max-w-full text-center gap-1"
+          >
+            <p
+              id="name"
+              className={`capitalize max-w-full truncate font-medium ${
+                username ? "text-2xl" : "text-lg "
+              }`}
+            >
+              {fname} {lname}
+            </p>
+            <p
+              id="job-title"
+              className={`capitalize max-w-full truncate ${
+                username ? "text-xl" : "text-base"
+              }`}
+            >
+              {jobtitle}
+            </p>
+            <p
+              id="about"
+              className={`text-pretty max-w-full break-normal ${
+                username ? "text-base" : "text-sm "
+              }`}
+            >
+              {about}
+            </p>
+          </div>
+        </div>
+        {/* user social media links  */}
+        <div id="social-links">
+          <ul id="links" className="flex gap-3 justify-center ">
+            {IlinkData?.socialMediaLinks?.facebookUrl &&
+              IlinkData?.socialMediaLinks.facebookUrl !== "" && (
+                <li>
+                  <Link
+                    className="text-blue-700 hover:scale-125 duration-200"
+                    target="_blank"
+                    to={IlinkData.socialMediaLinks.facebookUrl}
+                  >
+                    <BsFacebook size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.githubUrl &&
+              IlinkData?.socialMediaLinks.githubUrl !== "" && (
+                <li>
+                  <Link
+                    target="_blank"
+                    className="hover:scale-125 duration-200"
+                    to={IlinkData.socialMediaLinks.githubUrl}
+                  >
+                    <BsGithub size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.instagramUrl &&
+              IlinkData?.socialMediaLinks.instagramUrl !== "" && (
+                <li>
+                  <Link
+                    className="text-red-600 hover:scale-125 duration-200"
+                    target="_blank"
+                    to={IlinkData.socialMediaLinks.instagramUrl}
+                  >
+                    <BsInstagram size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.tiktokUrl &&
+              IlinkData?.socialMediaLinks.tiktokUrl !== "" && (
+                <li>
+                  <Link
+                    target="_blank"
+                    className="hover:scale-125 duration-200"
+                    to={IlinkData.socialMediaLinks.tiktokUrl}
+                  >
+                    <BsTiktok size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.youtubeUrl &&
+              IlinkData?.socialMediaLinks.youtubeUrl !== "" && (
+                <li>
+                  <Link
+                    className="text-red-600 hover:scale-125 duration-200"
+                    target="_blank"
+                    to={IlinkData.socialMediaLinks.youtubeUrl}
+                  >
+                    <BsYoutube size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.twitterUrl &&
+              IlinkData?.socialMediaLinks.twitterUrl !== "" && (
+                <li>
+                  <Link
+                    className="text-blue-500 hover:scale-125 duration-200"
+                    target="_blank"
+                    to={IlinkData.socialMediaLinks.twitterUrl}
+                  >
+                    <FaTwitter size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+            {IlinkData?.socialMediaLinks?.linkedinUrl &&
+              IlinkData?.socialMediaLinks.linkedinUrl !== "" && (
+                <li>
+                  <Link
+                    className="text-blue-700 hover:scale-125 duration-200"
+                    target="_blank"
+                    to={IlinkData.socialMediaLinks.linkedinUrl}
+                  >
+                    <BsLinkedin size={!username ? 20 : 25} />
+                  </Link>
+                </li>
+              )}
+          </ul>
+        </div>
+        {/* user skills */}
+        {IlinkData?.skills && (
+          <div
+            id="skills"
+            className={`w-full gap-2 justify-items-center place-content-center  grid 
+              sm:grid-cols-1 md:grid-cols-2  ${
+                !username ? "lg:grid-cols-1" : " lg:grid-cols-3"
+              }`}
+          >
+            <h3
+              className={`w-fit text-center border-b-2 pb-2 border-black
+            uppercase font-semibold col-span-full  ${
+              username ? "text-2xl" : "text-lg"
+            }`}
+            >
+              My Skills
+            </h3>
+            {Skills}
+          </div>
+        )}
+        {/* user portfolio */}
+        {IlinkData?.portfolio && (
+          <div
+            id="portfolio"
+            className={`w-full gap-4 justify-items-center place-content-center content-center grid text-white
+              sm:grid-cols-1 md:grid-cols-2  ${
+                !username ? "lg:grid-cols-1" : " lg:grid-cols-3"
+              }`}
+          >
+            <h3
+              className={` w-fit text-center border-b-2 pb-2 border-black text-black
+            uppercase font-semibold col-span-full ${
+              username ? "text-2xl" : "text-lg"
+            }`}
+            >
+              portfolio
+            </h3>
+            {Portfolios}
+          </div>
+        )}
+      </div>
+      {/* Copy right */}
+      <div
+        className={`py-3 px-5 w-full h-fit flex items-center justify-center ${
+          userCookies && username && "justify-between"
+        } bg-primaryColor text-white`}
+      >
+        <div id="logo" className="flex justify-center items-center flex-col">
+          <Logo
+            align="self-center"
+            textSize={"sm:text-sm lg:text-2xl"}
+            imgSize="80"
+          />
+          {!userCookies && username && (
+            <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
+          )}
+        </div>
+        {/* Edit ilink */}
+        {userCookies && username && (
+          <Link
+            to={`/${username}/profile-data-page`}
+            className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
+              font-medium cursor-pointer rounded-lg sm:text-sm  "
+          >
+            edit
+            <FaEdit />
+          </Link>
+        )}
+      </div>
+    </div>
   );
 }

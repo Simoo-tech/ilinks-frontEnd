@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineUser, AiOutlineMail, AiFillLock } from "react-icons/ai";
-import { ErrorMes } from "../../components/errorMes";
+import { ErrorMes } from "../../components/Tools/errorMes";
 import { RegisterSubmit } from "../../lib/AuthReq";
 import { Helmet } from "react-helmet-async";
-import { Logo } from "../../components/Logo";
+import { Logo } from "../../components/Tools/Logo";
 import { FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import * as Yup from "yup";
 import { Field, Formik, Form } from "formik";
-import { BtnsActions } from "../../components/BtnsActions";
+import { BtnsActions } from "../../components/Tools/BtnsActions";
 
 export default function Register() {
   return (

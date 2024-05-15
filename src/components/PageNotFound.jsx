@@ -1,13 +1,15 @@
 import React from "react";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { Logo } from "./Tools/Logo";
 
 export default function PageNotFound() {
   return (
-    <div className="flex flex-col gap-4 w-full section-h justify-center items-center">
+    <div className="flex flex-col w-full section-h justify-center items-center py-5 gap-4 ">
       <AiFillQuestionCircle
         className={`text-white sm:text-[100px] lg:text-[150px]`}
       />
+      <Logo imgSize={180} align={"self-center"} />
       <p className={`text-white sm:text-3xl lg:text-4xl font-bold `}>
         Page Not Found
       </p>

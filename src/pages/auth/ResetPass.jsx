@@ -6,8 +6,8 @@ import { FaRegCircle } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import cookie from "react-cookies";
-import { Logo } from "../../components/Logo";
-import { BtnsActions } from "../../components/BtnsActions";
+import { Logo } from "../../components/Tools/Logo";
+import { BtnsActions } from "../../components/Tools/BtnsActions";
 
 const PageNotFound = lazy(() => import("../../components/PageNotFound"));
 

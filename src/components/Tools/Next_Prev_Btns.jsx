@@ -13,17 +13,18 @@ export const Next_Prev_Btns = ({ prev, btn, displayName }) => {
       <button
         onClick={() => navigate(prev)}
         type="button"
-        className="px-5 py-2 rounded-2xl capitalize font-semibold drop-shadow-lg shadow-lg
-flex items-center flex-row-reverse gap-2 group hover:bg-transparent
-bg-colorDark2 w-fit hover:bg-white duration-300"
+        className="text-white py-2 px-3  rounded-lg capitalize font-semibold 
+        flex items-center gap-1 group hover:bg-zinc-500 bg-zinc-400 shadow-lg
+        w-fit duration-300 drop-shadow-lg"
       >
-        back
         <BsArrowBarLeft />
+        back
       </button>
       <BtnsActions
         btn={btn}
-        btnStyle="px-5 py-2 rounded-2xl capitalize font-semibold drop-shadow-lg shadow-lg
-                flex items-center gap-2 group hover:bg-transparent bg-colorDark2 w-fit hover:bg-white duration-300 "
+        btnStyle="text-white py-2 px-3 capitalize rounded-lg font-semibold 
+        flex items-center gap-1 group hover:bg-zinc-500 bg-zinc-400 shadow-lg
+        w-fit duration-300 drop-shadow-lg "
         ActionText={displayName ? displayName : "next"}
       />
     </div>

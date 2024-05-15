@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMail, AiFillLock } from "react-icons/ai";
-import { ErrorMes } from "../../components/errorMes";
+import { ErrorMes } from "../../components/Tools/errorMes";
 import { Helmet } from "react-helmet-async";
 import { LoginSubmit } from "../../lib/AuthReq";
-import { Logo } from "../../components/Logo";
+import { Logo } from "../../components/Tools/Logo";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
-import { BtnsActions } from "../../components/BtnsActions";
+import { BtnsActions } from "../../components/Tools/BtnsActions";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   return (
@@ -37,8 +38,8 @@ export default function Login() {
           <h3
             className=" font-medium
           sm:text-2xl 
-           md:text-3xl 
-           lg:text-4xl"
+          md:text-3xl 
+          lg:text-4xl"
           >
             New Here?
           </h3>
@@ -61,6 +62,7 @@ export default function Login() {
 
 // Form
 const FormContainer = () => {
+  const [userData, setUserData] = useAuth();
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(null);
   const [btn, setBtn] = useState("NeedAction");
@@ -91,13 +93,14 @@ const FormContainer = () => {
       }}
       validationSchema={InputValidation}
       onSubmit={(values) => {
-        LoginSubmit({ values, setError, setBtn });
+        LoginSubmit({ values, setError, setBtn, setUserData, userData });
       }}
     >
       {({ errors, touched, values }) => (
         <Form
           autoComplete="off"
-          className="items-center rounded-xl flex flex-col gap-10 h-full justify-between container max-w-full border-colorDark1 pt-3   
+          className="items-center rounded-xl flex flex-col gap-10 h-full justify-between 
+          text-black container max-w-full border-colorDark1 pt-3   
           sm:w-full 
           md:w-8/12 
           lg:w-9/12 "

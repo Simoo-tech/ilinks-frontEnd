@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
-import { Next_Prev_Btns } from "../../components/Next_Prev_Btns";
-import { UserD1 } from "../../context";
+import { Next_Prev_Btns } from "../../components/Tools/Next_Prev_Btns";
+import { useAuth } from "../../context/AuthContext";
 import { MdErrorOutline } from "react-icons/md";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
+import PreviewData from "./PreviewData";
+import Layout from "../../components/Layout";
 
 export default function SkillsSection() {
-  const { userData, setUserData } = useContext(UserD1);
-
+  const [userData, setUserData] = useAuth();
   // animation
   const [animation, setAnimation] = useState(true);
+  // fetch data if exist
   useEffect(() => {
     setAnimation(false);
     if (userData?.IlinkData?.skills?.length === 0) {
@@ -31,28 +33,32 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <section
-      className={`${
-        animation ? "opacity-0" : "opacity-100"
-      }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
-      sm:overflow-y-scroll 
-      lg:overflow-hidden lg:justify-between`}
-    >
-      <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
-        <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-          skills
-        </h1>
-        <h2 className="text-base capitalize font-light">
-          add some of your skills
-        </h2>
-      </div>
-      <Form />
-    </section>
+    <Layout>
+      <PreviewData>
+        <section
+          className={`${
+            animation ? "opacity-0" : "opacity-100"
+          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
+sm:overflow-y-scroll 
+lg:overflow-hidden lg:justify-between`}
+        >
+          <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
+            <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
+              skills
+            </h1>
+            <h2 className="text-base capitalize font-light">
+              add some of your skills
+            </h2>
+          </div>
+          <Form />
+        </section>
+      </PreviewData>
+    </Layout>
   );
 }
 
 const Form = () => {
-  const { userData, setUserData } = useContext(UserD1);
+  const [userData, setUserData] = useAuth();
   const navigate = useNavigate();
   const [btn, setBtn] = useState("NeedAction");
   const [percErr, setPercErr] = useState([]);
@@ -60,16 +66,22 @@ const Form = () => {
 
   // handle add button
   const AddSkill = (e) => {
-    setUserData({
-      ...userData,
-      IlinkData: {
-        ...userData.IlinkData,
-        skills: [
-          ...userData.IlinkData.skills,
-          { skillname: "", skillperc: null },
-        ],
-      },
-    });
+    if (IlinkData?.skills || IlinkData?.portfolio) {
+      setUserData({
+        ...userData,
+        IlinkData: {
+          ...userData.IlinkData,
+          skills: [...IlinkData?.skills, { skillname: "", skillperc: null }],
+        },
+      });
+    } else {
+      setUserData({
+        ...userData,
+        IlinkData: {
+          skills: [{ skillname: "", skillperc: null }],
+        },
+      });
+    }
   };
 
   // handle change value
@@ -97,15 +109,20 @@ const Form = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault(),
-          UpdateIlinkData({ userData, setBtn, navigate, path: "portfolio" });
+          UpdateIlinkData({
+            userData,
+            setBtn,
+            navigate,
+            path: "portfolio-data-page",
+          });
       }}
       className="flex flex-col w-full justify-between lg:max-h-full h-full "
     >
       <div
         className="grid gap-4 justify-items-center px-3 my-6
-       sm:grid-cols-1 
-       md:grid-cols-2 
-       lg:grid-cols-3 lg:max-h-[95%]"
+      sm:grid-cols-1 
+      md:grid-cols-2 
+      lg:grid-cols-3 lg:max-h-[95%]"
       >
         {IlinkData?.skills?.map((skill, i) => (
           // skill
@@ -205,7 +222,7 @@ const Form = () => {
         )}
       </div>
       <Next_Prev_Btns
-        prev={`/${userData.username}/ilink-preview/socialLinks`}
+        prev={`/${userData.username}/socialLinks-data-page`}
         btn={btn}
       />
     </form>

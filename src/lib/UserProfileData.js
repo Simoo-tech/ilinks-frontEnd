@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SignOut } from "./SignOutFunction";
-import { useContext } from "react";
-import { UserD1 } from "../context";
+import { useAuth } from "../context/AuthContext";
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 export const UpdateProfileSubmit = async ({
@@ -12,29 +11,30 @@ export const UpdateProfileSubmit = async ({
   setAnimation,
   navigate,
 }) => {
-  setBtn("Loading");
-  await axios
-    .put(
+  try {
+    setBtn("Loading");
+    const res = await axios.put(
       `${serverPath}user/${userData._id}`,
       {
         ...values,
       },
       { headers: { "Content-type": "application/json" } }
-    )
-    .then((res) => {
-      const SavedData = res.data.user;
-      setUserData({ ...userData, SavedData });
-      setBtn("NoAction");
+    );
+    const SavedData = res.data.user;
+    setUserData({ ...userData, SavedData });
+    setBtn("Done");
+    setTimeout(() => {
+      navigate(`/${userData.username}/socialLinks-data-page`);
       setAnimation(true);
-      navigate(`/${userData.username}/ilink-preview/socialLinks`);
-    })
-    .catch(() => {
-      setBtn("NeedAction");
-    });
+    }, 1000);
+  } catch (error) {
+    setBtn("NeedAction");
+    console.log(error);
+  }
 };
 
 export const DeleteAccountSubmit = async ({ setLoading, formDataId }) => {
-  const { userData } = useContext(UserD1);
+  const [userData, setUserData] = useAuth();
 
   // check user id
   setLoading(true);
