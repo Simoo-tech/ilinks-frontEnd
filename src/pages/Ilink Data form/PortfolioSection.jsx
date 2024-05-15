@@ -257,7 +257,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                     <span> change image</span>
                     <PiImagesSquareLight size={22} className="white" />
                   </button>
-                  <Link to={pro.imgurl}>
+                  <Link to={pro.imgurl} target="_blank">
                     <FaEye
                       color="blue"
                       size={30}
