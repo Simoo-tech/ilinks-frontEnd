@@ -407,8 +407,8 @@ export default function UserIlinks() {
         <div id="logo" className="flex justify-center items-center flex-col">
           <Logo
             align="self-center"
-            textSize={"sm:text-sm lg:text-2xl"}
-            imgSize="80"
+            textSize={"sm:text-lg lg:text-2xl"}
+            imgSize="90"
           />
           {!userCookies && username && (
             <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
@@ -419,7 +419,7 @@ export default function UserIlinks() {
           <Link
             to={`/${username}/profile-data-page`}
             className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
-              font-medium cursor-pointer rounded-lg sm:text-sm  "
+              font-medium cursor-pointer rounded-lg"
           >
             edit
             <FaEdit />

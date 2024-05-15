@@ -14,7 +14,7 @@ export const ShareBtn = ({ setShareBtn }) => {
   const { email, IlinkData } = userData;
 
   return (
-    <div className="fixed bottom-20 right-5 flex flex-col gap-3 z-40">
+    <div className="fixed bottom-10 right-5 flex flex-col gap-3 z-40">
       {email && (
         <Link
           target="_blank"
