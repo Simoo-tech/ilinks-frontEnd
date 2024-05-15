@@ -33,7 +33,7 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={"Ilinks | skills data"}>
       <PreviewData>
         <section
           className={`${

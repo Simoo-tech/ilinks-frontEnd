@@ -30,7 +30,7 @@ export default function Layout({
           </>
         )}
         <Navbar />
-        {children}
+        {children }
       </div>
     </>
   );

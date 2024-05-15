@@ -25,7 +25,7 @@ export default function SocialLinks() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={"Ilinks | social data"}>
       <PreviewData>
         <section
           className={`${

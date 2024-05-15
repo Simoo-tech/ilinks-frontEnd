@@ -41,7 +41,7 @@ export default function UserIlinks() {
       <div
         key={i}
         id="skill"
-        className="flex flex-wrap justify-between items-center text-sm gap-2 w-10/12"
+        className="flex flex-wrap justify-between items-center text-sm gap-2 w-full"
       >
         <p className={`uppercase ${username && "text-lg"} `}>
           {skill.skillname}
@@ -67,8 +67,15 @@ export default function UserIlinks() {
         username ? "sm:w-80 lg:w-96" : "w-full"
       } `}
     >
-      <figure>
+      <figure className="relative before:absolute before:w-full before:h-full before:bg-black before:opacity-20">
         <img src={por.imgurl} alt="project-img" loading="lazy" />
+        <div
+          className={`${
+            username ? "text-base px-4 py-3" : "text-sm px-2 py-2 "
+          }  text-white capitalize bg-color3 absolute top-0 left-0 rounded-b-lg`}
+        >
+          {por.protype}
+        </div>
       </figure>
       <div className={`card-body ${!username && "p-4"}`}>
         <h2
@@ -77,13 +84,6 @@ export default function UserIlinks() {
           }card-title flex justify-between capitalize`}
         >
           title: {por.protitle}
-          <div
-            className={`${
-              username ? "text-base px-4 py-3" : "text-sm p-2"
-            } badge text-white capitalize bg-color3 font-light`}
-          >
-            {por.protype}
-          </div>
         </h2>
         <p className={`capitalize ${!username && "text-sm"}`}>
           description: {por.prodesc}
@@ -103,7 +103,7 @@ export default function UserIlinks() {
   return (
     <>
       <Helmet>
-        <title>Ilink | @{username}</title>
+        <title>{`Ilink | @${username} `}</title>
       </Helmet>
       {loading && username ? ( // skeleton loading
         <div className="flex flex-col h-full items-center justify-center bg-white ">
@@ -218,7 +218,7 @@ export default function UserIlinks() {
         <div
           id="user-ilink"
           className={`relative bg-white text-black flex flex-col items-center justify-between overflow-y-scroll 
-      gap-2 w-full h-full ${!username && "pt-8 "}`}
+      gap-2 w-full h-full`}
         >
           {/* share content and bottom */}
           {username && (
@@ -236,20 +236,27 @@ export default function UserIlinks() {
           {/* container */}
           <div
             id="container"
-            className="w-full h-fit max-w-full flex flex-col gap-10 px-2"
+            className={`w-full h-fit max-w-full flex flex-col gap-10 ${
+              !username ? "py-8 sm:px-4" : "py-5 sm:px-20 "
+            }`}
           >
             {/* user name and avtar */}
             <div
               id="top-user-avatar-name"
-              className="text-white w-full relative flex items-center flex-col gap-4 p-2 "
+              className="text-white w-full relative flex items-center flex-col gap-4  "
             >
               {username ? (
-                <Avatar
-                  src={userData.avatar}
-                  round
-                  size="150"
-                  className="border-2 border-primaryColor "
-                />
+                <div
+                  id="avatar_holder"
+                  className="p-1 bg-primaryColor rounded-full"
+                >
+                  <Avatar
+                    src={userData.avatar}
+                    round
+                    size="150"
+                    className="bg-primaryColor "
+                  />
+                </div>
               ) : (
                 <ProfilePic userData={userData} />
               )}

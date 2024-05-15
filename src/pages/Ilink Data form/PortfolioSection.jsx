@@ -39,7 +39,7 @@ export default function PortfolioSection() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={"Ilinks | projects data"}>
       <PreviewData>
         <section
           id="portfolio_form"
@@ -187,7 +187,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       className="grid grid-cols-12 place-content-between w-full lg:max-h-full h-full "
     >
       <div
-        className="grid sm:grid-cols-1 lg:grid-cols-2  justify-items-center gap-4 items-center col-span-full 
+        className="grid sm:grid-cols-1 lg:grid-cols-2 justify-items-center gap-4 items-center col-span-full 
       sm:my-3 md:p-3 w-full"
       >
         {userData?.IlinkData?.portfolio?.map((pro, i) => (
