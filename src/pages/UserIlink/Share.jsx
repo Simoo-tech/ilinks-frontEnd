@@ -8,7 +8,6 @@ import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
 import { saveSvgAsPng } from "save-svg-as-png";
 import { useAuth } from "../../context/AuthContext";
-import Layout from "../../components/Layout";
 
 export const ShareBtn = ({ setShareBtn }) => {
   const [userData] = useAuth();

@@ -13,7 +13,7 @@ export default function Home() {
   const [jobsFilter, setJobsFilter] = useState(jobs);
   const [searchJob, setSearchJob] = useState("");
   const [Toast, setToast] = useState(false);
-  console.log(verifed, _id);
+
   return (
     <Layout
       title={"Ilinks"}
