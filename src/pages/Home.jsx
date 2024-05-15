@@ -5,14 +5,15 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import Layout from "../components/Layout";
 import { useAuth } from "../context/AuthContext";
 
-export default function Home({ setUserVerified }) {
-  const [userData, setUserData] = useAuth();
+export default function Home() {
+  const [userData] = useAuth();
   const { verifed, _id } = userData;
   const navigate = useNavigate();
   const [jobs, setJobs] = useState();
   const [jobsFilter, setJobsFilter] = useState(jobs);
   const [searchJob, setSearchJob] = useState("");
-
+  const [Toast, setToast] = useState(false);
+  console.log(verifed, _id);
   return (
     <Layout
       title={"Ilinks"}
@@ -25,6 +26,13 @@ export default function Home({ setUserVerified }) {
         sm:flex-col sm:gap-5 sm:justify-center 
         lg:flex-row lg:justify-center "
       >
+        {Toast && (
+          <div className="toast toast-bottom toast-end">
+            <div className="alert alert-error text-white">
+              <span>Please verified your account </span>
+            </div>
+          </div>
+        )}
         {/* text & input */}
         <div
           id="left-containers"
@@ -70,10 +78,11 @@ export default function Home({ setUserVerified }) {
               type="button"
               id="job-search-btn"
               onClick={() => {
-                if (!verifed && _id) {
-                  setUserVerified(true);
-                } else if (verifed && _id) {
+                if (verifed && _id) {
                   navigate(`${userData.username}/profile-data-page`);
+                } else if (!verifed && _id) {
+                  setToast(true);
+                  setTimeout(() => setToast(false), 4000);
                 } else {
                   navigate("/auth/sign-in");
                 }

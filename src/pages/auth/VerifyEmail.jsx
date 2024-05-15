@@ -74,7 +74,7 @@ export default function VerifyEmail() {
     >
       <Logo />
       <div
-        className="white-container bg-white h-5/6 flex flex-col  justify-center gap-10 relative items-center self-center rounded-md 
+        className="white-container bg-white h-5/6 flex flex-col text-black justify-center gap-10 relative items-center self-center rounded-md 
       sm:py-5 sm:w-full sm:px-5 
       md:py-2 md:p-10 
       lg:w-4/6 lg:px-20 "
