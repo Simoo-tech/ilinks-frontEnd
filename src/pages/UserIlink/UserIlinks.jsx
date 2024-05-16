@@ -103,7 +103,10 @@ export default function UserIlinks() {
   return (
     <Layout title={username && `Ilinks | @${username}`}>
       {loading && username ? ( // skeleton loading
-        <div className="flex flex-col h-full items-center justify-center bg-white ">
+        <div
+          id="user-ilink"
+          className="flex flex-col h-full items-center justify-center bg-white "
+        >
           <div className="container overflow-y-scroll max-w-full py-5 px-5 h-full flex flex-col items-center gap-7 ">
             <div className="flex gap-4 items-center">
               <div className="skeleton w-44 h-44 rounded-full shrink-0" />
@@ -300,7 +303,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.facebookUrl}
                       >
-                        <BsFacebook size={!username ? 23: 28} />
+                        <BsFacebook size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -312,7 +315,7 @@ export default function UserIlinks() {
                         className="hover:scale-125 duration-200"
                         to={IlinkData.socialMediaLinks.githubUrl}
                       >
-                        <BsGithub size={!username ? 23: 28} />
+                        <BsGithub size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -324,7 +327,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.instagramUrl}
                       >
-                        <BsInstagram size={!username ? 23: 28} />
+                        <BsInstagram size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -336,7 +339,7 @@ export default function UserIlinks() {
                         className="hover:scale-125 duration-200"
                         to={IlinkData.socialMediaLinks.tiktokUrl}
                       >
-                        <BsTiktok size={!username ? 23: 28} />
+                        <BsTiktok size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -348,7 +351,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.youtubeUrl}
                       >
-                        <BsYoutube size={!username ? 23: 28} />
+                        <BsYoutube size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -360,7 +363,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.twitterUrl}
                       >
-                        <FaTwitter size={!username ? 23: 28} />
+                        <FaTwitter size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}
@@ -372,7 +375,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.linkedinUrl}
                       >
-                        <BsLinkedin size={!username ? 23: 28} />
+                        <BsLinkedin size={!username ? 23 : 28} />
                       </Link>
                     </li>
                   )}

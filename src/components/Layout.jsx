@@ -13,6 +13,7 @@ export default function Layout({
 }) {
   // context values
   const [userData] = useAuth();
+  console.log(children?.props);
   return (
     <>
       <Helmet>
