@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navbar } from "./Navbar.jsx";
 import { Message } from "./Message.jsx";
 import { Helmet } from "react-helmet-async";
@@ -12,8 +12,7 @@ export default function Layout({
   author,
 }) {
   // context values
-  const [userData, setUserData] = useAuth();
-
+  const [userData] = useAuth();
   return (
     <>
       <Helmet>
@@ -23,15 +22,19 @@ export default function Layout({
         <meta name="author" content={author} />
         <meta name="keywords" content={description} />
       </Helmet>
-      <div id="Layout" className="relative">
-        {userData._id && (
-          <>
-            <Message />
-          </>
-        )}
-        <Navbar />
-        {children }
-      </div>
+      {children?.props?.id === "user-ilink" ? (
+        children
+      ) : (
+        <div id="Layout" className="relative">
+          {userData._id && (
+            <>
+              <Message />
+            </>
+          )}
+          <Navbar />
+          {children}
+        </div>
+      )}
     </>
   );
 }

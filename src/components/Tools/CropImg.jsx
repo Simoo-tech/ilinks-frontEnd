@@ -5,18 +5,14 @@ import { UploadFiles } from "../../lib/UploadFilesReq";
 import { MdError } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaMinus, FaPlus, FaCheckCircle } from "react-icons/fa";
-import { PiUserSquareFill, PiUserCircleFill } from "react-icons/pi";
 import { useAuth } from "../../context/AuthContext";
 
-function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
+function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
   const [userData, setUserData] = useAuth();
 
   const [imgSrc, setImgSrc] = useState();
   const [error, setError] = useState();
   const [zoom, setZoom] = useState(1);
-  const [cropShapeType, setCropShapeType] = useState(
-    shape === "rectangle" ? 0 : 1000
-  );
   const [uploading, setUploading] = useState();
   const editor = useRef();
   // handle close upload area
@@ -85,6 +81,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
       0.8
     );
   };
+
   return (
     <div
       id="Upload_photo"
@@ -93,9 +90,9 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
       <div
         id="img-upload"
         className=" bg-white flex flex-col justify-center gap-5 items-center relative rounded-xl p-5
-        sm:min-w-[90%] sm:min-h-[90%] sm:max-w-[95%] sm:max-h-[95%]
+        sm:min-w-[90%] sm:min-h-[75%] 
         md:min-w-[70%] md:min-h-[75%]
-        lg:min-w-[35%] lg:min-h-[70%]"
+        lg:min-w-[35%] lg:min-h-[70%] w-8/12"
       >
         <IoCloseOutline
           size={30}
@@ -132,73 +129,56 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
               </span>
             )}
             {/* avatar input and tools */}
-            <div className="flex flex-col w-full items-center justify-between gap-5">
+            <div className="flex flex-col w-full max-w-full items-center justify-between gap-5">
               {imgSrc && (
                 <div
-                  id="tools"
-                  className={`${
-                    cropShape ? "flex-row" : "flex-col"
-                  } flex items-center justify-between h-fit w-fit`}
+                  id="image-holder"
+                  className="flex-col flex items-center justify-between h-full w-full"
                 >
-                  {/* crop shape */}
-                  {cropShape ? (
-                    <div id="crop-shape" className="flex flex-col w-2/12 gap-5">
-                      <h4 className="text-2xl font-semibold">Crop Shape</h4>
+                  {/* image preview */}
+                  {type === "avatar" ? (
+                    <AvatarEditor
+                      ref={editor}
+                      borderRadius={1000}
+                      width={310}
+                      height={310}
+                      image={imgSrc}
+                      border={10}
+                      color={[255, 255, 255, 0.6]}
+                      scale={zoom}
+                    />
+                  ) : (
+                    <img
+                      src={URL.createObjectURL(imgSrc)}
+                      className="max-h-[500px]"
+                    />
+                  )}
+                  {/* zoom buttons */}
+                  {type === "avatar" && (
+                    <div
+                      id="scale-btns"
+                      className="flex-row w-fit mt-5 text-black flex gap-5 items-center "
+                    >
+                      <p>Zoom: {parseInt(zoom * 100)}%</p>
                       <button
-                        className="flex flex-col items-center text-lg border-2 py-2 border-black"
-                        onClick={() => setCropShapeType(1000)}
+                        type="button"
+                        className="text-4xl border-2 border-black px-2 rounded-xl  py-1 "
+                        onClick={ZoomIn}
                       >
-                        <PiUserCircleFill size={40} />
-                        <p className="text-lg capitalize">circle</p>
+                        <FaPlus size={20} />
                       </button>
                       <button
-                        className="flex flex-col items-center text-lg border-2 py-2 border-black"
-                        onClick={() => setCropShapeType(0)}
+                        type="button"
+                        className="text-4xl border-2 border-black px-2 rounded-xl  py-1 "
+                        onClick={ZoomOut}
                       >
-                        <PiUserSquareFill size={40} />
-                        <p className="text-lg capitalize">square</p>
+                        <FaMinus size={20} />
                       </button>
                     </div>
-                  ) : null}
-                  {/* image preview */}
-                  <AvatarEditor
-                    ref={editor}
-                    borderRadius={cropShapeType}
-                    width={shape === "rectangle" ? 800 : 310}
-                    height={shape === "rectangle" ? 380 : 310}
-                    image={imgSrc}
-                    border={10}
-                    color={[255, 255, 255, 0.6]}
-                    scale={zoom}
-                  />
-                  {/* zoom buttons */}
-                  <div
-                    id="scale-btns"
-                    className={` ${
-                      cropShape
-                        ? "flex-col w-2/12"
-                        : "flex-row w-fit mt-5 text-black"
-                    } flex gap-5 items-center `}
-                  >
-                    <p>Zoom: {parseInt(zoom * 100)}%</p>
-                    <button
-                      type="button"
-                      className="text-4xl border-2 border-black px-2 rounded-xl  py-1 "
-                      onClick={ZoomIn}
-                    >
-                      <FaPlus size={20} />
-                    </button>
-                    <button
-                      type="button"
-                      className="text-4xl border-2 border-black px-2 rounded-xl  py-1 "
-                      onClick={ZoomOut}
-                    >
-                      <FaMinus size={20} />
-                    </button>
-                  </div>
+                  )}
                 </div>
               )}
-              {/* save and reset buttons */}
+              {/* save and change buttons */}
               <div
                 id="input-button"
                 className="flex gap-5 w-full h-full items-center justify-center"
@@ -209,7 +189,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                       type="button"
                       onClick={UploadImg}
                       id="upload-img"
-                      className="capitalize py-2 px-6 bg-green-500 text-white"
+                      className="capitalize py-2 px-6 bg-green-500 text-white sm:px-3 md:text-md"
                     >
                       upload avatar
                     </button>
@@ -221,13 +201,13 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                         setImgSrc();
                         setZoom(1);
                       }}
-                      className="capitalize py-2 px-6 bg-primaryColor text-white"
+                      className="capitalize py-2 px-6 bg-primaryColor text-white sm:px-3 md:text-md"
                     >
                       change avatar
                     </button>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center gap-2 w-full h-full">
+                  <div className="flex flex-col items-center justify-center gap-2 w-full h-full ">
                     <p className="text-zinc-500 capitalize">max size 1 MB</p>
                     <input
                       id="avatar-input"
@@ -239,9 +219,7 @@ function CropImg({ setUploadArea, uploadArea, cropShape, requestUrl, shape }) {
                         }
                       }}
                       className="file:text-white file:bg-blue-500 file:border-none file:px-3 file:py-2 file:mr-3
-                        text-black border-[2px] border-blue-500 
-                        selection:text-orange-600 rounded-xl
-                        sm:w-8/12 md:w-auto "
+                        text-black border-[2px] border-blue-500 selection:text-orange-600 rounded-xl "
                     />
                   </div>
                 )}

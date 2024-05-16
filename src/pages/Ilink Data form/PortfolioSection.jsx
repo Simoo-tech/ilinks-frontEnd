@@ -16,6 +16,7 @@ export default function PortfolioSection() {
   const [animation, setAnimation] = useState(true);
   const [uploadArea, setUploadArea] = useState(null);
   const [userData, setUserData] = useAuth();
+
   useEffect(() => {
     setAnimation(false);
     if (userData?.IlinkData?.portfolio?.length === 0) {

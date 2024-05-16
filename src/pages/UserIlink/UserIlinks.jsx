@@ -11,13 +11,13 @@ import {
   BsTiktok,
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaPlus } from "react-icons/fa";
 import cookie from "react-cookies";
 import { useAuth } from "../../context/AuthContext";
 import { ProfilePic } from "../../components/ProfilePic";
 import Avatar from "react-avatar";
 import { FetchUserShow } from "../../lib/Fetch&Check_Data";
-import { Helmet } from "react-helmet-async";
+import Layout from "../../components/Layout";
 
 export default function UserIlinks() {
   const [userData, setUserData] = useAuth();
@@ -64,7 +64,7 @@ export default function UserIlinks() {
     <div
       key={i}
       className={`card relative overflow-hidden group bg-primaryColor shadow-xl ${
-        username ? "sm:w-80 lg:w-96" : "w-full"
+        username ? "sm:w-full md:w-80 lg:w-96" : "w-full"
       } `}
     >
       <figure className="relative before:absolute before:w-full before:h-full before:bg-black before:opacity-20">
@@ -101,10 +101,7 @@ export default function UserIlinks() {
   ));
 
   return (
-    <>
-      <Helmet>
-        <title>{`Ilink | @${username} `}</title>
-      </Helmet>
+    <Layout title={username && `Ilinks | @${username}`}>
       {loading && username ? ( // skeleton loading
         <div className="flex flex-col h-full items-center justify-center bg-white ">
           <div className="container overflow-y-scroll max-w-full py-5 px-5 h-full flex flex-col items-center gap-7 ">
@@ -237,7 +234,7 @@ export default function UserIlinks() {
           <div
             id="container"
             className={`w-full h-fit max-w-full flex flex-col gap-10 ${
-              !username ? "py-8 sm:px-4" : "py-5 sm:px-20 "
+              !username ? "py-8 sm:px-4" : "py-5 sm:px-8 md:px-12 lg:px-20 "
             }`}
           >
             {/* user name and avtar */}
@@ -292,7 +289,10 @@ export default function UserIlinks() {
             </div>
             {/* user social media links  */}
             <div id="social-links">
-              <ul id="links" className="flex gap-3 justify-center ">
+              <ul
+                id="links"
+                className="flex gap-3 justify-center items-center "
+              >
                 {IlinkData?.socialMediaLinks?.facebookUrl &&
                   IlinkData?.socialMediaLinks.facebookUrl !== "" && (
                     <li>
@@ -377,24 +377,45 @@ export default function UserIlinks() {
                       </Link>
                     </li>
                   )}
+                {username && userCookies && (
+                  <li
+                    className="border-2 rounded-xl p-2 cursor-pointer border-black hover:scale-125 duration-200"
+                    title="add more social links"
+                  >
+                    <Link to={`/${username}/socialLinks-data-page`}>
+                      <FaPlus />
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             {/* user skills */}
             {IlinkData?.skills && (
               <div
                 id="skills"
-                className={`w-full gap-2 justify-items-center place-content-center  grid 
+                className={`w-full gap-6 justify-items-center place-content-center grid 
               sm:grid-cols-1 md:grid-cols-2  ${
                 !username ? "lg:grid-cols-1" : " lg:grid-cols-3"
               }`}
               >
                 <h3
-                  className={`w-fit text-center border-b-2 pb-2 border-black
+                  className={`w-full border-b-2 pb-2 border-black flex justify-between items-center
             uppercase font-semibold col-span-full  ${
-              username ? "text-2xl" : "text-lg"
+              username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg "
             }`}
                 >
                   My Skills
+                  {userCookies && username && (
+                    <Link
+                      title="add more skills"
+                      to={`/${username}/skills-data-page`}
+                      className="text-lg flex items-center gap-5 border-2 py-1 px-2  border-primaryColor text-primaryColor
+                      hover:bg-primaryColor hover:text-white duration-200
+                      sm:text-sm md:text-base lg:text-lg "
+                    >
+                      edit skill <FaEdit size={17} />
+                    </Link>
+                  )}
                 </h3>
                 {Skills}
               </div>
@@ -403,18 +424,30 @@ export default function UserIlinks() {
             {IlinkData?.portfolio && (
               <div
                 id="portfolio"
-                className={`w-full gap-4 justify-items-center place-content-center content-center grid text-white
-              sm:grid-cols-1 md:grid-cols-2  ${
-                !username ? "lg:grid-cols-1" : " lg:grid-cols-3"
-              }`}
+                className={`w-full gap-10 justify-items-center place-content-center content-center grid 
+                sm:grid-cols-1 md:grid-cols-2  ${
+                  !username ? "lg:grid-cols-1" : " lg:grid-cols-3"
+                }`}
               >
                 <h3
-                  className={` w-fit text-center border-b-2 pb-2 border-black text-black
-            uppercase font-semibold col-span-full ${
-              username ? "text-2xl" : "text-lg"
-            }`}
+                  className={`w-full border-b-2 pb-2 border-black flex justify-between items-center
+                  uppercase font-semibold col-span-full 
+                 ${
+                   username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"
+                 }`}
                 >
                   portfolio
+                  {userCookies && username && (
+                    <Link
+                      title="add more projects"
+                      to={`/${username}/portfolio-data-page`}
+                      className="text-lg flex items-center gap-5 border-2 py-1 px-2  border-primaryColor text-primaryColor
+                    hover:bg-primaryColor hover:text-white duration-200
+                    sm:text-sm md:text-base lg:text-lg "
+                    >
+                      edit portfolio <FaEdit size={17} />
+                    </Link>
+                  )}
                 </h3>
                 {Portfolios}
               </div>
@@ -422,9 +455,7 @@ export default function UserIlinks() {
           </div>
           {/* Copy right */}
           <div
-            className={`py-3 px-5 w-full h-fit flex items-center justify-center ${
-              userCookies && username && "justify-between"
-            } bg-primaryColor text-white`}
+            className={`py-3 px-5 w-full h-fit flex items-center justify-center bg-primaryColor text-white`}
           >
             <div
               id="logo"
@@ -441,20 +472,9 @@ export default function UserIlinks() {
                 </p>
               )}
             </div>
-            {/* Edit ilink */}
-            {userCookies && username && (
-              <Link
-                to={`/${username}/profile-data-page`}
-                className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
-              font-medium cursor-pointer rounded-lg"
-              >
-                edit
-                <FaEdit />
-              </Link>
-            )}
           </div>
         </div>
       )}
-    </>
+    </Layout>
   );
 }

@@ -32,6 +32,7 @@ export const ProfilePic = () => {
         <CropImg
           setUploadArea={setUploadArea}
           requestUrl={`avatar/${userData._id}`}
+          type="avatar"
         />
       )}
     </>
