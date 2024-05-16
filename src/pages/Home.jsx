@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { HiMagnifyingGlass } from "react-icons/hi2";
@@ -9,9 +9,6 @@ export default function Home() {
   const [userData] = useAuth();
   const { verifed, _id } = userData;
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState();
-  const [jobsFilter, setJobsFilter] = useState(jobs);
-  const [searchJob, setSearchJob] = useState("");
   const [Toast, setToast] = useState(false);
 
   return (
@@ -26,6 +23,7 @@ export default function Home() {
         sm:flex-col sm:gap-5 sm:justify-center 
         lg:flex-row lg:justify-center "
       >
+        {/* not verified alert */}
         {Toast && (
           <div className="toast toast-bottom toast-end">
             <div className="alert alert-error text-white">
@@ -37,9 +35,7 @@ export default function Home() {
         <div
           id="left-containers"
           className={` relative flex flex-col gap-5 duration-700 ease-linear section-h        
-            sm:w-full sm:items-center sm:text-center ${
-              jobsFilter ? "sm:justify-start" : "sm:justify-center"
-            } sm:pt-10
+            sm:w-full sm:items-center sm:text-center sm:justify-center sm:pt-10
             lg:w-8/12 lg:items-center lg:justify-center lg:pt-0`}
         >
           <div>
@@ -103,10 +99,6 @@ export default function Home() {
               sm:col-span-full md:col-span-7 "
             >
               <input
-                onChange={(e) => {
-                  setSearchJob(e.target.value);
-                }}
-                value={searchJob}
                 type="text"
                 name="search-job"
                 id="search-job"
@@ -117,7 +109,7 @@ export default function Home() {
                 className="bg-zinc-500  h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
                   hover:bg-zinc-400 cursor-pointer"
                 onClick={() => {
-                  navigate(`/wait`);
+                  navigate(`/jobs`);
                 }}
               />
             </div>

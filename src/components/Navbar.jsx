@@ -9,8 +9,6 @@ import { useAuth } from "../context/AuthContext";
 import cookies from "react-cookies";
 
 export const Navbar = () => {
-  const [userData, setUserData] = useAuth();
-  const { avatar } = userData;
   const userCookies = cookies.load("UD_1");
 
   return (

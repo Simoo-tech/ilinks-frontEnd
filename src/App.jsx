@@ -8,6 +8,7 @@ import { Loading } from "./components/loading.jsx";
 
 // lazy import pages
 const Home = lazy(() => import("./pages/Home.jsx"));
+const JobFilter = lazy(() => import("./pages/JobFilter.jsx"));
 // auth components
 const ForgetPass = lazy(() => import("./pages/auth/ForgetPass.jsx"));
 const Login = lazy(() => import("./pages/auth/Login.jsx"));
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           {/* not found page */}
           <Route path="*" element={<PageNotFound />} />
+          <Route path={"/jobs"} element={<JobFilter />} />
           {/* user Ilink form and phone preview */}
           <Route
             path={`${userData?.username}/profile-data-page`}

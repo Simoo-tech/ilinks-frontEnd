@@ -20,7 +20,6 @@ export const Fetch_Check_Data = async () => {
       console.log(error);
     }
   }
-
 };
 
 export async function FetchUserShow({ username, setUserData, setLoading }) {
@@ -41,6 +40,7 @@ export async function FetchUserShow({ username, setUserData, setLoading }) {
   }
 }
 
-export const JobSearchData = async ({ setJobs }) => {
-  await axios.get(`${serverPath}user`);
+export const JobSearchData = async () => {
+  const res = await axios.get(`${serverPath}user`);
+  return res.data;
 };
