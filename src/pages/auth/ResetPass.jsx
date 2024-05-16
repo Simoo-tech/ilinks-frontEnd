@@ -42,7 +42,7 @@ export default function ResetPass() {
           passwordcon: "",
         }}
         onSubmit={(values) => {
-          ResetPasswordSubmit({ values, userID });
+          ResetPasswordSubmit({ values });
         }}
         validationSchema={InputValidation}
       >

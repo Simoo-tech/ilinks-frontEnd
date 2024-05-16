@@ -105,7 +105,6 @@ export const SendResetLink = async ({
       const res = await axios.post(`${serverPath}auth/send-reset-password`, {
         email,
       });
-
       setBtn("Done");
       setSend(false);
       cookie.save("reset_token", res.data.PassToken, {
