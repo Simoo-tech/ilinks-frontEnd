@@ -12,12 +12,15 @@ export async function UploadFiles({
   uploadArea,
   setError,
   setImgSrc,
+  imgSrc,
 }) {
   const file = new FormData();
-  file.append("file", FinalImg);
+  file.append("file", FinalImg || imgSrc);
   const token = cookies.load("UD_1");
+  const imgSize = FinalImg || imgSrc;
+  console.log(imgSize.size);
   // check file size
-  if (FinalImg.size <= 1 * 1024 * 1024) {
+  if (imgSize.size <= 1 * 1024 * 1024) {
     try {
       const res = await axios.put(
         `${serverPath}upload-files/${requestUrl}`,
@@ -53,12 +56,12 @@ export async function UploadFiles({
         setImgSrc();
       }
     } catch (error) {
-      setError("File size is large than 1 MB or type not support");
+      setError("File size is large than 2 MB or type not support");
       setUploading();
       setImgSrc();
     }
   } else {
-    setError("File size is large than 1 MB");
+    setError("File size is large than 2 MB");
     setUploading();
     setImgSrc();
   }

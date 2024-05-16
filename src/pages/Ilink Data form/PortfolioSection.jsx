@@ -412,7 +412,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       </div>
       <Next_Prev_Btns
         prev={`/${userData.username}/skills-data-page`}
-        displayName="Create"
+        displayName="save & Create"
         btn={btn}
       />
     </form>

@@ -58,28 +58,43 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
 
   // handle upload
   const UploadImg = () => {
-    const canvas = editor.current.getImage();
-    canvas.toBlob(
-      (blob) => {
-        const FinalImg = new File([blob], imgSrc.name, {
-          type: imgSrc.type,
-          lastModified: imgSrc.lastModified,
-        });
-        UploadFiles({
-          FinalImg,
-          setUploading,
-          setUploadArea,
-          userData,
-          setUserData,
-          requestUrl,
-          uploadArea,
-          setError,
-          setImgSrc,
-        });
-      },
-      "image/png",
-      0.8
-    );
+    if (type === "avatar") {
+      const canvas = editor.current.getImage();
+      canvas.toBlob(
+        (blob) => {
+          const FinalImg = new File([blob], imgSrc.name, {
+            type: imgSrc.type,
+            lastModified: imgSrc.lastModified,
+          });
+          UploadFiles({
+            FinalImg,
+            imgSrc,
+            setUploading,
+            setUploadArea,
+            userData,
+            setUserData,
+            requestUrl,
+            uploadArea,
+            setError,
+            setImgSrc,
+          });
+        },
+        "image/png",
+        0.8
+      );
+    } else {
+      UploadFiles({
+        imgSrc,
+        setUploading,
+        setUploadArea,
+        userData,
+        setUserData,
+        requestUrl,
+        uploadArea,
+        setError,
+        setImgSrc,
+      });
+    }
   };
 
   return (

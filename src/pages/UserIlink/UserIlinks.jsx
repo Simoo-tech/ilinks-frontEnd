@@ -63,7 +63,7 @@ export default function UserIlinks() {
   const Portfolios = IlinkData?.portfolio?.map((por, i) => (
     <div
       key={i}
-      className={`card relative overflow-hidden group bg-primaryColor shadow-xl ${
+      className={`card relative overflow-hidden group bg-primaryColor shadow-xl text-white ${
         username ? "sm:w-full md:w-80 lg:w-96" : "w-full"
       } `}
     >
@@ -432,9 +432,9 @@ export default function UserIlinks() {
                 <h3
                   className={`w-full border-b-2 pb-2 border-black flex justify-between items-center
                   uppercase font-semibold col-span-full 
-                 ${
-                   username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"
-                 }`}
+                ${
+                  username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"
+                }`}
                 >
                   portfolio
                   {userCookies && username && (
