@@ -185,18 +185,17 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
         e.preventDefault();
         Validation("submit");
       }}
-      className="grid grid-cols-12 place-content-between w-full lg:max-h-full h-full "
+      className="flex flex-col place-content-between w-full lg:max-h-full h-full "
     >
       <div
-        className="grid sm:grid-cols-1 lg:grid-cols-2 justify-items-center gap-4 items-center col-span-full 
+        className="grid sm:grid-cols-1 md:grid-cols-2 justify-items-center gap-4 items-center col-span-full 
       sm:my-3 md:p-3 w-full"
       >
         {userData?.IlinkData?.portfolio?.map((pro, i) => (
           <div
             id="portfolio-details"
             key={pro._id ? pro._id : i}
-            className="grid gap-1 p-4 border-[1px] rounded-xl overflow-hidden relative border-black bg-primaryColor
-            grid-cols-3 grid-flow-row grid-rows-1 before:absolute before:w-full before:h-full"
+            className="gap-1 p-4 border-[1px] rounded-xl overflow-hidden relative border-black bg-primaryColor w-full col-span-1"
           >
             {/* error validation */}
             <span
@@ -213,7 +212,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
             </span>
             <div
               id="project-top"
-              className="col-span-full justify-between flex items-center relative border-b-2 pb-4 "
+              className="col-span-full justify-between w-full flex items-center relative border-b-2 pb-4 "
             >
               {/* top section show project image */}
               {!pro.imgurl ? (
@@ -334,7 +333,9 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   >
                     <option value="website">website</option>
                     <option value="logo design">logo design</option>
-                    <option value="UI UX design ">UI UX design </option>
+                    <option value="UI UX design">UI UX design </option>
+                    <option value="facebook design">facebook design</option>
+                    <option value="other deign">other deign</option>
                   </select>
                 </div>
               </div>
@@ -406,8 +407,8 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
           className="flex flex-col justify-center items-center self-center border-2 border-black gap-1 rounded-xl
           w-[150px] h-[100px] p-2 hover:bg-primaryColor hover:text-white duration-200"
         >
-          <p className="text-lg capitalize font-medium"> Add Project</p>
-          <FiPlus size={40} />
+          <p className="lg:text-lg capitalize font-medium"> Add Project</p>
+          <FiPlus size={30} />
         </button>
       </div>
       <Next_Prev_Btns

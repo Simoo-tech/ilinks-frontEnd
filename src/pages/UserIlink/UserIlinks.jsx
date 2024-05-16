@@ -119,7 +119,6 @@ export default function UserIlinks() {
                 <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
                 <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
                 <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
-                <div className="skeleton w-10 h-10 rounded-full shrink-0"></div>
               </div>
             </div>
             {/*skills */}
@@ -234,7 +233,7 @@ export default function UserIlinks() {
           <div
             id="container"
             className={`w-full h-fit max-w-full flex flex-col gap-10 ${
-              !username ? "py-8 sm:px-4" : "py-5 sm:px-8 md:px-12 lg:px-20 "
+              !username ? "py-8 sm:px-4" : "py-5 sm:px-4 md:px-12 lg:px-20 "
             }`}
           >
             {/* user name and avtar */}
@@ -301,7 +300,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.facebookUrl}
                       >
-                        <BsFacebook size={!username ? 20 : 25} />
+                        <BsFacebook size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -313,7 +312,7 @@ export default function UserIlinks() {
                         className="hover:scale-125 duration-200"
                         to={IlinkData.socialMediaLinks.githubUrl}
                       >
-                        <BsGithub size={!username ? 20 : 25} />
+                        <BsGithub size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -325,7 +324,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.instagramUrl}
                       >
-                        <BsInstagram size={!username ? 20 : 25} />
+                        <BsInstagram size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -337,7 +336,7 @@ export default function UserIlinks() {
                         className="hover:scale-125 duration-200"
                         to={IlinkData.socialMediaLinks.tiktokUrl}
                       >
-                        <BsTiktok size={!username ? 20 : 25} />
+                        <BsTiktok size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -349,7 +348,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.youtubeUrl}
                       >
-                        <BsYoutube size={!username ? 20 : 25} />
+                        <BsYoutube size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -361,7 +360,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.twitterUrl}
                       >
-                        <FaTwitter size={!username ? 20 : 25} />
+                        <FaTwitter size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -373,7 +372,7 @@ export default function UserIlinks() {
                         target="_blank"
                         to={IlinkData.socialMediaLinks.linkedinUrl}
                       >
-                        <BsLinkedin size={!username ? 20 : 25} />
+                        <BsLinkedin size={!username ? 23: 28} />
                       </Link>
                     </li>
                   )}
@@ -383,7 +382,7 @@ export default function UserIlinks() {
                     title="add more social links"
                   >
                     <Link to={`/${username}/socialLinks-data-page`}>
-                      <FaPlus />
+                      <FaPlus size={17} />
                     </Link>
                   </li>
                 )}
@@ -432,9 +431,7 @@ export default function UserIlinks() {
                 <h3
                   className={`w-full border-b-2 pb-2 border-black flex justify-between items-center
                   uppercase font-semibold col-span-full 
-                ${
-                  username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"
-                }`}
+                ${username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"}`}
                 >
                   portfolio
                   {userCookies && username && (
