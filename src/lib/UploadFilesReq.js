@@ -18,7 +18,7 @@ export async function UploadFiles({
   file.append("file", FinalImg || imgSrc);
   const token = cookies.load("UD_1");
   const imgSize = FinalImg || imgSrc;
-  console.log(imgSize.size);
+
   // check file size
   if (imgSize.size <= 1 * 1024 * 1024) {
     try {

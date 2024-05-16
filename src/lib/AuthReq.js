@@ -75,29 +75,18 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
 };
 
 // reset password
-/////// check token
-export const checkToken = async ({ userID, token, setValid, setLoading }) => {
-  try {
-    setLoading(true);
-    await axios.post(`${serverPath}auth/resetpassword/${userID}`, {
-      token,
-    });
-    setValid(true);
-    setLoading(false);
-  } catch (error) {
-    setValid(false);
-    console.log(error.response.data.message);
-  }
-};
+
 /////// handle submit reset password
-export const ResetPasswordSubmit = async ({ values, userID }) => {
+export const ResetPasswordSubmit = async ({ values }) => {
   try {
-    await axios.put(`${serverPath}auth/resetpassword/${userID}`, {
-      ...values,
-    });
+    await axios.put(
+      `${serverPath}auth/reset-password/${cookie.load("reset_token")}`,
+      {
+        ...values,
+      }
+    );
+    cookie.remove("reset_token", { path: "/" });
     window.location.replace("/auth/sign-in");
-    window.localStorage.removeItem("pass_token");
-    window.localStorage.removeItem("user_ID");
   } catch (error) {
     console.log(error.response.data.message);
   }
@@ -113,23 +102,16 @@ export const SendResetLink = async ({
   if (btn === "NeedAction") {
     try {
       setBtn("Loading");
-      await axios.post(`${serverPath}auth/resetpassword`, { email });
-      if (cookie.load("ExpTime")) {
-        cookie.remove("ExpTime", { path: "/" });
-      }
-      const ExpireDate = 30 * 60;
+      const res = await axios.post(`${serverPath}auth/send-reset-password`, {
+        email,
+      });
+
       setBtn("Done");
-      setTimeout(() => {
-        setSend(false);
-        cookie.save("reset_token", res.data.PassToken, {
-          path: "/",
-          maxAge: ExpireDate,
-        });
-        cookie.save("user_reset_id", res.data.userID, {
-          path: "/",
-          maxAge: ExpireDate,
-        });
-      }, 1000);
+      setSend(false);
+      cookie.save("reset_token", res.data.PassToken, {
+        path: "/",
+        maxAge: 600000,
+      });
     } catch (error) {
       setMsg(error.response.data.message);
       setBtn("NeedAction");

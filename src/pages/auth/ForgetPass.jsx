@@ -44,7 +44,7 @@ export default function ForgetPass() {
               }}
               className="flex justify-center gap-10 items-center h-full py-9 flex-col w-full"
             >
-              <div id="text" className="flex flex-col gap-2 items-center">
+              <div id="text" className="flex flex-col gap-2 items-center ">
                 <MdErrorOutline size={100} className="text-color3" />
                 <p className="text-white capitalize text-2xl">
                   forgot password
@@ -57,7 +57,7 @@ export default function ForgetPass() {
               <div id="input" className="w-full flex flex-col gap-2">
                 <div
                   id="input"
-                  className="flex items-center bg-color2 p-2 w-full rounded-lg group "
+                  className="flex items-center bg-color2 p-2 w-full rounded-lg group text-black"
                 >
                   <AiOutlineMail size={25} />
                   <input
@@ -69,7 +69,7 @@ export default function ForgetPass() {
                       setBtn("NeedAction");
                     }}
                     type="email"
-                    className="bg-transparent w-full outline-none px-2"
+                    className="bg-transparent w-full outline-none px-2 "
                   />
                 </div>
                 {msg && (

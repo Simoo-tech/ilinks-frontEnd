@@ -11,16 +11,9 @@ import { BtnsActions } from "../../components/Tools/BtnsActions";
 
 const PageNotFound = lazy(() => import("../../components/PageNotFound"));
 
-export default function ResetPass({ setLoading }) {
-  const userID = cookie.load("user_reset_id");
+export default function ResetPass() {
   const token = cookie.load("reset_token");
   const [btn, setBtn] = useState("NoAction");
-  // check if link is valid
-  const [valid, setValid] = useState(false);
-
-  useEffect(() => {
-    checkToken({ userID, token, setValid, setLoading });
-  }, [token, userID]);
 
   const [showPass, setShowPass] = useState(false);
 
@@ -40,7 +33,7 @@ export default function ResetPass({ setLoading }) {
     ),
   });
 
-  return valid ? (
+  return token ? (
     <section className="flex items-center w-full py-3 container h-full max-w-full flex-col gap-12">
       <Logo />
       <Formik

@@ -20,10 +20,7 @@ export const Fetch_Check_Data = async () => {
       console.log(error);
     }
   }
-  if (!cookie.load("reset_token") && !cookie.load("user_reset_id")) {
-    cookie.remove("reset_token");
-    cookie.remove("user_reset_id");
-  }
+
 };
 
 export async function FetchUserShow({ username, setUserData, setLoading }) {
