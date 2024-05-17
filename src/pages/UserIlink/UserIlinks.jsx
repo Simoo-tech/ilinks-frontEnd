@@ -11,7 +11,7 @@ import {
   BsTiktok,
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
 import cookie from "react-cookies";
 import { useAuth } from "../../context/AuthContext";
 import { ProfilePic } from "../../components/ProfilePic";
@@ -64,14 +64,19 @@ export default function UserIlinks() {
     <div
       key={i}
       className={`card relative overflow-hidden group bg-primaryColor shadow-xl text-white ${
-        username ? "sm:w-full md:w-80 lg:w-96" : "w-full"
+        username ? "sm:w-full md:w-80 lg:w-96 h-fit max-h-80" : "w-full"
       } `}
     >
       <figure className="relative before:absolute before:w-full before:h-full before:bg-black before:opacity-20">
-        <img src={por.imgurl} alt="project-img" loading="lazy" />
+        <img
+          src={por.imgurl}
+          alt="project-img"
+          loading="lazy"
+          className="w-full"
+        />
         <div
           className={`${
-            username ? "text-base px-4 py-3" : "text-sm px-2 py-2 "
+            username ? "text-base px-2 py-2" : "text-sm px-2 py-2 "
           }  text-white capitalize bg-color3 absolute top-0 left-0 rounded-b-lg`}
         >
           {por.protype}
@@ -97,6 +102,14 @@ export default function UserIlinks() {
           </div>
         )}
       </div>
+      <Link
+        title="view img"
+        to={por.imgurl}
+        className="absolute right-2 top-2"
+        target="_blank"
+      >
+        <FaEye color="blue" size={30} className="bg-white rounded-lg p-1" />
+      </Link>
     </div>
   ));
 

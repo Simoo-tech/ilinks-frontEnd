@@ -335,7 +335,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                     <option value="logo design">logo design</option>
                     <option value="UI UX design">UI UX design </option>
                     <option value="facebook design">facebook design</option>
-                    <option value="other deign">other deign</option>
+                    <option value="other design">other deign</option>
                   </select>
                 </div>
               </div>
