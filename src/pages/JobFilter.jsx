@@ -51,7 +51,10 @@ export default function JobFilter() {
             />
             <div id="text-user-info">
               <p className="text-lg capitalize">{item.username}</p>
-              <p className="capitalize bg-black text-sm text-white p-1 rounded-lg">
+              <p
+                className="capitalize text-center w-fit
+              bg-black text-sm text-white p-2 rounded-lg"
+              >
                 {item.jobtitle}
               </p>
             </div>
