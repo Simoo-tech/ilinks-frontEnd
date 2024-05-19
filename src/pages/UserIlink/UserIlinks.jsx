@@ -262,11 +262,11 @@ export default function UserIlinks() {
                   id="avatar_holder"
                   className="p-1 bg-primaryColor rounded-full"
                 >
-                  <Avatar
+                  <img
                     src={userData.avatar}
-                    round
-                    size="150"
-                    className="bg-primaryColor "
+                    width="150"
+                    height="150"
+                    className="bg-primaryColor rounded-full "
                   />
                 </div>
               ) : (

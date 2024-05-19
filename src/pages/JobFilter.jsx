@@ -42,13 +42,12 @@ export default function JobFilter() {
             id="user-info"
             className="flex justify-center items-center gap-3"
           >
-            <Avatar
+            <img
               src={item.avatar}
-              unstyled={false}
               value={item.username}
-              round
-              className="bg-slate-300"
-              size={90}
+              className="bg-slate-300 rounded-full"
+              width={90}
+              height={90}
             />
             <div id="text-user-info">
               <p className="text-lg capitalize">{item.username}</p>

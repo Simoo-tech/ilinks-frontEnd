@@ -158,7 +158,11 @@ const FormComp = () => {
                     type={input.type}
                     name={input.name}
                     value={socialLinks ? input.val : ""}
-                    placeholder={`https://example/${input.name.toLowerCase()}.com/`}
+                    placeholder={
+                      input.type === "url"
+                        ? `https://example/${input.name.toLowerCase()}.com/`
+                        : "+201112134123"
+                    }
                     className="outline-none p-2 w-full rounded-md shadow-md "
                   />
                 </div>
