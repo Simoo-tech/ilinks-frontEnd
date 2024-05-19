@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AiOutlineUser, AiOutlineMail, AiFillLock } from "react-icons/ai";
 import { ErrorMes } from "../../components/Tools/errorMes";
 import { RegisterSubmit } from "../../lib/AuthReq";
@@ -9,6 +9,7 @@ import { FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import * as Yup from "yup";
 import { Field, Formik, Form } from "formik";
 import { BtnsActions } from "../../components/Tools/BtnsActions";
+import cookies from "react-cookies";
 
 export default function Register() {
   return (
@@ -59,6 +60,7 @@ export default function Register() {
 }
 
 const FormContainer = () => {
+  const userLoged = cookies.load("UD_1");
   const [btn, setBtn] = useState("NeedAction");
   const navigate = useNavigate();
   // error message
@@ -91,7 +93,9 @@ const FormContainer = () => {
     ),
   });
 
-  return (
+  return userLoged ? (
+    <Navigate to={"/"} />
+  ) : (
     <>
       <Formik
         initialValues={{
@@ -118,7 +122,7 @@ const FormContainer = () => {
             md:w-8/12 
             lg:w-9/12 "
           >
-            <Logo />
+            <Logo align="self-start" />
             <div className="flex flex-col gap-16 items-center w-full h-full justify-center">
               <h3 className="text-center sm:text-3xl md:text-4xl lg:text-5xl pt-3 font-semibold w-fit text-white">
                 Create Account

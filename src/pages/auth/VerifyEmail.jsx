@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { ErrorMes } from "../../components/Tools/errorMes";
 import { VerifyCodeSubmit } from "../../lib/EmailVerification";
@@ -14,7 +14,6 @@ export default function VerifyEmail() {
   // btn state and error
   const [btn, setBtn] = useState("NoAction");
   const [error, setError] = useState({ active: false, text: null });
-  const navigate = useNavigate();
 
   const [codeVal, setCodeVal] = useState({});
   const OtpBox = useRef([]);
@@ -72,7 +71,7 @@ export default function VerifyEmail() {
       id="verify-email"
       className="flex flex-col h-full items-center w-full container max-w-full py-3 gap-10"
     >
-      <Logo />
+      <Logo align="self-start" />
       <div
         className="white-container bg-white h-5/6 flex flex-col text-black justify-center gap-10 relative items-center self-center rounded-md 
       sm:py-5 sm:w-full sm:px-5 

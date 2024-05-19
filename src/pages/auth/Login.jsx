@@ -10,6 +10,7 @@ import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 import { BtnsActions } from "../../components/Tools/BtnsActions";
 import { useAuth } from "../../context/AuthContext";
+import cookies from "react-cookies";
 
 export default function Login() {
   return (
@@ -66,6 +67,7 @@ const FormContainer = () => {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(null);
   const [btn, setBtn] = useState("NeedAction");
+  const userLoged = cookies.load("UD_1");
 
   // inputs validation
   const InputValidation = Yup.object().shape({
@@ -85,7 +87,9 @@ const FormContainer = () => {
       ),
   });
 
-  return (
+  return userLoged ? (
+    <Navigate to={"/"} />
+  ) : (
     <Formik
       initialValues={{
         email: "",
@@ -105,7 +109,7 @@ const FormContainer = () => {
           md:w-8/12 
           lg:w-9/12 "
         >
-          <Logo />
+          <Logo align="self-start" />
           <div className="flex flex-col gap-16 items-center w-full h-full justify-center">
             <h3 className="text-center sm:text-3xl md:text-4xl lg:text-5xl pt-3 font-semibold w-fit text-white">
               Login to Your Account

@@ -55,8 +55,7 @@ export const Navbar = () => {
 
 const Menu = () => {
   const [userData] = useAuth();
-  const navigate = useNavigate();
-  const { avatar, username, jobtitle, IlinkData } = userData;
+  const { avatar, username} = userData;
   const Links = [
     {
       url: `/userIlinks/${username}`,
