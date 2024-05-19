@@ -18,7 +18,6 @@ export async function UploadFiles({
   file.append("file", FinalImg || imgSrc);
   const token = cookies.load("UD_1");
   const imgSize = FinalImg || imgSrc;
-
   // check file size
   if (imgSize.size <= 1 * 1024 * 1024) {
     try {
@@ -35,6 +34,7 @@ export async function UploadFiles({
           },
         }
       );
+
       if (res.data.success) {
         if (requestUrl.startsWith("avatar")) {
           setUserData({ ...userData, avatar: res.data.avatar });
@@ -50,10 +50,6 @@ export async function UploadFiles({
           });
         }
         setTimeout(() => setUploadArea(null), 1000);
-      } else {
-        setError("File size is large than 1 MB or type not support");
-        setUploading();
-        setImgSrc();
       }
     } catch (error) {
       setError("File size is large than 2 MB or type not support");

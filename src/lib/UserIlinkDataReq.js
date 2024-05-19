@@ -40,7 +40,10 @@ export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
       `${serverPath}ilinkData/update-ilink/${data._id}`,
       { ...data },
       {
-        headers: { "Content-type": "application/json", "access_token ": token },
+        headers: {
+          "Content-type": "application/json",
+          "access_token ": `${token}`,
+        },
       }
     );
 

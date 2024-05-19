@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "../App.css";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Layout from "../components/Layout";
@@ -10,6 +10,7 @@ export default function Home() {
   const { verifed, _id } = userData;
   const navigate = useNavigate();
   const [Toast, setToast] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams({ name: "" });
 
   return (
     <Layout
@@ -104,12 +105,15 @@ export default function Home() {
                 id="search-job"
                 className=" bg-zinc-400 w-full outline-none p-3 placeholder:text-white rounded-lg "
                 placeholder="Enter a job name "
+                onChange={(e) => {
+                  setSearchParams({ name: e.target.value });
+                }}
               />
               <HiMagnifyingGlass
                 className="bg-zinc-500  h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
                   hover:bg-zinc-400 cursor-pointer"
                 onClick={() => {
-                  navigate(`/jobs`);
+                  navigate(`/jobs?name=${searchParams.get("name")}`);
                 }}
               />
             </div>

@@ -14,6 +14,7 @@ import {
 import { FaPlus, FaTwitter } from "react-icons/fa";
 import { LuFileX } from "react-icons/lu";
 import Avatar from "react-avatar";
+import { BiSearch } from "react-icons/bi";
 
 const allJobs = await JobSearchData();
 
@@ -32,8 +33,8 @@ export default function JobFilter() {
       return (
         <li
           key={i}
-          className="py-2 px-4 rounded-lg bg-zinc-500 group text-white border-2 duration-200 flex flex-col 
-          justify-between items-center gap-10
+          className="py-2 px-4 rounded-lg bg-neutral-700 group text-white border-2 
+          duration-200 flex flex-col justify-between items-center gap-10
         hover:bg-white hover:text-black hover:border-black col-span-1"
         >
           {/* text name and avatar */}
@@ -46,8 +47,8 @@ export default function JobFilter() {
               unstyled={false}
               value={item.username}
               round
-              className=" bg-slate-300"
-              size={80}
+              className="bg-slate-300"
+              size={90}
             />
             <div id="text-user-info">
               <p className="text-lg capitalize">{item.username}</p>
@@ -157,7 +158,7 @@ export default function JobFilter() {
           </div>
           <Link
             to={`/userIlinks/${item.username}`}
-            className="py-2 px-6 bg-primaryColor text-white rounded-lg text-lg capitalize"
+            className="py-2 px-6 bg-primaryColor text-white rounded-lg capitalize"
           >
             see more
           </Link>
@@ -171,10 +172,11 @@ export default function JobFilter() {
         id="job-filter"
         className="flex flex-col gap-4 container items-center max-w-full section-h py-5 w-full overflow-y-hidden"
       >
+        {/* search label */}
         <label
           id="input-search"
           htmlFor="job"
-          className="relative flex gap-3 flex-col w-full"
+          className="relative flex gap-3 w-full"
         >
           <input
             value={searchParams && searchParams.get("name")}
@@ -187,18 +189,15 @@ export default function JobFilter() {
               setSearchParams({ name: e.target.value });
             }}
           />
+          <BiSearch className="absolute right-3 top-3" size={28} />
         </label>
+        {/* users cards */}
         {FilterdJobs.length >= 1 ? (
           <ul
             id="filterd-jobs"
             className="bg-white text-primaryColor grid rounded-xl w-full p-5 gap-5 overflow-y-scroll
-          sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            {/* <li className="flex w-full py-3 px-4 justify-between rounded-lg bg-zinc-500 text-white">
-            <p className="text-xl capitalize">Avatar</p>
-            <p className="text-xl capitalize">user name</p>
-            <p className="text-xl capitalize">job name</p>
-          </li> */}
             {FilterdJobs}
           </ul>
         ) : (

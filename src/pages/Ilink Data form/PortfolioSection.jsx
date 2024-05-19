@@ -68,7 +68,7 @@ export default function PortfolioSection() {
             shape="rectangle"
             setUploadArea={setUploadArea}
             uploadArea={uploadArea}
-            requestUrl={`portfolioImg/${userData.IlinkData._id}`}
+            requestUrl={`portfolio-imgs/${userData.IlinkData._id}`}
           />
         )}
       </PreviewData>

@@ -119,21 +119,24 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
         {uploading ? (
           // after uploading
           uploading === 100 ? (
-            <div className="w-full justify-center flex items-center gap-5 text-black">
-              <p className="text-2xl">Image uploaded</p>
-              <FaCheckCircle size={30} color="green" />
+            <div className="w-full justify-center flex items-center gap-5 text-black flex-col ">
+              <p className="text-2xl flex items-center gap-4">
+                loading please wait <span className="loading loading-spinner" />
+              </p>
             </div>
           ) : (
             // in uploading progress
-            <div className="w-full flex flex-col items-center gap-5 ">
-              <div className="w-9/12 bg-[#ddd] h-4 rounded-xl relative">
+            <div className="w-full flex flex-col items-center gap-5 text-black">
+              <div className="w-9/12 bg-[#ddd] h-4 rounded-xl relative ">
                 <div
                   style={{ width: `${uploading}%` }}
                   className="absolute top-0 left-0 bg-primaryColor h-full rounded-xl"
                 />
                 <p className="absolute -right-10 -top-1">{uploading}%</p>
               </div>
-              <p className="text-lg capitalize"> Uploading please wait ...</p>
+              <p className="text-lg capitalize flex items-center gap-3">
+                Uploading please wait <span className="loading- loading" />
+              </p>
             </div>
           )
         ) : (
