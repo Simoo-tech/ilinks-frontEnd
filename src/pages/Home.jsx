@@ -94,29 +94,35 @@ export default function Home() {
               OR
             </p>
             {/* form */}
-            <div
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSearchParams({ name: e.target.value });
+              }}
               id="input-search"
               className="flex flex-col items-center justify-center gap-2 relative rounded-lg  
               sm:col-span-full md:col-span-7 "
             >
               <input
                 type="text"
-                name="search-job"
-                id="search-job"
+                name="name"
                 className=" bg-zinc-400 w-full outline-none p-3 placeholder:text-white rounded-lg "
                 placeholder="Enter a job name "
                 onChange={(e) => {
                   setSearchParams({ name: e.target.value });
                 }}
               />
-              <HiMagnifyingGlass
-                className="bg-zinc-500  h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
-                  hover:bg-zinc-400 cursor-pointer"
+              <button
+                type="submit"
                 onClick={() => {
                   navigate(`/jobs?name=${searchParams.get("name")}`);
                 }}
-              />
-            </div>
+                className="bg-zinc-500  h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
+                  hover:bg-zinc-400 cursor-pointer"
+              >
+                <HiMagnifyingGlass />
+              </button>
+            </form>
           </form>
         </div>
       </section>
