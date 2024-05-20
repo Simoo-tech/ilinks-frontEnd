@@ -7,11 +7,9 @@ import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
 import { saveSvgAsPng } from "save-svg-as-png";
-import { useAuth } from "../../context/AuthContext";
 
-export const ShareBtn = ({ setShareBtn }) => {
-  const [userData] = useAuth();
-  const { email, IlinkData } = userData;
+export const ShareBtn = ({ setShareBtn, userShow }) => {
+  const { email, IlinkData } = userShow;
 
   return (
     <div className="fixed bottom-14 right-5 flex flex-col gap-3 z-40">
@@ -47,13 +45,12 @@ export default function ShareContent({
   shareBtn,
   setShareBtn,
   close,
-  userViewData,
-  userData,
   postion,
   opacity,
+  userShow,
 }) {
   const url = `https://ilink.onrender.com/userIlinks/${
-    userViewData ? userViewData?.username : userData?.username
+    userShow && userShow?.username
   }`;
 
   // copy to clipboard message

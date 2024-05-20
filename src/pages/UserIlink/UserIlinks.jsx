@@ -15,26 +15,31 @@ import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
 import cookie from "react-cookies";
 import { useAuth } from "../../context/AuthContext";
 import { ProfilePic } from "../../components/ProfilePic";
-import Avatar from "react-avatar";
 import { FetchUserShow } from "../../lib/Fetch&Check_Data";
 import Layout from "../../components/Layout";
 
 export default function UserIlinks() {
-  const [userData, setUserData] = useAuth();
+  const [userData] = useAuth();
+  const [userShow, setUserShow] = useState({});
   const { username } = useParams();
   const userCookies = cookie.load("UD_1");
   const [loading, setLoading] = useState(true);
   // fetch data
   useEffect(() => {
     if (username) {
-      FetchUserShow({ username, setUserData, setLoading });
+      FetchUserShow({ username, setUserShow, setLoading });
+    } else {
+      setUserShow(userData);
     }
   }, []);
 
+  // check if user can edit
+  const userEdit = username === userData.username;
   // share button
   const [shareBtn, setShareBtn] = useState(false);
-  const { fname, lname, jobtitle, about, IlinkData } = userData;
-
+  const { fname, lname, jobtitle, about, IlinkData, avatar } = userShow
+    ? userShow
+    : userData;
   // skills map show
   const Skills = IlinkData?.skills?.map((skill, i) => {
     return skill.skillname && skill.skillperc ? (
@@ -194,9 +199,8 @@ export default function UserIlinks() {
           </div>
           {/* Copy right */}
           <div
-            className={`py-3 px-5 w-full h-fit flex items-center justify-center ${
-              userCookies && username && "justify-between"
-            } bg-primaryColor text-white`}
+            className="py-3 px-5 w-full h-fit flex items-center justify-center
+            bg-primaryColor text-white"
           >
             <div
               id="logo"
@@ -213,17 +217,6 @@ export default function UserIlinks() {
                 </p>
               )}
             </div>
-            {/* Edit ilink */}
-            {userCookies && username && (
-              <Link
-                to={`/${username}/profile-data-page`}
-                className="flex items-center gap-2 border-2 border-white p-1 px-3 uppercase 
-              font-medium cursor-pointer rounded-lg sm:text-sm  "
-              >
-                edit
-                <FaEdit />
-              </Link>
-            )}
           </div>
         </div>
       ) : (
@@ -239,10 +232,15 @@ export default function UserIlinks() {
                 shareBtn={shareBtn}
                 setShareBtn={setShareBtn}
                 close={true}
+                userShow={userShow}
                 userData={userData}
                 opacity={50}
               />
-              <ShareBtn shareBtn={shareBtn} setShareBtn={setShareBtn} />
+              <ShareBtn
+                shareBtn={shareBtn}
+                setShareBtn={setShareBtn}
+                userShow={userShow}
+              />
             </>
           )}
           {/* container */}
@@ -263,7 +261,7 @@ export default function UserIlinks() {
                   className="p-1 bg-primaryColor rounded-full"
                 >
                   <img
-                    src={userData.avatar}
+                    src={avatar}
                     width="150"
                     height="150"
                     className="bg-primaryColor rounded-full "
@@ -392,7 +390,7 @@ export default function UserIlinks() {
                       </Link>
                     </li>
                   )}
-                {username && userCookies && (
+                {userEdit && userCookies && (
                   <li
                     className="border-2 rounded-xl p-2 cursor-pointer border-black hover:scale-125 duration-200"
                     title="add more social links"
@@ -420,7 +418,7 @@ export default function UserIlinks() {
             }`}
                 >
                   My Skills
-                  {userCookies && username && (
+                  {userEdit && userCookies && (
                     <Link
                       title="add more skills"
                       to={`/${username}/skills-data-page`}
@@ -450,7 +448,7 @@ export default function UserIlinks() {
                 ${username ? "sm:text-lg  md:text-xl lg:text-2xl" : "text-lg"}`}
                 >
                   portfolio
-                  {userCookies && username && (
+                  {userCookies && userEdit && (
                     <Link
                       title="add more projects"
                       to={`/${username}/portfolio-data-page`}

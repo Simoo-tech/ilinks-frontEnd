@@ -91,7 +91,10 @@ export default function App() {
             element={<VerifyEmail />}
           />
           {/* user ilinks */}
-          <Route path={`userIlinks/:username`} element={<UserIlinks />} />
+          <Route
+            path={"userIlinks/:username" || `userIlinks/${userData?.username}`}
+            element={<UserIlinks />}
+          />
         </Routes>
       </Suspense>
     </main>

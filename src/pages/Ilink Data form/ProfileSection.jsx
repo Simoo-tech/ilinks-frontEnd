@@ -50,7 +50,7 @@ export default function Profile() {
       description={"profile data "}
       keyword={["ilinks", "about you and your job ", "build portfolio page"]}
     >
-      <PreviewData >
+      <PreviewData>
         <section
           id="profile-data"
           className={`${
@@ -203,7 +203,7 @@ export default function Profile() {
                     <Field
                       type="text"
                       name="state"
-                      className="border-2 outline-none p-2 shadow-md
+                      className="border-2 outline-none p-2 shadow-md 
                         rounded-lg sm:text-sm lg:text-base"
                       value={values.state}
                     />

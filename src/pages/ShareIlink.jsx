@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import ShareContent from "./UserIlink/Share";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";

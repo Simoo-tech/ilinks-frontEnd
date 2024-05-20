@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { JobSearchData } from "../lib/Fetch&Check_Data";
-import { HiMagnifyingGlass } from "react-icons/hi2";
 import Layout from "../components/Layout";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   BsFacebook,
   BsGithub,
@@ -13,7 +12,6 @@ import {
 } from "react-icons/bs";
 import { FaPlus, FaTwitter } from "react-icons/fa";
 import { LuFileX } from "react-icons/lu";
-import Avatar from "react-avatar";
 import { BiSearch } from "react-icons/bi";
 
 const allJobs = await JobSearchData();
@@ -28,7 +26,11 @@ export default function JobFilter() {
 
   // show jobs list
   const FilterdJobs = jobs
-    ?.filter((item) => item?.jobtitle?.includes(searchParams.get("name")))
+    ?.filter((item) =>
+      item?.jobtitle
+        ?.toLowerCase()
+        .includes(searchParams.get("name").toLowerCase())
+    )
     .map((item, i) => {
       return (
         <li

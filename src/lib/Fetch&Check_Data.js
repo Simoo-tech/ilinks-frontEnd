@@ -22,7 +22,7 @@ export const Fetch_Check_Data = async () => {
   }
 };
 
-export async function FetchUserShow({ username, setUserData, setLoading }) {
+export async function FetchUserShow({ username, setUserShow, setLoading }) {
   // if cleint view user Ilnik
   setLoading(true);
   try {
@@ -30,7 +30,7 @@ export async function FetchUserShow({ username, setUserData, setLoading }) {
       username,
     });
     if (res.data.success) {
-      setUserData(res.data.userIlink);
+      setUserShow(res.data.userIlink);
       setLoading(false);
     } else {
       console.log(res.data.message);
