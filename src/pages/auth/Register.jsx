@@ -72,7 +72,11 @@ const FormContainer = () => {
     username: Yup.string()
       .required("Username field is required")
       .min(3, "Username must be 3 char at least")
-      .max(15, "Username max length is 15 char"),
+      .max(15, "Username max length is 15 char")
+      .matches(
+        /^[a-zA-Z0-9\_-]{3,15}$/,
+        "min lenght 3 and max 15 characters without spaces"
+      ),
     email: Yup.string()
       .required("Email field is required")
       .matches(
