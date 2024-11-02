@@ -39,7 +39,7 @@ export default function Layout({
           {Toast && (
             <div className="toast toast-bottom toast-end">
               <div className="alert alert-error text-white">
-                <span>Please verified your account </span>
+                <span>Please verify your account </span>
               </div>
             </div>
           )}
