@@ -75,7 +75,7 @@ export default function Profile() {
                 age: age ? new Date(age).toISOString().split("T")[0] : "",
                 jobtitle: jobtitle ? jobtitle : "",
                 country: country ? country : "",
-                status: status ? status : "",
+                status: status ? status : "free",
                 fname: fname ? fname : "",
                 lname: lname ? lname : "",
                 about: about ? about : "",
