@@ -236,8 +236,8 @@ export default function JobFilter() {
           <BiSearch className="absolute right-3 top-3" size={28} />
         </label>
         {/* users cards */}
-        {isLoading && (
-          <div className="flex w-full justify-between gap-5 col-span-full py-5 flex-wrap h-full">
+        {isLoading ? (
+          <div className="flex w-full justify-between gap-5 col-span-full py-5 flex-wrap h-full bg-white">
             <div className="flex w-80 flex-col gap-4">
               <div className="flex items-center gap-4">
                 <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
@@ -319,8 +319,7 @@ export default function JobFilter() {
               <div className="skeleton h-32 w-full"></div>
             </div>
           </div>
-        )}
-        {FilterdJobs.length >= 1 && !isLoading ? (
+        ) : FilterdJobs.length >= 1 ? (
           <ul
             id="filterd-jobs"
             className="bg-white text-primaryColor grid rounded-xl w-full p-5 gap-5 overflow-y-scroll
