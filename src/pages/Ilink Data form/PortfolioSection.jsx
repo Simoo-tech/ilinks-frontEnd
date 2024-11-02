@@ -9,7 +9,7 @@ import CropImg from "../../components/Tools/CropImg";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import { BsArrowLeft } from "react-icons/bs";
 import PreviewData from "./PreviewData";
-import Layout from "../../components/Layout";
+import Layout from "../../Layout";
 
 export default function PortfolioSection() {
   // animation
@@ -80,18 +80,18 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   const [btn, setBtn] = useState("NeedAction");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const { IlinkData } = userData;
+  const { portfolio } = userData?.IlinkData;
 
   // handle add portfolio
   const AddPortfolio = () => {
     setError(null);
-    if (IlinkData?.portfolio) {
+    if (portfolio) {
       setUserData({
         ...userData,
         IlinkData: {
           ...userData.IlinkData,
           portfolio: [
-            ...userData.IlinkData.portfolio,
+            ...portfolio,
             {
               imgurl: null,
               protitle: "",
@@ -126,7 +126,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   const HandleChange = (e, i) => {
     setError(null);
     const { name, value } = e.target;
-    const onChange = [...userData.IlinkData.portfolio];
+    const onChange = [...portfolio];
     onChange[i][name] = value;
     setUserData({
       ...userData,
@@ -137,7 +137,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   // handle delete portfolio
   const handleDeletePortfolio = (i) => {
     setError(null);
-    const onDelete = [...userData.IlinkData.portfolio];
+    const onDelete = [...portfolio];
     onDelete.splice(i, 1);
     setUserData({
       ...userData,
@@ -147,7 +147,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
   };
 
   // validation
-  const ProValidation = userData?.IlinkData?.portfolio?.map((por, i) => {
+  const ProValidation = portfolio?.map((por, i) => {
     const imgValid = por.imgurl;
     return imgValid;
   });
@@ -188,10 +188,10 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
       className="flex flex-col place-content-between w-full lg:max-h-full h-full "
     >
       <div
-        className="grid sm:grid-cols-1 md:grid-cols-2 justify-items-center gap-4 items-center col-span-full 
+        className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4 items-center col-span-full 
       sm:my-3 md:p-3 w-full"
       >
-        {userData?.IlinkData?.portfolio?.map((pro, i) => (
+        {portfolio?.map((pro, i) => (
           <div
             id="portfolio-details"
             key={pro._id ? pro._id : i}
@@ -267,7 +267,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                 </div>
               )}
               {/* delete project btn */}
-              {userData.IlinkData.portfolio.length > 1 && (
+              {portfolio.length > 1 && (
                 <button
                   id="delete-portfolio-btn"
                   onClick={() => handleDeletePortfolio(i)}
@@ -404,8 +404,10 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
         <button
           type="button"
           onClick={() => Validation("add")}
-          className="flex flex-col justify-center items-center self-center border-2 border-black gap-1 rounded-xl
-          w-[150px] h-[100px] p-2 hover:bg-primaryColor hover:text-white duration-200"
+          className={`${
+            portfolio?.length >= 6 ? "hidden" : "flex"
+          } flex flex-col justify-center items-center self-center border-2 border-black gap-1 rounded-xl
+          w-[150px] h-[100px] p-2 hover:bg-primaryColor hover:text-white duration-200`}
         >
           <p className="lg:text-lg capitalize font-medium"> Add Project</p>
           <FiPlus size={30} />

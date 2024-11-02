@@ -6,7 +6,7 @@ export const ErrorMes = ({ error, text, color, icon }) => {
     <div
       className={`${
         error ? "flex" : "hidden"
-      } error-message justify-center w-fit rounded-xl py-1 sm:px-2 md:px-6`}
+      } error-message justify-center w-fit rounded-xl py-1 sm:px-2 md:px-6 text-lg `}
     >
       <span
         className={`font-semibold text-${color}

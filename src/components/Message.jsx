@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SendCode } from "../lib/EmailVerification";
 import { LoadingBtn } from "./Tools/LoadingBtn";
 
-export const Message = () => {
+export const Message = ({ setToast }) => {
   const [userData] = useAuth();
   const { verifed } = userData;
   const navigate = useNavigate();
@@ -71,6 +71,9 @@ export const Message = () => {
             className="absolute top-2 right-2"
             onClick={() => {
               setMessage({ ...message, active: false });
+              if (!verifed) {
+                setToast(true);
+              }
             }}
           />
           {title === "verify email" && (

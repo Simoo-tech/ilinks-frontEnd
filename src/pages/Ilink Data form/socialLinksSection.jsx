@@ -15,7 +15,7 @@ import { useAuth } from "../../context/AuthContext";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import { Form, Formik } from "formik";
 import PreviewData from "./PreviewData";
-import Layout from "../../components/Layout";
+import Layout from "../../Layout";
 
 export default function SocialLinks() {
   // animation
@@ -30,9 +30,9 @@ export default function SocialLinks() {
         <section
           className={`${
             animation ? "opacity-0" : "opacity-100"
-          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
+          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out justify-between 
     sm:overflow-y-scroll 
-    lg:overflow-hidden lg:justify-between `}
+    lg:overflow-hidden`}
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
@@ -139,9 +139,9 @@ const FormComp = () => {
               path: "skills-data-page",
             });
           }}
-          className="flex flex-col w-full justify-between lg:max-h-full h-full "
+          className="flex flex-col w-full justify-between h-full lg:mt-5 mb-3"
         >
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5 justify-between sm:h-fit lg:h-[95%] px-3 my-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5 justify-between px-3 my-8">
             {Inputs.map((input, i) => (
               <div
                 key={i}

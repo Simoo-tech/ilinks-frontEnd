@@ -19,7 +19,7 @@ export async function UploadFiles({
   const token = cookies.load("UD_1");
   const imgSize = FinalImg || imgSrc;
   // check file size
-  if (imgSize.size <= 1 * 1024 * 1024) {
+  if (imgSize.size <= 3 * 1024 * 1024) {
     try {
       const res = await axios.put(
         `${serverPath}upload-files/${requestUrl}`,

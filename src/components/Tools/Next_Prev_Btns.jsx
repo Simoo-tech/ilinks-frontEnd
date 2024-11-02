@@ -8,7 +8,7 @@ export const Next_Prev_Btns = ({ prev, btn, displayName }) => {
   return (
     <div
       id="btns"
-      className="border-zinc-300 border-t-2 flex gap-5 py-4 justify-center col-span-full w-full "
+      className="border-zinc-300 border-t-2 flex gap-5 py-4 col-span-full w-full justify-between "
     >
       <button
         onClick={() => navigate(prev)}

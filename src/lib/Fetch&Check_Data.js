@@ -39,8 +39,3 @@ export async function FetchUserShow({ username, setUserShow, setLoading }) {
     console.log(error);
   }
 }
-
-export const JobSearchData = async () => {
-  const res = await axios.get(`${serverPath}user`);
-  return res.data;
-};

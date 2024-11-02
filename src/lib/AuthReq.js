@@ -4,45 +4,42 @@ const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // Register
 export const RegisterSubmit = async ({ setBtn, values, setError }) => {
-  try {
-    setBtn("Loading");
-    setError(null);
-    const res = await axios.post(
+  setBtn("Loading");
+  setError(null);
+  await axios
+    .post(
       `${serverPath}auth/register `,
       {
         ...values,
       },
       { timeout: 10000, timeoutErrorMessage: "request time out " }
-    );
-    if (res.data.success) {
+    )
+    .then((res) => {
       cookie.save("UD_1", res.data.Access_Token, {
         path: "/",
         maxAge: 3600000,
         secure: true,
       });
       window.location.replace(`/`);
-    } else {
-      console.log(res.response.data.message);
+    })
+    .catch((error) => {
+      setError(error.response.data.message);
       setBtn("NeedAction");
-    }
-  } catch (error) {
-    setBtn("NeedAction");
-    console.log(error);
-  }
+    });
 };
 
 // LoginSubmit
 export const LoginSubmit = async ({ values, setError, setBtn }) => {
-  try {
-    setBtn("Loading");
-    const res = await axios.post(
+  setBtn("Loading");
+  await axios
+    .post(
       `${serverPath}auth/login`,
       {
         ...values,
       },
       { timeout: 10000, timeoutErrorMessage: "request time out " }
-    );
-    if (res.data.success) {
+    )
+    .then((res) => {
       const data = res.data.user;
       setBtn("NeedAction");
       console.log(data.token);
@@ -63,15 +60,11 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       } else {
         window.location.replace(`/`);
       }
-    } else {
-      setError(res.response.data.message);
+    })
+    .catch((err) => {
+      setError(err.response.data.message);
       setBtn("NeedAction");
-    }
-  } catch (error) {
-    setError("Email or Password is not correct");
-    setBtn("NeedAction");
-    console.log(error);
-  }
+    });
 };
 
 // reset password

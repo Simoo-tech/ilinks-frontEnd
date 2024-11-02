@@ -20,7 +20,7 @@ export const ProfilePic = () => {
         <Avatar
           src={avatar}
           round
-          size={"110px"}
+          size={"160px"}
           alt="avatar"
           className="before:rounded-full before:absolute before:bg-black/70 before:top-0 
           before:left-0 before:w-full before:h-full group-hover:before:bg-black/50 before:z-10

@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { MdErrorOutline } from "react-icons/md";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
 import PreviewData from "./PreviewData";
-import Layout from "../../components/Layout";
+import Layout from "../../Layout";
 
 export default function SkillsSection() {
   const [userData, setUserData] = useAuth();
@@ -38,9 +38,9 @@ export default function SkillsSection() {
         <section
           className={`${
             animation ? "opacity-0" : "opacity-100"
-          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
+          }  h-full flex flex-col items-center pt-5 px-5 shadow-xl duration-300 ease-in-out justify-between
 sm:overflow-y-scroll 
-lg:overflow-hidden lg:justify-between`}
+lg:overflow-hidden `}
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
@@ -116,7 +116,7 @@ const Form = () => {
             path: "portfolio-data-page",
           });
       }}
-      className="flex flex-col w-full justify-between lg:max-h-full h-full "
+      className="flex flex-col w-full justify-between h-full lg:mt-5 mb-3 "
     >
       <div
         className="grid gap-4 justify-items-center px-3 my-6
@@ -207,7 +207,7 @@ const Form = () => {
           <div
             id="add-skill-btn"
             className={`w-8/12 h-fit flex-col justify-center items-center
-            ${IlinkData?.skills?.length >= 20 ? "hidden" : "flex"}`}
+            ${IlinkData?.skills?.length >= 12 ? "hidden" : "flex"}`}
           >
             <p className="mb-1 text-lg capitalize w-fit">add skill</p>
             <button

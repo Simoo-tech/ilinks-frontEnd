@@ -8,7 +8,7 @@ import { Logo } from "./Tools/Logo";
 import { useAuth } from "../context/AuthContext";
 import cookies from "react-cookies";
 
-export const Navbar = () => {
+export const Navbar = ({ setToast }) => {
   const userCookies = cookies.load("UD_1");
 
   return (
@@ -16,12 +16,12 @@ export const Navbar = () => {
       id="navbar"
       className="sticky top-0 h-16 z-20 flex items-center justify-center container max-w-full bg-primaryColor"
     >
-      <nav className=" flex flex-row justify-between items-center py-2  w-full">
+      <nav className=" flex flex-row justify-between items-center py-2 w-full">
         <Logo />
         {/* user menu */}
         <div className="sm:w-8/12 lg:w-6/12 flex flex-row gap-2 justify-end items-center">
           {userCookies ? (
-            <Menu />
+            <Menu setToast={setToast} />
           ) : (
             <div className=" text-right align-middle mr-2">
               <h4 className="text-white font-bold text-left uppercase">
@@ -55,19 +55,21 @@ export const Navbar = () => {
 
 const Menu = () => {
   const [userData] = useAuth();
-  const { avatar, username} = userData;
+  const { avatar, username, verifed } = userData;
+
   const Links = [
     {
-      url: `/userIlinks/${username}`,
+      url: verifed ? "/userIlinks/" + username : "/",
       name: "Profile",
       icon: <FaUserAlt size={14} />,
     },
     {
-      url: `/${username}/profile-data-page`,
-      name: "  Edit Data",
+      url: verifed ? "/" + username + "/profile-data-page" : "/",
+      name: "Edit Data",
       icon: <FaRegEdit size={15} />,
     },
   ];
+
   return (
     <div className="dropdown dropdown-end ">
       <div
@@ -81,7 +83,8 @@ const Menu = () => {
       </div>
       <ul
         tabIndex={10}
-        className="menu menu-sm dropdown-content mt-3 px-2 py-3 shadow rounded-box w-44 
+        id="menu"
+        className=" menu-sm dropdown-content mt-3 px-2 py-3 shadow rounded-box w-44 
         bg-zinc-600 text-white"
       >
         <h2 className="px-2 text-center border-b-[1px] pb-2 font-bold border-white">
@@ -98,9 +101,9 @@ const Menu = () => {
               </Link>
             </li>
           ))}
-          <li className="hover:bg-zinc-800 duration-300">
+          <li className="hover:bg-zinc-800 duration-300 ">
             <button
-              className="flex justify-between items-center "
+              className="flex justify-between items-center w-full"
               onClick={() => SignOut({ path: "/auth/sign-in" })}
             >
               Logout <BiLogOut size={15} />

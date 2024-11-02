@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 
 //  yup
 import * as Yup from "yup";
-import Layout from "../../components/Layout";
+import Layout from "../../Layout";
 import { ProfilePic } from "../../components/ProfilePic";
 // formik
 
@@ -18,11 +18,11 @@ export default function Profile() {
   const [btn, setBtn] = useState("NeedAction");
   const [animation, setAnimation] = useState(true);
   const navigate = useNavigate();
-  const { age, jobtitle, country, state, fname, lname, about } = userData;
+  const { age, jobtitle, country, status, fname, lname, about } = userData;
 
   useEffect(() => {
     setAnimation(false);
-    if (age && jobtitle && country && state && fname && lname) {
+    if (age && jobtitle && country && status && fname && lname) {
       setBtn("NeedAction");
     }
   }, []);
@@ -41,7 +41,7 @@ export default function Profile() {
     age: Yup.date(),
     jobtitle: Yup.string().required("job title field is required"),
     country: Yup.string(),
-    state: Yup.string(),
+    status: Yup.string().oneOf(["free", "part-time", "full-time"]),
   });
 
   return (
@@ -55,10 +55,7 @@ export default function Profile() {
           id="profile-data"
           className={`${
             animation ? "opacity-0" : "opacity-100"
-          }  h-full flex flex-col justify-between items-center pt-5 px-5 shadow-xl duration-300 ease-in-out 
-          sm:overflow-y-scroll sm:gap-5
-          lg:gap-0
-          xl:overflow-hidden`}
+          }  h-full flex flex-col justify-between items-center pt-5 px-5 shadow-xl duration-300 ease-in-out overflow-y-scroll`}
         >
           <div
             id="section-title"
@@ -71,13 +68,14 @@ export default function Profile() {
               some public information about you
             </h2>
           </div>
-          <div className="account-details w-full ">
+          <div className="account-details w-full flex flex-col justify-center mt-10 mb-3 gap-10 ">
+            <ProfilePic />
             <Formik
               initialValues={{
                 age: age ? new Date(age).toISOString().split("T")[0] : "",
                 jobtitle: jobtitle ? jobtitle : "",
                 country: country ? country : "",
-                state: state ? state : "",
+                status: status ? status : "",
                 fname: fname ? fname : "",
                 lname: lname ? lname : "",
                 about: about ? about : "",
@@ -107,9 +105,6 @@ export default function Profile() {
                   className="w-full justify-center grid grid-cols-1 
                   sm:grid-cols-1 lg:grid-cols-2 gap-4 items-center"
                 >
-                  <div className="sm:flex md:flex lg:hidden  justify-center">
-                    {<ProfilePic />}
-                  </div>
                   <div id="first-name" className="flex flex-col gap-2 relative">
                     <label htmlFor="firstname" className="capitalize ">
                       first name
@@ -196,20 +191,25 @@ export default function Profile() {
                       </span>
                     ) : null}
                   </div>
-                  <div id="state" className="flex flex-col gap-2 relative">
-                    <label htmlFor="state" className="capitalize ">
-                      state
+                  <div id="job_status" className="flex flex-col gap-2 relative">
+                    <label htmlFor="job_status" className="capitalize ">
+                      job status
                     </label>
                     <Field
+                      as="select"
                       type="text"
-                      name="state"
-                      className="border-2 outline-none p-2 shadow-md 
-                        rounded-lg sm:text-sm lg:text-base"
-                      value={values.state}
-                    />
-                    {errors.state && touched.state ? (
+                      name="status"
+                      className="border-2 outline-none p-2 shadow-md
+                        rounded-lg sm:text-sm lg:text-base capitalize"
+                      value={values.status}
+                    >
+                      <option value="free">free</option>
+                      <option value="part-time">part time</option>
+                      <option value="full-time">full time</option>
+                    </Field>
+                    {errors.status && touched.status ? (
                       <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.state}
+                        <MdError /> {errors.status}
                       </span>
                     ) : null}
                   </div>

@@ -1,8 +1,8 @@
-import React from "react";
-import { Navbar } from "./Navbar.jsx";
-import { Message } from "./Message.jsx";
+import React, { useState } from "react";
+import { Navbar } from "./components/Navbar.jsx";
+import { Message } from "./components/Message.jsx";
 import { Helmet } from "react-helmet-async";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "./context/AuthContext.jsx";
 
 export default function Layout({
   children,
@@ -13,6 +13,8 @@ export default function Layout({
 }) {
   // context values
   const [userData] = useAuth();
+  const [Toast, setToast] = useState(false);
+
   return (
     <>
       <Helmet>
@@ -26,13 +28,21 @@ export default function Layout({
         children
       ) : (
         <div id="Layout" className="relative">
-          {userData._id && (
+          {userData?._id && (
             <>
-              <Message />
+              <Message setToast={setToast} />
             </>
           )}
-          <Navbar />
+          <Navbar setToast={setToast} />
           {children}
+          {/* not verified alert */}
+          {Toast && (
+            <div className="toast toast-bottom toast-end">
+              <div className="alert alert-error text-white">
+                <span>Please verified your account </span>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>

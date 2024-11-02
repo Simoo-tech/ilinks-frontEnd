@@ -5,8 +5,10 @@ import { FaLock } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { saveSvgAsPng } from "save-svg-as-png";
+
+const websiteUrl = import.meta.env.VITE_SOME_WEBSITE_URL;
 
 export const ShareBtn = ({ setShareBtn, userShow }) => {
   const { email, IlinkData } = userShow;
@@ -47,11 +49,9 @@ export default function ShareContent({
   close,
   postion,
   opacity,
-  userShow,
 }) {
-  const url = `https://ilink.onrender.com/userIlinks/${
-    userShow && userShow?.username
-  }`;
+  const { username } = useParams();
+  const ilinkUserUrl = `${websiteUrl}userIlinks/${username}`;
 
   // copy to clipboard message
   const [copyBtn, setCopyBtn] = useState(false);
@@ -111,7 +111,7 @@ export default function ShareContent({
                 className="w-full text-sm truncate bg-inherit px-2 text-white
               outline-none"
                 readOnly
-                value={url}
+                value={ilinkUserUrl}
               />
             </div>
             <div className="copy-message flex items-center gap-1 justify-end w-full">
@@ -120,7 +120,7 @@ export default function ShareContent({
                   link copied to your clipboard
                 </span>
               )}
-              <CopyToClipboard text={url} onCopy={copyToClip}>
+              <CopyToClipboard text={ilinkUserUrl} onCopy={copyToClip}>
                 <button
                   className="flex self-end border-2 py-1 px-3 ml-2 border-slate-600 text-slate-600
           capitalize rounded-lg duration-150
@@ -146,7 +146,12 @@ export default function ShareContent({
               QR code app to view your Ilnk
             </p>
             <div className="qrcode p-3 bg-[#f1f1f1] w-fit flex justify-center items-center rounded-lg">
-              <QRCode value={url} size={150} title="QRcode" id="QRCode" />
+              <QRCode
+                value={ilinkUserUrl}
+                size={150}
+                title="QRcode"
+                id="QRCode"
+              />
             </div>
             <button
               onClick={DownloadQR}

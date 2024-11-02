@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import ShareContent from "./UserIlink/Share";
-import { useAuth } from "../context/AuthContext";
-import Layout from "../components/Layout";
+import Layout from "../Layout";
+
 export default function ShareIlink() {
   const [shareBtn, setShareBtn] = useState(true);
-  const [userData, setUserData] = useAuth();
+
   return (
     <Layout>
       <div className="section-h w-full flex justify-center items-center">
@@ -12,7 +12,6 @@ export default function ShareIlink() {
           shareBtn={shareBtn}
           setShareBtn={setShareBtn}
           close={false}
-          userData={userData}
           postion="relative"
         />
       </div>

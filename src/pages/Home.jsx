@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "../App.css";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import Layout from "../components/Layout";
+import Layout from "../Layout";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const [userData] = useAuth();
   const { verifed, _id } = userData;
   const navigate = useNavigate();
-  const [Toast, setToast] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ name: "" });
 
   return (
@@ -24,14 +23,6 @@ export default function Home() {
         sm:flex-col sm:gap-5 sm:justify-center 
         lg:flex-row lg:justify-center "
       >
-        {/* not verified alert */}
-        {Toast && (
-          <div className="toast toast-bottom toast-end">
-            <div className="alert alert-error text-white">
-              <span>Please verified your account </span>
-            </div>
-          </div>
-        )}
         {/* text & input */}
         <div
           id="left-containers"
