@@ -212,7 +212,6 @@ export default function JobFilter() {
 
   return (
     <Layout title={"ilinks | job search"}>
-      <></>
       <div
         id="job-filter"
         className="flex flex-col gap-4 container items-center max-w-full section-h py-5 w-full overflow-y-hidden"
@@ -237,98 +236,97 @@ export default function JobFilter() {
           <BiSearch className="absolute right-3 top-3" size={28} />
         </label>
         {/* users cards */}
-        {FilterdJobs.length >= 1 || isLoading ? (
+        {isLoading && (
+          <div className="flex w-full justify-between gap-5 col-span-full py-5 flex-wrap h-full">
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+            <div className="flex w-80 flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
+              <div className="skeleton h-32 w-full"></div>
+            </div>
+          </div>
+        )}
+        {FilterdJobs.length >= 1 && !isLoading ? (
           <ul
             id="filterd-jobs"
             className="bg-white text-primaryColor grid rounded-xl w-full p-5 gap-5 overflow-y-scroll
         sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            {isLoading ? (
-              <div className="flex w-full justify-between gap-5 col-span-full py-5 flex-wrap h-full">
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-                <div className="flex w-80 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                    <div className="flex flex-col gap-4">
-                      <div className="skeleton h-4 w-20"></div>
-                      <div className="skeleton h-4 w-28"></div>
-                    </div>
-                  </div>
-                  <div className="skeleton h-32 w-full"></div>
-                </div>
-              </div>
-            ) : (
-              FilterdJobs
-            )}
+            {FilterdJobs}
           </ul>
         ) : (
           <p

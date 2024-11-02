@@ -70,7 +70,7 @@ export default function App() {
       data-theme="light"
       className=" relative sm:overflow-y-scroll lg:overflow-y-hidden"
     >
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
           {/* not found page */}
