@@ -62,7 +62,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       }
     })
     .catch((err) => {
-      setError(err.response.data.message);
+      setError(err?.response?.data?.message);
       setBtn("NeedAction");
     });
 };
