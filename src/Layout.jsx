@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Navbar } from "./components/Navbar.jsx";
 import { Message } from "./components/Message.jsx";
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "./context/AuthContext.jsx";
-
+import Footer from "./components/Footer.jsx";
+import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 export default function Layout({
   children,
   keyword,
@@ -14,6 +15,8 @@ export default function Layout({
   // context values
   const [userData] = useAuth();
   const [Toast, setToast] = useState(false);
+  const route = useLocation().pathname.split("/", 2).join("/");
+  const disableNavFooterRoutes = ["/userIlinks"];
 
   return (
     <>
@@ -24,27 +27,31 @@ export default function Layout({
         <meta name="author" content={author} />
         <meta name="keywords" content={description} />
       </Helmet>
-      {children?.props?.id === "user-ilink" ? (
-        children
-      ) : (
-        <div id="Layout" className="relative">
-          {userData?._id && (
-            <>
-              <Message setToast={setToast} />
-            </>
-          )}
-          <Navbar setToast={setToast} />
-          {children}
-          {/* not verified alert */}
-          {Toast && (
-            <div className="toast toast-bottom toast-end">
-              <div className="alert alert-error text-white">
-                <span>Please verify your account </span>
-              </div>
+
+      <div
+        id="Layout"
+        className="relative flex flex-col justify-between items-center h-dvh"
+      >
+        {!disableNavFooterRoutes.includes(route) ? (
+          <>
+            {userData?._id && <Message setToast={setToast} />}
+            <Navbar setToast={setToast} />
+            {children}
+            <Footer />
+          </>
+        ) : (
+          children
+        )}
+
+        {/* not verified alert */}
+        {Toast && (
+          <div className="toast toast-bottom toast-end">
+            <div className="alert alert-error text-white">
+              <span>Please verify your account </span>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </>
   );
 }

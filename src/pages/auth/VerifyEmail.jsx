@@ -69,7 +69,7 @@ export default function VerifyEmail() {
   ) : (
     <section
       id="verify-email"
-      className="flex flex-col h-full items-center w-full container max-w-full py-3 gap-10"
+      className="flex flex-col h-full items-center w-full container max-w-full py-3 gap-10 bg-primaryColor"
     >
       <Logo align="self-start" />
       <div

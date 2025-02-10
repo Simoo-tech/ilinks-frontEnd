@@ -15,7 +15,7 @@ export const Logo = ({ align, textSize, imgSize }) => {
         src={LogoImg}
         loading="lazy"
         alt="logo"
-        width={imgSize ? imgSize : 110}
+        width={imgSize ? imgSize : 90}
       />
     </Link>
   );

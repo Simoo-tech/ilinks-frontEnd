@@ -121,7 +121,7 @@ const FormContainer = () => {
         {({ errors, touched, values }) => (
           <Form
             autoComplete="off"
-            className="items-center rounded-xl flex flex-col gap-10 h-full justify-between container max-w-full text-black pt-3  
+            className="items-center flex flex-col gap-10 h-full justify-between container max-w-full text-black pt-3 bg-primaryColor 
             sm:w-full 
             md:w-8/12 
             lg:w-9/12 "

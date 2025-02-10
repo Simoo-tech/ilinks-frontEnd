@@ -15,105 +15,96 @@ export default function Home() {
     <Layout
       title={"Ilinks"}
       description={"ilinks home page"}
-      keyword={["new", "aSQasd", "build portfolio page"]}
+      keyword={["build portfolio page"]}
     >
       <section
         id="landing"
-        className="container max-w-full flex items-center w-full flex-reverse sm:h-fit  
+        className="container max-w-full flex items-center w-full flex-reverse 
         sm:flex-col sm:gap-5 sm:justify-center 
-        lg:flex-row lg:justify-center "
+        lg:flex-row lg:justify-between "
       >
-        {/* text & input */}
         <div
-          id="left-containers"
-          className={` relative flex flex-col gap-5 duration-700 ease-linear section-h        
-            sm:w-full sm:items-center sm:text-center sm:justify-center sm:pt-10
-            lg:w-8/12 lg:items-center lg:justify-center lg:pt-0`}
+          className="flex flex-col gap-2 items-start 
+          lg:w-6/12"
         >
-          <div>
-            <h1
-              className="w-full text-white flex font-bold flex-col gap-2
-            sm:text-2xl text-center 
-            md:text-2xl
-            xl:text-5xl uppercase "
-            >
-              Start building your
-            </h1>
+          <h1
+            className="font-semibold
+            sm:text-2xl
+            xl:text-3xl uppercase "
+          >
+            Start building your
             <span
-              className="text-color3 w-full  uppercase font-extrabold
-              text-2xl xl:text-5xl"
+              className="text-color3 uppercase font-bold ml-1
+            sm:text-2xl lg:text-4xl"
             >
               Ilinks now!
             </span>
-          </div>
+          </h1>
           <p
-            className="text-gray-300 leading-7 text-center
-              sm:w-full sm:text-sm
-              md:text-lg
-              lg:w-10/12 xl:text-lg"
+            className="text-colorBlue2 leading-7 text-start
+              sm:text-sm
+              md:text-md
+              xl:text-lg"
           >
             Create your Ilinks now, which allows you to share all your links
             Facebook, Instagram, TikTok and share your portfolio, share your
             awesome work, we're helping you to find your best opportunity
           </p>
-          {/* home job search form  */}
-          <form
-            id="job-search-form"
-            className="grid gap-5 sm:grid-cols-1 md:grid-cols-12 w-full justify-between items-center text-white"
+        </div>
+        {/* home job search form  */}
+        <div
+          id="job-search-form"
+          className="gap-3 flex flex-col-reverse justify-between items-center text-color3
+          sm:w-full
+          lg:w-4/12"
+        >
+          {/* build btn */}
+          <button
+            type="button"
+            id="job-search-btn"
+            onClick={() => {
+              if (verifed && _id) {
+                navigate(`${userData.username}/profile-data-page`);
+              } else if (!verifed && _id) {
+                setToast(true);
+                setTimeout(() => setToast(false), 4000);
+              } else {
+                navigate("/auth/sign-in");
+              }
+            }}
+            className="font-medium py-2 px-4 rounded-xl capitalize w-full text-lg
+            ease-in-out duration-200 text-color3 border border-color3 hover:text-white hover:bg-color3 "
           >
-            {/* build btn */}
-            <button
-              type="button"
-              id="job-search-btn"
-              onClick={() => {
-                if (verifed && _id) {
-                  navigate(`${userData.username}/profile-data-page`);
-                } else if (!verifed && _id) {
-                  setToast(true);
-                  setTimeout(() => setToast(false), 4000);
-                } else {
-                  navigate("/auth/sign-in");
-                }
-              }}
-              className="font-bold py-2 px-4 rounded-xl capitalize sm:col-span-full md:col-span-4 text-lg
-            ease-in-out duration-200 text-color3 border-2 border-color3 hover:text-white hover:bg-color3 "
-            >
-              build your Ilink
-            </button>
-            {/* or text  */}
-            <p className="text-lg text-center sm:col-span-full md:col-span-1 ">
-              OR
-            </p>
-            {/* form */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
+            build your Ilink
+          </button>
+          {/* or text  */}
+          <p className="text-lg text-center sm:col-span-full md:col-span-1 ">
+            OR
+          </p>
+          {/* form */}
+          <form
+            id="input-search"
+            className="flex flex-col items-center justify-center gap-2 relative rounded-lg border-color3 border p-2 w-full "
+          >
+            <input
+              type="text"
+              name="name"
+              className="outline-none w-full text-colorBlue2 "
+              placeholder="Enter a job name"
+              onChange={(e) => {
                 setSearchParams({ name: e.target.value });
               }}
-              id="input-search"
-              className="flex flex-col items-center justify-center gap-2 relative rounded-lg  
-              sm:col-span-full md:col-span-7 "
+            />
+            <button
+              type="button"
+              onClick={() => {
+                navigate(`/jobs?name=${searchParams.get("name")}`);
+              }}
+              className="bg-color3/80 text-color2 h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
+                  hover:bg-color3 cursor-pointer"
             >
-              <input
-                type="text"
-                name="name"
-                className=" bg-zinc-400 w-full outline-none p-3 placeholder:text-white rounded-lg "
-                placeholder="Enter a job name "
-                onChange={(e) => {
-                  setSearchParams({ name: e.target.value });
-                }}
-              />
-              <button
-                type="submit"
-                onClick={() => {
-                  navigate(`/jobs?name=${searchParams.get("name")}`);
-                }}
-                className="bg-zinc-500  h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
-                  hover:bg-zinc-400 cursor-pointer"
-              >
-                <HiMagnifyingGlass />
-              </button>
-            </form>
+              <HiMagnifyingGlass />
+            </button>
           </form>
         </div>
       </section>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ShareContent, { ShareBtn } from "./Share";
-import { Logo } from "../../components/Tools/Logo";
 import {
   BsFacebook,
   BsInstagram,
@@ -11,7 +10,7 @@ import {
   BsTiktok,
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
-import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
+import { FaEdit, FaPlus } from "react-icons/fa";
 import cookie from "react-cookies";
 import { useAuth } from "../../context/AuthContext";
 import Layout from "../../Layout";
@@ -19,6 +18,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { UserIlinksSkeleton } from "../../components/Loading Skeletons/userIlinksSkeleton";
 import PageNotFound from "../../components/PageNotFound";
+import Footer from "../../components/Footer";
 
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
@@ -83,15 +83,11 @@ export default function UserIlinks() {
           className="w-full max-h-64"
         />
       </figure>
-      <div className="card-body capitalize text-md py-3 px-6 flex flex-row justify-between items-center ">
-        <div className="flex flex-col gap-4">
-          <p className="flex justify-between">title: {por.protitle}</p>
-          <p className="">description: {por.prodesc}</p>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className="">For ( Company ) : {por.cleintname}</p>
-          <p className="">project type : {por.protype}</p>
-        </div>
+      <div className="card-body capitalize text-md py-3 px-6 flex flex-col ">
+        <p className="flex justify-between">title: {por.protitle}</p>
+        <p className="">description: {por.prodesc}</p>
+        <p className="">For ( Company ) : {por.cleintname}</p>
+        <p className="">project type : {por.protype}</p>
       </div>
       {por.prourl && (
         <div className="justify-center my-4 w-full px-10  ">
@@ -344,20 +340,7 @@ export default function UserIlinks() {
           )}
         </div>
         {/* Copy right */}
-        <div
-          className={`py-3 px-5 w-full h-fit flex items-center justify-center bg-primaryColor text-white`}
-        >
-          <div id="logo" className="flex justify-center items-center flex-col">
-            <Logo
-              align="self-center"
-              textSize={"sm:text-lg lg:text-2xl"}
-              imgSize="90"
-            />
-            {!userCookies && username && (
-              <p className="uppercase font-medium text-xs">Ilinks Watermark</p>
-            )}
-          </div>
-        </div>
+        <Footer />
       </div>
     </Layout>
   );

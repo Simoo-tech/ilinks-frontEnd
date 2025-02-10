@@ -42,7 +42,6 @@ export default function JobFilter() {
         .includes(searchParams.get("name").toLowerCase())
     )
     .map((item, i) => {
-      console.log(item);
       return (
         <li
           key={i}
@@ -51,14 +50,14 @@ export default function JobFilter() {
         hover:bg-white hover:text-black hover:border-black col-span-1"
         >
           {/* text name and avatar */}
-          <div id="user-info" className="flex items-end gap-3">
+          <div id="user-info" className="flex items-center gap-3">
             <div className="relative">
               <span
                 class={`${item.status === "free" && "bg-green-500 -right-8"} ${
                   item.status === "part-time" && "bg-orange-500 -right-14"
                 } ${
                   item.status === "full-time" && "bg-red-500 -right-14"
-                }  -top-2 uppercase  px-3 py-1 text-xs rounded-2xl absolute w-fit truncate border-none`}
+                }  -top-3 uppercase  px-3 py-1 text-xs rounded-2xl absolute w-fit truncate border-none`}
               >
                 {item.status}
               </span>

@@ -70,10 +70,12 @@ export default function ShareContent({
     <section
       id="share-ilink-section"
       className={`w-full h-full z-30 top-0 left-0 justify-center items-center
-      ${postion ? postion : "fixed"}  ${shareBtn ? "flex" : "hidden"} 
-    before:bg-primaryColor ${
-      opacity && `before:opacity-90`
-    } before:absolute before:top-0 before:left-0 before:w-full before:h-full `}
+      ${postion ? postion : "fixed"}  ${
+        shareBtn ? "flex  before:bg-primaryColor" : "hidden "
+      } 
+   ${
+     opacity && `before:opacity-90`
+   } before:absolute before:top-0 before:left-0 before:w-full before:h-full `}
     >
       <div
         className="container max-w-full bg-white sm:w-11/12 h-fit lg:w-9/12 rounded-xl text-black grid

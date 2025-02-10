@@ -45,7 +45,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
       console.log(data.token);
       cookie.save("UD_1", res.data.Access_Token, {
         path: "/",
-        maxAge: 3600000,
+        maxAge: 21600,
         secure: true,
       });
       if (data.verified) {

@@ -2,13 +2,8 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import cookie from "react-cookies";
-import { useAuth } from "./context/AuthContext.jsx";
 import { Loading } from "./components/loading.jsx";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { SignOut } from "./lib/SignOutFunction.js";
 
-const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // lazy import pages
 const Home = lazy(() => import("./pages/Home.jsx"));
@@ -36,38 +31,9 @@ const PortfolioSection = lazy(() =>
 ////////
 
 export default function App() {
-  const User_Data_cookies = cookie.load("UD_1");
-
-  const [userData, setUserData] = useAuth();
-
-  if (User_Data_cookies) {
-    const { isLoading, error } = useQuery(
-      "fetchData",
-      () => {
-        return axios.get(`${serverPath}user/${User_Data_cookies}`);
-      },
-      {
-        refetchOnmount: false,
-        refetchOnReconnect: false,
-        retry: false,
-        refetchOnWindowFocus: false,
-        staleTime: 1000 * 60 * 60 * 24,
-        onSuccess: (res) => setUserData(res.data.user),
-      }
-    );
-
-    if (isLoading) {
-      return <Loading />;
-    }
-    if (error) {
-      SignOut({ path: "/auth/sign-in" });
-    }
-  }
-
   return (
     <main
       id="App"
-      data-theme="light"
       className=" relative sm:overflow-y-scroll lg:overflow-y-hidden"
     >
       <Suspense fallback={<Loading />}>

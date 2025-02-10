@@ -77,8 +77,8 @@ const Menu = () => {
         role="button"
         className="btn btn-ghost btn-circle avatar "
       >
-        <div className="w-10 rounded-full bg-white">
-          <img alt="Tailwind CSS Navbar component" src={avatar} />
+        <div className="w-11 rounded-full bg-white">
+          <img alt="avatar" src={avatar} />
         </div>
       </div>
       <ul
@@ -87,14 +87,11 @@ const Menu = () => {
         className=" menu-sm dropdown-content mt-3 px-2 py-3 shadow rounded-box w-44 
         bg-zinc-600 text-white"
       >
-        <h2 className="px-2 text-center border-b-[1px] pb-2 font-bold border-white">
-          Hello, {username}
-        </h2>
         <div className="flex flex-col gap-1">
           {Links.map((link, i) => (
             <li
               key={i}
-              className="border-b-[1px] border-white hover:bg-zinc-800 duration-300 py-1"
+              className="border-b-[1px] border-white hover:bg-zinc-800 duration-300 py-1 rounded-lg"
             >
               <Link className="flex justify-between items-center" to={link.url}>
                 {link.name} {link.icon}
@@ -103,6 +100,7 @@ const Menu = () => {
           ))}
           <li className="hover:bg-zinc-800 duration-300 ">
             <button
+              type="button"
               className="flex justify-between items-center w-full"
               onClick={() => SignOut({ path: "/auth/sign-in" })}
             >

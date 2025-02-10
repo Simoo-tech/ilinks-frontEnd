@@ -15,17 +15,15 @@ import cookies from "react-cookies";
 export default function Login() {
   return (
     <>
-      <Helmet>
-        <title>Ilinks | Login</title>
-        <meta name="description" content="Ilinks login page" />
-        <meta
-          name="keywords"
-          content="ilinks,create your portfolio, porfolio ,share your social media,facebook,twitter,instagram"
-        />
-      </Helmet>
+      <title>Ilinks | Login</title>
+      <meta name="description" content="Ilinks login page" />
+      <meta
+        name="keywords"
+        content="ilinks,create your portfolio, porfolio ,share your social media,facebook,twitter,instagram"
+      />
       <section
         id="login-page"
-        className="flex justify-between items-center w-full h-full 
+        className="flex justify-between items-center w-full h-full bg-primaryColor
         sm:flex-col 
         md:flex-row "
       >
