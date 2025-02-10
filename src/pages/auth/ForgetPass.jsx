@@ -23,7 +23,7 @@ export default function ForgetPass() {
       </Helmet>
       <section
         id="forget-password"
-        className="h-full flex w-full items-center justify-center bg-gradient-to-tl from-primaryColor to-color3 bg-primaryColor"
+        className="h-full flex w-full items-center justify-center bg-gradient-to-tl from-primaryColor to-color3 "
       >
         <div
           className="container max-w-full backdrop-blur-xl bg-primaryColor/80 sm:10/12 lg:w-4/12 h-5/6 flex justify-center py-5

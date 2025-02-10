@@ -34,7 +34,7 @@ export default function ResetPass() {
   });
 
   return token ? (
-    <section className="flex items-center w-full py-3 container h-full max-w-full flex-col gap-12">
+    <section className="flex items-center w-full py-3 container h-full max-w-full flex-col gap-12 bg-primaryColor">
       <Logo />
       <Formik
         initialValues={{
