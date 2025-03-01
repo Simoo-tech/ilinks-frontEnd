@@ -226,7 +226,7 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center gap-2 w-full h-full ">
-                    <p className="text-zinc-500 capitalize">max size 3 MB</p>
+                    <p className="text-zinc-500 capitalize">max size 20 MB</p>
                     <input
                       id="avatar-input"
                       type="file"
