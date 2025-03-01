@@ -3,7 +3,7 @@ import { CreateIlinkData } from "./UserIlinkDataReq";
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
 // send verification code
-export const SendCode = async ({ userData, setMessage, setBtn }) => {
+export const SendCode = async ({ userData, setBtn }) => {
   try {
     setBtn(true);
     const res = await axios.post(`${serverPath}send-verify-email`, {
@@ -12,7 +12,6 @@ export const SendCode = async ({ userData, setMessage, setBtn }) => {
     if (res.data.success) {
       setBtn(false);
       window.location.assign(`/auth/verify-email/${userData._id}`);
-      setMessage({ ...message, active: false });
     } else {
       console.log(res.response.data.message);
     }

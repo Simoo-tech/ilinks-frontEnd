@@ -136,7 +136,7 @@ const FormComp = () => {
               userData,
               setBtn,
               navigate,
-              path: "skills-data-page",
+              path: "/" + userData.username + "/skills-data-page",
             });
           }}
           className="flex flex-col w-full justify-between h-full lg:mt-5 mb-3"

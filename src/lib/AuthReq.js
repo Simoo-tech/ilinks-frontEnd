@@ -20,7 +20,7 @@ export const RegisterSubmit = async ({ setBtn, values, setError }) => {
         maxAge: 3600000,
         secure: true,
       });
-      window.location.replace(`/`);
+      window.location.replace(`/auth/send-verify`);
     })
     .catch((error) => {
       setError(error.response.data.message);
@@ -58,7 +58,7 @@ export const LoginSubmit = async ({ values, setError, setBtn }) => {
           window.location.replace(`/${data.username}/profile-data-page`);
         }
       } else {
-        window.location.replace(`/`);
+        window.location.replace(`/auth/send-verify`);
       }
     })
     .catch((err) => {

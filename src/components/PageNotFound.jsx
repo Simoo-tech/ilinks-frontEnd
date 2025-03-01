@@ -5,7 +5,7 @@ import { Logo } from "./Tools/Logo";
 
 export default function PageNotFound({ msg }) {
   return (
-    <div className="flex flex-col w-full section-h justify-center items-center py-5 gap-4 ">
+    <div className="bg-primaryColor flex flex-col w-full h-full justify-center items-center py-5 gap-4 ">
       <AiFillQuestionCircle
         className={`text-white sm:text-[100px] lg:text-[150px]`}
       />

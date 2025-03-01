@@ -42,15 +42,6 @@ export default function Layout({
         ) : (
           children
         )}
-
-        {/* not verified alert */}
-        {Toast && (
-          <div className="toast toast-bottom toast-end">
-            <div className="alert alert-error text-white">
-              <span>Please verify your account </span>
-            </div>
-          </div>
-        )}
       </div>
     </>
   );

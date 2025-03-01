@@ -15,7 +15,7 @@ export const Message = ({ setToast }) => {
       ? {
           active: true,
           title: "verify email",
-          body: "please verify your email to continue",
+          body: "please verify your email, to continue press verify email",
           unRead: true,
         }
       : {
@@ -70,9 +70,8 @@ export const Message = ({ setToast }) => {
             color="red"
             className="absolute top-2 right-2"
             onClick={() => {
-              setMessage({ ...message, active: false });
-              if (!verifed) {
-                setToast(true);
+              if (verifed) {
+                setMessage({ ...message, active: false });
               }
             }}
           />
@@ -89,7 +88,7 @@ export const Message = ({ setToast }) => {
                     Sending <LoadingBtn size={20} />
                   </span>
                 ) : (
-                  <span>Send</span>
+                  <span>Verify Email</span>
                 )}
               </button>
             </div>

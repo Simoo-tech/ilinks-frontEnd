@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import "../App.css";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Layout from "../Layout";
 import { useAuth } from "../context/AuthContext";
+import cookies from "react-cookies";
+
+const userCookies = cookies.load("UD_1");
 
 export default function Home() {
   const [userData] = useAuth();
-  const { verifed, _id } = userData;
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ name: "" });
+
+  if (userCookies) {
+    if (userData.verifed) {
+      return <Navigate to={`/userIlinks/${userData.username}`} />;
+    } else {
+      return <Navigate to={`/auth/send-verify`} />;
+    }
+  }
 
   return (
     <Layout
@@ -35,7 +45,7 @@ export default function Home() {
             Start building your
             <span
               className="text-color3 uppercase font-bold ml-1
-            sm:text-2xl lg:text-4xl"
+            sm:text-2xl lg:text-3xl"
             >
               Ilinks now!
             </span>
@@ -59,47 +69,38 @@ export default function Home() {
           lg:w-4/12"
         >
           {/* build btn */}
-          <button
-            type="button"
+          <Link
+            to={`/auth/sign-in`}
             id="job-search-btn"
-            onClick={() => {
-              if (verifed && _id) {
-                navigate(`${userData.username}/profile-data-page`);
-              } else if (!verifed && _id) {
-                setToast(true);
-                setTimeout(() => setToast(false), 4000);
-              } else {
-                navigate("/auth/sign-in");
-              }
-            }}
-            className="font-medium py-2 px-4 rounded-xl capitalize w-full text-lg
+            className="font-medium py-2 px-4 rounded-xl capitalize w-full text-lg text-center
             ease-in-out duration-200 text-color3 border border-color3 hover:text-white hover:bg-color3 "
           >
             build your Ilink
-          </button>
+          </Link>
           {/* or text  */}
           <p className="text-lg text-center sm:col-span-full md:col-span-1 ">
             OR
           </p>
           {/* form */}
           <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/jobs?name=${searchParams.get("name")}`);
+            }}
             id="input-search"
             className="flex flex-col items-center justify-center gap-2 relative rounded-lg border-color3 border p-2 w-full "
           >
             <input
               type="text"
               name="name"
-              className="outline-none w-full text-colorBlue2 "
+              className="outline-none w-full text-colorBlue2 bg-transparent "
               placeholder="Enter a job name"
               onChange={(e) => {
                 setSearchParams({ name: e.target.value });
               }}
             />
             <button
-              type="button"
-              onClick={() => {
-                navigate(`/jobs?name=${searchParams.get("name")}`);
-              }}
+              type="submit"
               className="bg-color3/80 text-color2 h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
                   hover:bg-color3 cursor-pointer"
             >

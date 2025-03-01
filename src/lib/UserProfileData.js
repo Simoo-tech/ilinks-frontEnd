@@ -26,7 +26,7 @@ export const UpdateProfileSubmit = async ({
     setTimeout(() => {
       navigate(`/${userData.username}/socialLinks-data-page`);
       setAnimation(true);
-    }, 1000);
+    }, 500);
   } catch (error) {
     setBtn("NeedAction");
     console.log(error);

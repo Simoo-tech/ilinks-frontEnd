@@ -14,7 +14,6 @@ import { FaTwitter } from "react-icons/fa";
 import { LuFileX } from "react-icons/lu";
 import { BiSearch } from "react-icons/bi";
 import { useQuery } from "react-query";
-import { Loading } from "../components/loading";
 import axios from "axios";
 
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
@@ -22,7 +21,7 @@ const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 export default function JobFilter() {
   const [jobs, setJobs] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({ name: "" });
-  const { isLoading } = useQuery(
+  const { isLoading, isRefetching } = useQuery(
     "searchJob",
     () => {
       return axios.get(`${serverPath}user`);
@@ -235,7 +234,7 @@ export default function JobFilter() {
           <BiSearch className="absolute right-3 top-3" size={28} />
         </label>
         {/* users cards */}
-        {isLoading ? (
+        {isLoading || isRefetching ? (
           <div className="flex w-full justify-between gap-5 col-span-full p-5 flex-wrap h-full bg-white">
             <div className="flex w-80 flex-col gap-4">
               <div className="flex items-center gap-4">

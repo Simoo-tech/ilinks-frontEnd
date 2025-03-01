@@ -51,7 +51,7 @@ export default function PortfolioSection() {
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-              portfolio
+              projects
             </h1>
             <h2 className="text-base capitalize font-light">
               Showcasing some of my best work
@@ -174,7 +174,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
         userData,
         setBtn,
         navigate,
-        path: "ilink-share",
+        path: "/userIlinks/" + userData.username,
       });
     }
   };

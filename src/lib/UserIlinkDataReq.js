@@ -50,8 +50,8 @@ export const UpdateIlinkData = async ({ userData, setBtn, navigate, path }) => {
     if (res.data.success) {
       setBtn("Done");
       setTimeout(() => {
-        navigate(`/${userData.username}/${path}`);
-      }, 1000);
+        navigate(path);
+      }, 500);
     } else {
       console.log(res);
       setBtn("NeedAction");

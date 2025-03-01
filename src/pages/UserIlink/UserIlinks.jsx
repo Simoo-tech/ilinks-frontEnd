@@ -32,7 +32,7 @@ export default function UserIlinks() {
   const [shareBtn, setShareBtn] = useState(false);
 
   // fetch data
-  const { isLoading, error } = useQuery(
+  const { isLoading, error, isRefetching } = useQuery(
     "fetchUserIlink",
     () => {
       return axios.get(`${serverPath}userIlink/${username}`);
@@ -41,6 +41,7 @@ export default function UserIlinks() {
       retry: false,
       onSuccess: (res) => setUserShow(res.data.userIlink),
       onError: (error) => setErrorMsg(error.response.data.message),
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -100,7 +101,7 @@ export default function UserIlinks() {
   ));
 
   // skeleton loading
-  if (isLoading) {
+  if (isLoading || isRefetching) {
     return <UserIlinksSkeleton />;
   }
   // skeleton loading
@@ -108,11 +109,13 @@ export default function UserIlinks() {
     return <PageNotFound msg={errorMsg} />;
   }
 
+  const sameUser = userData.username === username;
+
   return (
     <Layout title={username && `Ilinks | @${username}`}>
       <div
         id="user-ilink"
-        className={`relative bg-white text-black flex flex-col items-center justify-between overflow-y-scroll 
+        className={`relative text-black flex flex-col items-center justify-between overflow-y-scroll 
       gap-2 w-full h-full`}
       >
         {/* share content and bottom */}
@@ -271,7 +274,7 @@ export default function UserIlinks() {
                     </Link>
                   </li>
                 )}
-              {userCookies && (
+              {sameUser && (
                 <li
                   className="border-2 rounded-xl p-2 cursor-pointer border-black hover:scale-125 duration-200"
                   title="add more social links"
@@ -294,8 +297,8 @@ export default function UserIlinks() {
                 className="w-full border-b-2 pb-2 border-black flex justify-between items-center
             uppercase font-semibold col-span-full sm:text-lg  md:text-xl lg:text-2xl"
               >
-                My Skills
-                {userCookies && (
+                Skills
+                {sameUser && (
                   <Link
                     title="add more skills"
                     to={`/${username}/skills-data-page`}
@@ -310,7 +313,7 @@ export default function UserIlinks() {
               {Skills}
             </div>
           )}
-          {/* user portfolio */}
+          {/* user projects */}
           {IlinkData?.portfolio && (
             <div
               id="portfolio"
@@ -322,8 +325,8 @@ export default function UserIlinks() {
                   uppercase font-semibold col-span-full  
                   sm:text-lg md:text-xl lg:text-2xl"
               >
-                portfolio
-                {userCookies && (
+                projects
+                {sameUser && (
                   <Link
                     title="add more projects"
                     to={`/${username}/portfolio-data-page`}

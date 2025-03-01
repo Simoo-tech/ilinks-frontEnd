@@ -5,8 +5,8 @@ import { FaLink } from "react-icons/fa";
 export const Loading = () => {
   return (
     <div className="bg-primaryColor w-full h-screen flex justify-center items-center flex-col gap-10">
-      <span className="flex text-4xl text-white uppercase font-bold items-center">
-        <FaLink className="rotate-[-45deg] text-mainColor1 " size={"28px"} />
+      <span className="flex sm:text-3xl lg:text-5xl text-white uppercase font-bold items-center">
+        <FaLink className="rotate-[-45deg] text-mainColor1 " />
         Links
       </span>
       <ThreeCircles

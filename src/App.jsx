@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import cookie from "react-cookies";
 import { Loading } from "./components/loading.jsx";
-
+import SendVerify from "./pages/auth/SendVerify.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 
 // lazy import pages
 const Home = lazy(() => import("./pages/Home.jsx"));
@@ -21,7 +22,6 @@ const Profile = lazy(() =>
 const SocialLinks = lazy(() =>
   import("./pages/Ilink Data form/socialLinksSection.jsx")
 );
-const ShareIlink = lazy(() => import("./pages/ShareIlink.jsx"));
 const SkillsSection = lazy(() =>
   import("./pages/Ilink Data form/SkillsSection.jsx")
 );
@@ -39,9 +39,11 @@ export default function App() {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/loading" element={<Loading />} />
           {/* not found page */}
           <Route path="*" element={<PageNotFound />} />
           <Route path={"/jobs"} element={<JobFilter />} />
+          <Route path={"/about-us"} element={<AboutUs />} />
           {/* user Ilink form and phone preview */}
           <Route path={`:id/profile-data-page`} element={<Profile />} />
           <Route path={`:id/socialLinks-data-page`} element={<SocialLinks />} />
@@ -50,7 +52,6 @@ export default function App() {
             path={`:id/portfolio-data-page`}
             element={<PortfolioSection />}
           />
-          <Route path={`:username/ilink-share`} element={<ShareIlink />} />
           {/* auth pages */}
           <Route path="auth/sign-in" element={<Login />} />
           <Route path="auth/sign-up" element={<Register />} />
@@ -59,6 +60,7 @@ export default function App() {
             path={`auth/reset-password/${cookie.load("reset_token")}`}
             element={<ResetPass />}
           />
+          <Route path={`auth/send-verify`} element={<SendVerify />} />
           <Route path={`auth/verify-email/:id`} element={<VerifyEmail />} />
           {/* user ilinks */}
           <Route path="userIlinks/:username" element={<UserIlinks />} />

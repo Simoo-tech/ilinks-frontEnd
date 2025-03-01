@@ -113,7 +113,7 @@ const Form = () => {
             userData,
             setBtn,
             navigate,
-            path: "portfolio-data-page",
+            path: "/" + userData.username + "/portfolio-data-page",
           });
       }}
       className="flex flex-col w-full justify-between h-full lg:mt-5 mb-3 "
@@ -196,7 +196,7 @@ const Form = () => {
               type="button"
               className={`${
                 IlinkData?.skills?.length <= 1 ? "hidden" : "block"
-              } rounded-md p-1 bg-red-500 z-20 absolute top-2 right-2 `}
+              } rounded-md p-1 bg-red-500 z-10 absolute top-2 right-2 `}
             >
               <FaTrash size={14} color="white" />
             </button>

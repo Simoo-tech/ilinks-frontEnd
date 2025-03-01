@@ -7,7 +7,7 @@ export const Logo = ({ align, textSize, imgSize }) => {
       to="/"
       className={`sm:text-lg ${
         textSize ? textSize : "lg:text-2xl"
-      } uppercase font-bold cursor-pointer flex items-center text-white ${
+      } uppercase font-bold cursor-pointer flex items-center text-white  ${
         align ? align : "self-center"
       }`}
     >
