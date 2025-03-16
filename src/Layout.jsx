@@ -3,7 +3,6 @@ import { Navbar } from "./components/Navbar.jsx";
 import { Message } from "./components/Message.jsx";
 import { useAuth } from "./context/AuthContext.jsx";
 import Footer from "./components/Footer.jsx";
-import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 export default function Layout({
   children,
@@ -11,12 +10,11 @@ export default function Layout({
   title,
   description,
   author,
+  navbar,
 }) {
   // context values
   const [userData] = useAuth();
   const [Toast, setToast] = useState(false);
-  const route = useLocation().pathname.split("/", 2).join("/");
-  const disableNavFooterRoutes = ["/userIlinks"];
 
   return (
     <>
@@ -32,16 +30,12 @@ export default function Layout({
         id="Layout"
         className="relative flex flex-col justify-between items-center h-dvh"
       >
-        {!disableNavFooterRoutes.includes(route) ? (
-          <>
-            {userData?._id && <Message setToast={setToast} />}
-            <Navbar setToast={setToast} />
-            {children}
-            <Footer />
-          </>
-        ) : (
-          children
-        )}
+        <>
+          {userData?._id && <Message setToast={setToast} />}
+          {!navbar && <Navbar setToast={setToast} />}
+          {children}
+          <Footer />
+        </>
       </div>
     </>
   );

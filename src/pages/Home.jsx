@@ -42,13 +42,14 @@ export default function Home() {
             sm:text-2xl
             xl:text-3xl uppercase "
           >
-            Start building your
+            ابدأ في بناء
             <span
-              className="text-color3 uppercase font-bold ml-1
+              className="text-color3 uppercase font-bold mx-1
             sm:text-2xl lg:text-3xl"
             >
-              Ilinks now!
+              Ilinks
             </span>
+            الخاص بك
           </h1>
           <p
             className="text-colorBlue2 leading-7 text-start
@@ -56,9 +57,9 @@ export default function Home() {
               md:text-md
               xl:text-lg"
           >
-            Create your Ilinks now, which allows you to share all your links
-            Facebook, Instagram, TikTok and share your portfolio, share your
-            awesome work, we're helping you to find your best opportunity
+            أنشئ Ilinks الآن، مما يتيح لك مشاركة جميع روابطك على فيسبوك،
+            إنستغرام، تيك توك، ومشاركة ملفك الشخصي وأعمالك الرائعة. نحن نساعدك
+            في العثور على أفضل الفرص.
           </p>
         </div>
         {/* home job search form  */}
@@ -75,11 +76,11 @@ export default function Home() {
             className="font-medium py-2 px-4 rounded-xl capitalize w-full text-lg text-center
             ease-in-out duration-200 text-color3 border border-color3 hover:text-white hover:bg-color3 "
           >
-            build your Ilink
+            ابدأ الآن
           </Link>
           {/* or text  */}
           <p className="text-lg text-center sm:col-span-full md:col-span-1 ">
-            OR
+            أو
           </p>
           {/* form */}
           <form
@@ -94,14 +95,14 @@ export default function Home() {
               type="text"
               name="name"
               className="outline-none w-full text-colorBlue2 bg-transparent "
-              placeholder="Enter a job name"
+              placeholder="أدخل اسم الوظيفة"
               onChange={(e) => {
                 setSearchParams({ name: e.target.value });
               }}
             />
             <button
               type="submit"
-              className="bg-color3/80 text-color2 h-full rounded-r-lg w-[50px] px-3 right-0 absolute duration-200
+              className="bg-color3/80 text-color2 h-full rounded-l-lg w-[50px] px-3 left-0 absolute duration-200
                   hover:bg-color3 cursor-pointer"
             >
               <HiMagnifyingGlass />

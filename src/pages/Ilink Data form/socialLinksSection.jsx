@@ -36,10 +36,10 @@ export default function SocialLinks() {
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-              Social Links
+              روابط التواصل الاجتماعي
             </h1>
             <h2 className="text-base capitalize font-light">
-              Add some social media links
+              أضف بعض روابط وسائل التواصل الاجتماعي
             </h2>
           </div>
           <FormComp />

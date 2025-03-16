@@ -52,6 +52,6 @@ export const VerifyCodeSubmit = async ({
       console.log(error);
     }
   } else {
-    setError({ active: true, text: "Incorrect code please try again" });
+    setError({ active: true, text: "الرمز الذي ادخلته غير صحيح اعد المحاولة" });
   }
 };

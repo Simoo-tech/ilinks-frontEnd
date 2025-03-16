@@ -87,22 +87,23 @@ export default function VerifyEmail() {
           />
           <div className="sm:text-xl lg:text-4xl font-bold capitalize flex items-center gap-1">
             <MdMarkEmailUnread />
-            <p>One Last Step!</p>
+            <p>خطوة أخيرة!</p>
           </div>
           <span className="md:text-2xl sm:text-lg sm:text-center">
-            We need to verify your email
+            نحتاج إلى التحقق من بريدك الإلكتروني
           </span>
           <span className="sm:text-lg sm:text-center md:text-xl text-center">
-            Your email addresse is
+            عنوان بريدك الإلكتروني هو:
             <span className="underline ml-1">{email}</span>
           </span>
           <p className="sm:text-base sm:text-center lg:text-lg text-gray-500">
-            We sent to your email 6-digit Please enter them to complete verify
-            your email
+            لقد أرسلنا إلى بريدك الإلكتروني رمز تحقق مكونًا من 6 أرقام، يرجى
+            إدخالها لإكمال عملية التحقق من بريدك الإلكتروني.
           </p>
         </div>
         <form
           className="flex flex-col gap-8 items-center"
+          dir="ltr"
           onSubmit={(e) => {
             e.preventDefault();
             VerifyCodeSubmit({
@@ -121,8 +122,8 @@ export default function VerifyEmail() {
             btn={btn}
             btnStyle="bg-primaryColor sm:text-sm md:text-lg py-2 w-5/12 
             font-medium rounded-lg text-white capitalize"
-            ActionText="verify email"
-            DoneText="email verified"
+            ActionText="نحقق"
+            DoneText="تم التحقق"
           />
         </form>
       </div>

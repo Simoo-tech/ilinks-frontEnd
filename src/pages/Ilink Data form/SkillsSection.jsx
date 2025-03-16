@@ -44,11 +44,9 @@ lg:overflow-hidden `}
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-              skills
+              المهارات
             </h1>
-            <h2 className="text-base capitalize font-light">
-              add some of your skills
-            </h2>
+            <h2 className="text-base capitalize font-light">أضف بعض مهاراتك</h2>
           </div>
           <Form />
         </section>
@@ -138,7 +136,7 @@ const Form = () => {
                 htmlFor="skillname"
                 className="mb-1 sm:text-sm lg:text-base capitalize"
               >
-                skill name
+                اسم المهارة
               </label>
               <input
                 required
@@ -147,7 +145,7 @@ const Form = () => {
                 }}
                 value={`${skill.skillname}`}
                 type="text"
-                placeholder="name"
+                placeholder="الاسم"
                 name="skillname"
                 className="border-2 outline-none p-2 shadow-md w-full
                 rounded-lg sm:text-sm lg:text-base"
@@ -156,7 +154,7 @@ const Form = () => {
             <div className="flex flex-col gap-2 ">
               {percErr === i || percErr?.includes(i) ? (
                 <span className="text-red-500 w-full flex self-center items-center gap-1 text-sm">
-                  <MdErrorOutline /> Invalid max 100%
+                  <MdErrorOutline /> اقصي نسبة %100
                 </span>
               ) : null}
               <div className="form-group-skill-percentage flex items-center gap-2">
@@ -164,7 +162,7 @@ const Form = () => {
                   required
                   type="number"
                   name="skillperc"
-                  placeholder="percent"
+                  placeholder="النسبة"
                   onChange={(e) => {
                     handleChange(e, i);
                     if (e.target.value > 100) {
@@ -196,7 +194,7 @@ const Form = () => {
               type="button"
               className={`${
                 IlinkData?.skills?.length <= 1 ? "hidden" : "block"
-              } rounded-md p-1 bg-red-500 z-10 absolute top-2 right-2 `}
+              } rounded-md p-1 bg-red-500 z-10 absolute top-2 left-2 `}
             >
               <FaTrash size={14} color="white" />
             </button>
@@ -209,7 +207,7 @@ const Form = () => {
             className={`w-8/12 h-fit flex-col justify-center items-center
             ${IlinkData?.skills?.length >= 12 ? "hidden" : "flex"}`}
           >
-            <p className="mb-1 text-lg capitalize w-fit">add skill</p>
+            <p className="mb-1 text-lg capitalize w-fit">اضف مهارة</p>
             <button
               onClick={AddSkill}
               type="button"

@@ -40,18 +40,18 @@ export default function Login() {
           md:text-3xl 
           lg:text-4xl"
           >
-            New Here?
+            جديد هنا؟
           </h3>
           <p className="sm:text-sm md:text-lg text-center font-light">
-            Sign up and get your ilink that will give you a oppertunity to get a
-            job
+            قم بالتسجيل واحصل على رابطك الشخصي (iLink) الذي سيمنحك فرصة للحصول
+            على وظيفة.
           </p>
           <Link
             to="/auth/sign-up"
             className=" capitalize bg-primaryColor py-2 px-6 duration-200 ease-in-out hover:bg-transparent rounded-2xl 
             sm:text-sm md:text-lg"
           >
-            Sign up
+            التسجيل
           </Link>
         </aside>
       </section>
@@ -70,18 +70,18 @@ const FormContainer = () => {
   // inputs validation
   const InputValidation = Yup.object().shape({
     email: Yup.string()
-      .required("Email field is required")
+      .required("البريد الالكتروني مطلوب")
       .matches(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Email not valid"
+        "ادخل بريد الالكتروني صحيح"
       ),
     password: Yup.string()
-      .required("Password field is required")
+      .required("كلمة المرور مطلوبة")
       .min(8)
       .max(16)
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d[\]{};:=<>_+^#$@!%*?&]{8,30}$/,
-        "password must be 1 captial letter 1 small and at least 8 char"
+        "كلمة المرور يجب ان تحتوي علي حروف كبيرة وصغيرة وارقام ولا تقل عن 8 احرف"
       ),
   });
 
@@ -110,7 +110,7 @@ const FormContainer = () => {
           <Logo align="self-start" />
           <div className="flex flex-col gap-16 items-center w-full h-full justify-center">
             <h3 className="text-center sm:text-3xl md:text-4xl lg:text-5xl pt-3 font-semibold w-fit text-white">
-              Login to Your Account
+              تسجيل الدخول إلى حسابك
             </h3>
             <div
               id="inputs-container"
@@ -132,7 +132,7 @@ const FormContainer = () => {
                     value={values.email}
                     autoFocus
                     name="email"
-                    placeholder=" Email"
+                    placeholder=" البريد الالكتروني"
                     className="outline-none p-1 w-full"
                   />
                 </div>
@@ -154,7 +154,7 @@ const FormContainer = () => {
                     value={values.password}
                     type={showPass ? "text" : "password"}
                     name="password"
-                    placeholder=" password"
+                    placeholder="كلمة المرور"
                     className="outline-none p-1 w-full "
                   />
                   {showPass ? (
@@ -179,13 +179,13 @@ const FormContainer = () => {
                 to={"/auth/forgetpassword"}
                 className="text-gray-400 text-start self-start sm:text-sm lg:text-base"
               >
-                Forgot your password?
+                نسيت كلمة المرور؟
               </Link>
               <BtnsActions
                 btn={btn}
                 btnStyle="border-2 justify-center flex items-center border-color3 py-2 px-6
                 duration-300 ease-in-out hover:bg-color3 hover:text-white group rounded-2xl mt-5 text-color3 text-lg gap-2"
-                ActionText="Sign In"
+                ActionText="تسجيل الدخول"
               />
             </div>
           </div>

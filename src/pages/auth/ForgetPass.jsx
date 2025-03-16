@@ -47,11 +47,11 @@ export default function ForgetPass() {
               <div id="text" className="flex flex-col gap-2 items-center ">
                 <MdErrorOutline size={100} className="text-color3" />
                 <p className="text-white capitalize text-2xl">
-                  forgot password
+                  نسيت كلمة المرور
                 </p>
                 <p className="text-gray-400 sm:text-sm lg:text-base text-center">
-                  Enter your email and we'll send you a link to reset your
-                  password
+                  أدخل بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة
+                  المرور الخاصة بك.
                 </p>
               </div>
               <div id="input" className="w-full flex flex-col gap-2">
@@ -87,31 +87,32 @@ export default function ForgetPass() {
                 <BtnsActions
                   btn={btn}
                   btnStyle=" text-color3 bg-white py-2 px-6 rounded-lg text-lg capitalize w-full "
-                  ActionText="reset password"
+                  ActionText="إعادة تعيين كلمة المرور"
                   DoneText="link sent"
                 />
 
                 <Link to={-1} className="flex items-center gap-1 text-white">
+                  <span>العودة إلى تسجيل الدخول</span>
                   <IoIosArrowBack />
-                  <span>Back to login</span>
                 </Link>
               </div>
             </form>
           ) : (
             <div className="flex justify-center gap-10 items-center h-full py-9 flex-col w-full text-white ">
-              <p className="sm:text-xl lg:text-4xl font-bold capitalize flex items-center justify-center gap-2">
+              <p className="sm:text-xl lg:text-3xl font-bold capitalize flex items-center justify-center gap-2">
+                تحقق من بريدك الإلكتروني
                 <MdMarkEmailUnread />
-                check your email!
               </p>
               <p className="text-white sm:text-lg lg:text-xl text-center">
-                We send to your email a link to reset your password
+                لقد أرسلنا إلى بريدك الإلكتروني رابطًا لإعادة تعيين كلمة المرور
+                الخاصة بك.
               </p>
               <Link
                 to={-1}
                 className="flex items-center sm:text-base lg:text-lg gap-1"
               >
                 <IoIosArrowBack />
-                Back to login page
+                العودة إلى صفحة تسجيل الدخول
               </Link>
             </div>
           )}

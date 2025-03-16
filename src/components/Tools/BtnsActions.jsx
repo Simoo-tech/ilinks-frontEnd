@@ -21,11 +21,11 @@ export const BtnsActions = ({
             btn === "NoAction" && "opacity-60 cursor-not-allowed"
           } `}
         >
-          {ActionText}
-          {ActionText === "next" && <BsArrowBarRight />}
-          {ActionText === "Sign In" || ActionText === "Sign Up" ? (
+          {ActionText === "حفظ" && <BsArrowBarRight />}
+          {ActionText === "تسجيل الدخول" || ActionText === "تسجيل" ? (
             <BsArrowBarRight />
           ) : null}
+          {ActionText}
         </button>
       ) : null}
       {btn === "Loading" ? (
@@ -33,7 +33,7 @@ export const BtnsActions = ({
           disabled={true}
           className={`cursor-progress ${btnStyle} flex items-center justify-center gap-2 `}
         >
-          Loading
+          جاري الحفظ
           <span className="loading loading-spinner loading-sm" />
         </span>
       ) : null}
@@ -42,7 +42,7 @@ export const BtnsActions = ({
           disabled={true}
           className={`flex items-center justify-center ${btnStyle} gap-3 cursor-pointer `}
         >
-          Data saved
+          تم الحفظ
           <FaCheck color="green" />
         </button>
       ) : null}

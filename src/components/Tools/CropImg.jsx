@@ -120,8 +120,9 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
           // after uploading
           uploading === 100 ? (
             <div className="w-full justify-center flex items-center gap-5 text-black flex-col ">
-              <p className="text-2xl flex items-center gap-4">
-                loading please wait <span className="loading loading-spinner" />
+              <p className="text-xl flex items-center gap-4">
+                جاري التحميل برجاء الانتظار{" "}
+                <span className="loading loading-spinner" />
               </p>
             </div>
           ) : (
@@ -135,7 +136,8 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
                 <p className="absolute -right-10 -top-1">{uploading}%</p>
               </div>
               <p className="text-lg capitalize flex items-center gap-3">
-                Uploading please wait <span className="loading- loading" />
+                جاري التحميل برجاء الانتظار
+                <span className="loading- loading" />
               </p>
             </div>
           )
@@ -177,7 +179,7 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
                       id="scale-btns"
                       className="flex-row w-fit mt-5 text-black flex gap-5 items-center "
                     >
-                      <p>Zoom: {parseInt(zoom * 100)}%</p>
+                      <p>تكبير: {parseInt(zoom * 100)}%</p>
                       <button
                         type="button"
                         className="text-4xl border-2 border-black px-2 rounded-xl  py-1 "
@@ -202,14 +204,14 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
                 className="flex gap-5 w-full h-full items-center justify-center"
               >
                 {imgSrc ? (
-                  <div className="flex gap-5 items-center">
+                  <div className="flex gap-8 items-center">
                     <button
                       type="button"
                       onClick={UploadImg}
                       id="upload-img"
-                      className="capitalize py-2 px-6 bg-green-500 text-white sm:px-3 md:text-md"
+                      className="capitalize py-2 px-10 rounded-md bg-green-500 text-white sm:px-3 md:text-md"
                     >
-                      upload avatar
+                      رفع الصورة
                     </button>
                     <button
                       type="button"
@@ -219,26 +221,33 @@ function CropImg({ setUploadArea, uploadArea, requestUrl, type }) {
                         setImgSrc();
                         setZoom(1);
                       }}
-                      className="capitalize py-2 px-6 bg-primaryColor text-white sm:px-3 md:text-md"
+                      className="capitalize py-2 px-10 rounded-md bg-primaryColor text-white sm:px-3 md:text-md"
                     >
-                      change avatar
+                      تغيير الصورة
                     </button>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center gap-2 w-full h-full ">
-                    <p className="text-zinc-500 capitalize">max size 20 MB</p>
-                    <input
-                      id="avatar-input"
-                      type="file"
-                      accept=".png,.jpeg,.jpg"
-                      onChange={(e) => {
-                        if (e.target.files[0]) {
-                          HandleChangePhoto(e.target.files[0]);
-                        }
-                      }}
-                      className="file:text-white file:bg-blue-500 file:border-none file:px-3 file:py-2 file:mr-3
-                        text-black border-[2px] border-blue-500 selection:text-orange-600 rounded-xl "
-                    />
+                  <div className="flex flex-col items-center justify-center gap-4 w-full h-full ">
+                    <label
+                      htmlFor="fileInput"
+                      className="px-10 py-2 text-lg bg-primaryColor text-white rounded-md cursor-pointer"
+                    >
+                      تصفح الصور
+                      <input
+                        id="fileInput"
+                        type="file"
+                        accept=".png,.jpeg,.jpg"
+                        onChange={(e) => {
+                          if (e.target.files[0]) {
+                            HandleChangePhoto(e.target.files[0]);
+                          }
+                        }}
+                        style={{ display: "none" }}
+                      />
+                    </label>
+                    <p className="text-zinc-500 capitalize">
+                      الحد الاقصي 200MB
+                    </p>
                   </div>
                 )}
               </div>

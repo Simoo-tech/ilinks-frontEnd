@@ -46,11 +46,11 @@ export const Message = ({ setToast }) => {
               setMessage({ ...message, active: true });
             }}
             id="left"
-            className="absolute flex justify-between items-center py-1 px-2 bg-color3 -rotate-90 w-[170px] 
-            h-fit top-[82px] -left-[100px] rounded-t-xl"
+            className="absolute flex justify-between items-center py-2 px-2 bg-color3 -rotate-90 w-[170px] 
+            h-fit top-[82px] -left-[102px] rounded-t-xl"
           >
-            <h1 className="text-center text-white flex items-center gap-2">
-              Notifications
+            <h1 className="text-center text-sm text-white flex items-center gap-2">
+              الرسائل
             </h1>
             {unRead ? (
               <MdNotificationsActive color="white" />
@@ -93,7 +93,7 @@ export const Message = ({ setToast }) => {
               </button>
             </div>
           )}
-          {title === "" && <p>No Notifications</p>}
+          {title === "" && <p>لا يوجد رسائل</p>}
         </div>
       </div>
     </div>

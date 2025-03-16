@@ -14,26 +14,20 @@ export default function AboutUs() {
         >
           <div className="flex flex-col gap-2 sm:w-full lg:w-8/12">
             <h1 className="text-3xl uppercase text-primaryColor font-semibold ">
-              About us
+              من نحن؟
             </h1>
             <span>
-              Welcome to Ilinks, the ultimate platform designed to help
-              professionals showcase their skills, experience, and projects
-              through personalized portfolio websites. Our mission is to bridge
-              the gap between talented individuals and companies looking for the
-              perfect candidates by providing an innovative and efficient
-              solution for job seekers and recruiters alike.Welcome to Ilinks,
-              the ultimate platform designed to help professionals showcase
-              their skills, experience, and projects through personalized
-              portfolio websites. Our mission is to bridge the gap between
-              talented individuals and companies looking for the perfect
-              candidates by providing an innovative and efficient solution for
-              job seekers and recruiters alike.
+              مرحبًا بك في iLinks، المنصة المثالية المصممة لمساعدة المحترفين في
+              عرض مهاراتهم وخبراتهم ومشاريعهم من خلال مواقع بورتفوليو مخصصة.
+              مهمتنا هي سد الفجوة بين الأفراد الموهوبين والشركات التي تبحث عن
+              المرشحين المثاليين من خلال تقديم حل مبتكر وفعال لكل من الباحثين عن
+              عمل وأصحاب العمل على حد سواء.
             </span>
           </div>
           <img
             src="/assets/bearded-engineer-his-home-office-night-working-gear-mechanism.jpg"
             width={500}
+            className="min-w-[500px] min-h-[100px]"
           />
         </div>
         <div
@@ -43,18 +37,21 @@ export default function AboutUs() {
         >
           <div className="flex flex-col gap-2 sm:w-full lg:w-9/12">
             <h2 className="text-3xl uppercase text-primaryColor font-semibold ">
-              Our Vision
+              رؤيتنا
             </h2>
             <span>
-              We aim to revolutionize the hiring process by creating a dynamic
-              and interactive space where professionals can present their
-              expertise in a visually compelling way. We believe that a
-              well-crafted portfolio speaks louder than a traditional resume,
-              and our platform empowers users to build their personal brand
-              effortlessly. alike.
+              نهدف إلى إحداث ثورة في عملية التوظيف من خلال إنشاء مساحة ديناميكية
+              وتفاعلية يمكن للمحترفين من خلالها عرض خبراتهم بطريقة مرئية وجذابة.
+              نؤمن بأن البورتفوليو المصمم بعناية يتحدث بصوت أعلى من السيرة
+              الذاتية التقليدية، كما أن منصتنا تمكّن المستخدمين من بناء علامتهم
+              الشخصية بسهولة.
             </span>
           </div>
-          <img src="/assets/3.jpg" width={400} />
+          <img
+            src="/assets/3.jpg"
+            width={400}
+            className="min-w-[400px] min-h-[100px]"
+          />
         </div>
         <div
           className="flex justify-between items-center gap-5
@@ -63,18 +60,21 @@ export default function AboutUs() {
         >
           <div className="flex flex-col gap-2 sm:w-full lg:w-9/12">
             <h3 className="text-3xl uppercase text-primaryColor font-semibold ">
-              Our Mission
+              مهمتنا
             </h3>
             <span>
-              We aim to revolutionize the hiring process by creating a dynamic
-              and interactive space where professionals can present their
-              expertise in a visually compelling way. We believe that a
-              well-crafted portfolio speaks louder than a traditional resume,
-              and our platform empowers users to build their personal brand
-              effortlessly. alike.
+              نهدف إلى إحداث ثورة في عملية التوظيف من خلال إنشاء مساحة ديناميكية
+              وتفاعلية يمكن للمحترفين من خلالها عرض خبراتهم بطريقة مرئية وجذابة.
+              نؤمن بأن البورتفوليو المصمم بعناية يتحدث بصوت أعلى من السيرة
+              الذاتية التقليدية، كما أن منصتنا تمكّن المستخدمين من بناء علامتهم
+              الشخصية بسهولة.
             </span>
           </div>
-          <img src="/assets/4.jpg" width={400} />
+          <img
+            src="/assets/4.jpg"
+            width={400}
+            className="min-w-[400px] min-h-[100px]"
+          />
         </div>
       </section>
       <Footer />

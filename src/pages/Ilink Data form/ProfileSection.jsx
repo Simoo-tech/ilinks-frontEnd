@@ -30,16 +30,14 @@ export default function Profile() {
   // inputs validation
   const InputValidation = Yup.object().shape({
     fname: Yup.string()
-      .required("first name field is required")
-      .min(3, "at leasrt 3 characters"),
+      .required("الاسم الاول مطلوب")
+      .min(3, "على الاقل 3 احرف"),
     lname: Yup.string()
-      .required("last name field is required")
-      .min(3, "at leasrt 3 characters"),
-    about: Yup.string()
-      .required("about field is required")
-      .min(10, "at leasrt 10 characters"),
+      .required("الاسم الاخير مطلوب")
+      .min(3, "على الاقل 3 احرف"),
+    about: Yup.string().required("الوصف مطلوب").min(10, "على الاقل 10 احرف"),
     age: Yup.date(),
-    jobtitle: Yup.string().required("job title field is required"),
+    jobtitle: Yup.string().required("الوظيفة مطلوبة"),
     country: Yup.string(),
     status: Yup.string().oneOf(["free", "part-time", "full-time"]),
   });
@@ -62,10 +60,10 @@ export default function Profile() {
             className="w-full border-colorDark2 border-b-2 border-zinc-300 text-black"
           >
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-              Profile
+              الملف الشخصي
             </h1>
             <h2 className="text-base capitalize font-light">
-              some public information about you
+              بعض المعلومات العامة عنك
             </h2>
           </div>
           <div className="account-details w-full flex flex-col justify-center mt-10 mb-3 gap-10 ">
@@ -107,7 +105,7 @@ export default function Profile() {
                 >
                   <div id="first-name" className="flex flex-col gap-2 relative">
                     <label htmlFor="firstname" className="capitalize ">
-                      first name
+                      الاسم الاول
                     </label>
                     <Field
                       type="text"
@@ -117,14 +115,14 @@ export default function Profile() {
                       value={values.fname}
                     />
                     {errors.fname && touched.fname ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.fname}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.fname} <MdError />
                       </span>
                     ) : null}
                   </div>
                   <div id="last-name" className="flex  flex-col gap-2 relative">
                     <label htmlFor="lname" className="capitalize ">
-                      last name
+                      الاسم الاخير
                     </label>
                     <Field
                       type="text"
@@ -134,14 +132,14 @@ export default function Profile() {
                       value={values.lname}
                     />
                     {errors.lname && touched.lname ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.lname}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.lname} <MdError />
                       </span>
                     ) : null}
                   </div>
                   <div id="age" className="  flex flex-col gap-2 relative">
                     <label htmlFor="age" className="capitalize ">
-                      your age
+                      تاريخ الميلاد
                     </label>
                     <Field
                       type="date"
@@ -151,14 +149,15 @@ export default function Profile() {
                       value={values.age}
                     />
                     {errors.age && touched.age ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.age}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.age}
+                        <MdError />
                       </span>
                     ) : null}
                   </div>
                   <div id="jobtitle" className=" flex flex-col gap-2 relative">
                     <label htmlFor="jobtitle" className="capitalize ">
-                      Job Title ( your job name )
+                      اسم الوظيفة
                     </label>
                     <Field
                       placeholder="Ex: Front End Developer"
@@ -169,14 +168,14 @@ export default function Profile() {
                       value={values.jobtitle}
                     />
                     {errors.jobtitle && touched.jobtitle ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.jobtitle}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.jobtitle} <MdError />
                       </span>
                     ) : null}
                   </div>
                   <div id="country" className="flex flex-col gap-2 relative ">
                     <label htmlFor="country" className="capitalize ">
-                      country
+                      الدولة
                     </label>
                     <Field
                       type="text"
@@ -186,14 +185,15 @@ export default function Profile() {
                       value={values.country}
                     />
                     {errors.country && touched.country ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.country}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.country}
+                        <MdError />
                       </span>
                     ) : null}
                   </div>
                   <div id="job_status" className="flex flex-col gap-2 relative">
                     <label htmlFor="job_status" className="capitalize ">
-                      job status
+                      حالة الوظيفة
                     </label>
                     <Field
                       as="select"
@@ -208,8 +208,8 @@ export default function Profile() {
                       <option value="full-time">full time</option>
                     </Field>
                     {errors.status && touched.status ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.status}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.status} <MdError />
                       </span>
                     ) : null}
                   </div>
@@ -218,7 +218,7 @@ export default function Profile() {
                     className="flex flex-col gap-2 sm:w-full h-full relative col-span-full"
                   >
                     <label htmlFor="about" className="capitalize ">
-                      about
+                      عنك
                     </label>
                     <Field
                       as="textarea"
@@ -229,8 +229,9 @@ export default function Profile() {
                         rounded-lg sm:text-sm lg:text-base"
                     />
                     {errors.about && touched.about ? (
-                      <span className="text-red-500 text-sm absolute top-1 right-3 flex items-center gap-1">
-                        <MdError /> {errors.about}
+                      <span className="text-red-500 text-sm absolute top-1 left-3 flex items-center gap-1">
+                        {errors.about}
+                        <MdError />{" "}
                       </span>
                     ) : null}
                   </div>
@@ -240,7 +241,7 @@ export default function Profile() {
                     btnStyle="text-white py-2 px-3 mb-4 capitalize rounded-lg font-semibold 
                     flex items-center gap-2 group hover:bg-zinc-500 bg-zinc-400 shadow-lg
                     w-fit duration-300 drop-shadow-lg "
-                    ActionText="next"
+                    ActionText="حفظ"
                   />
                 </Form>
               )}

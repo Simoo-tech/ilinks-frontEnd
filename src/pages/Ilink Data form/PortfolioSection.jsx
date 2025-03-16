@@ -7,7 +7,7 @@ import { Next_Prev_Btns } from "../../components/Tools/Next_Prev_Btns";
 import { useAuth } from "../../context/AuthContext";
 import CropImg from "../../components/Tools/CropImg";
 import { UpdateIlinkData } from "../../lib/UserIlinkDataReq";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import PreviewData from "./PreviewData";
 import Layout from "../../Layout";
 
@@ -51,10 +51,10 @@ export default function PortfolioSection() {
         >
           <div className="w-full border-colorDark2 border-b-2 border-zinc-300">
             <h1 className="sm:text-2xl lg:text-3xl font-semibold uppercase">
-              projects
+              المشاريع
             </h1>
             <h2 className="text-base capitalize font-light">
-              Showcasing some of my best work
+              عرض بعض من أفضل أعمالي
             </h2>
           </div>
           <Form
@@ -152,13 +152,21 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
     return imgValid;
   });
   const Validation = (type) => {
+    if (type === "submit") {
+      UpdateIlinkData({
+        userData,
+        setBtn,
+        navigate,
+        path: "/userIlinks/" + userData.username,
+      });
+    }
     if (
-      userData?.IlinkData?.portfolio?.length >= 1 &&
+      userData?.IlinkData?.portfolio?.length > 1 &&
       ProValidation.includes(null)
     ) {
       const num = ProValidation.indexOf(null);
       setError({
-        message: "choose an image",
+        message: "اختر صورة",
         num: num,
         element: "imgurl",
       });
@@ -168,14 +176,6 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
     if (type === "add" && error === null) {
       setError(null);
       AddPortfolio();
-    }
-    if (type === "submit") {
-      UpdateIlinkData({
-        userData,
-        setBtn,
-        navigate,
-        path: "/userIlinks/" + userData.username,
-      });
     }
   };
 
@@ -207,7 +207,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   : " -right-[80px] opacity-0 "
               }`}
             >
-              <BsArrowLeft />
+              <BsArrowRight />
               {error?.message}
             </span>
             <div
@@ -233,8 +233,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                         : "text-white border-white"
                     }`}
                 >
-                  Choose image
-                  <PiImagesSquareLight size={21} className="white" />
+                  اختر صورة <PiImagesSquareLight size={21} className="white" />
                 </button>
               ) : (
                 <div className="flex gap-2 items-center">
@@ -254,7 +253,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                         : "text-white border-white"
                     }`}
                   >
-                    <span> change image</span>
+                    <span> تغير الصورة</span>
                     <PiImagesSquareLight size={22} className="white" />
                   </button>
                   <Link to={pro.imgurl} target="_blank">
@@ -289,12 +288,11 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                     htmlFor="protitle"
                     className="capitalize relative flex gap-1 text-white"
                   >
-                    project title
+                    عنوان المشروع
                     <span className="text-red-600">*</span>
                   </label>
                   <input
                     value={pro.protitle}
-                    required
                     maxLength={22}
                     onChange={(e) => HandleChange(e, i)}
                     type="text"
@@ -313,11 +311,10 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                     htmlFor="protype"
                     className="capitalize relative flex gap-1 text-white"
                   >
-                    project type
+                    نوع المشروع
                     <span className="text-red-600">*</span>
                   </label>
                   <select
-                    required
                     value={pro.protype}
                     onChange={(e) => {
                       HandleChange(e, i);
@@ -344,12 +341,11 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   htmlFor="cleintname"
                   className="capitalize relative flex gap-1 text-white"
                 >
-                  company or cleint name
+                  اسم العميل
                   <span className="text-red-600">*</span>
                 </label>
                 <input
                   value={pro.cleintname}
-                  required
                   maxLength={22}
                   onChange={(e) => HandleChange(e, i)}
                   type="text"
@@ -368,7 +364,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   htmlFor="prourl"
                   className="capitalize relative flex gap-1 text-white"
                 >
-                  project url
+                  رابط المشروع
                 </label>
                 <input
                   value={pro.prourl}
@@ -385,7 +381,7 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
                   htmlFor="prodesc"
                   className="capitalize relative flex gap-1 text-white"
                 >
-                  project description
+                  وصف المشروع
                 </label>
                 <textarea
                   maxLength={100}
@@ -409,13 +405,12 @@ const Form = ({ setUploadArea, userData, setUserData }) => {
           } flex flex-col justify-center items-center self-center border-2 border-black gap-1 rounded-xl
           w-[150px] h-[100px] p-2 hover:bg-primaryColor hover:text-white duration-200`}
         >
-          <p className="lg:text-lg capitalize font-medium"> Add Project</p>
+          <p className="lg:text-lg capitalize font-medium"> اضف مشروع</p>
           <FiPlus size={30} />
         </button>
       </div>
       <Next_Prev_Btns
         prev={`/${userData.username}/skills-data-page`}
-        displayName="save & Create"
         btn={btn}
       />
     </form>

@@ -85,7 +85,9 @@ export default function ShareContent({
           id="top"
           className="w-full justify-between items-start flex border-b-2 py-[2px] h-fit "
         >
-          <p className=" text-xl font-bold capitalize ">share your Ilink</p>
+          <p className=" text-xl font-bold capitalize ">
+            مشاركة رابط iLink الخاص بك
+          </p>
           {close && (
             <IoMdCloseCircleOutline
               className=" bg-red-500 rounded-full"
@@ -104,7 +106,7 @@ export default function ShareContent({
             className="sm:w-full md:w-6/12 py-3 flex flex-col items-start gap-2"
           >
             <p className="text-xl font-semibold capitalize  text-center ">
-              link to share
+              رابط المشاركة
             </p>
             <div className="input flex items-center w-full bg-slate-600 py-2 rounded-lg px-2">
               <FaLock color="white" size={12} />
@@ -119,7 +121,7 @@ export default function ShareContent({
             <div className="copy-message flex items-center gap-1 justify-end w-full">
               {copyBtn && (
                 <span className="text-cyan-700 capitalize text-sm">
-                  link copied to your clipboard
+                  تم النسخ
                 </span>
               )}
               <CopyToClipboard text={ilinkUserUrl} onCopy={copyToClip}>
@@ -128,7 +130,7 @@ export default function ShareContent({
           capitalize rounded-lg duration-150
           hover:bg-slate-600 hover:text-white"
                 >
-                  copy link
+                  نسخ الرابط
                 </button>
               </CopyToClipboard>
             </div>
@@ -140,12 +142,10 @@ export default function ShareContent({
           />
           <div className="qr-code sm:w-full md:w-4/12 flex justify-center flex-col items-center py-3 gap-3">
             <p className="text-xl font-semibold capitalize text-center w-full">
-              qr code
+              رمز QR
             </p>
             <p className="text-gray-500 text-sm mb-4 w-full text-center">
-              Scan with your phone's camera or
-              <br />
-              QR code app to view your Ilnk
+              امسح باستخدام كاميرا هاتفك أو تطبيق QR لعرض رابطك
             </p>
             <div className="qrcode p-3 bg-[#f1f1f1] w-fit flex justify-center items-center rounded-lg">
               <QRCode
@@ -159,7 +159,7 @@ export default function ShareContent({
               onClick={DownloadQR}
               className="bg-mainColor1 text-white mt-2 py-2 px-4 rounded-lg "
             >
-              Download QR
+              تحميل الرمز
             </button>
           </div>
         </div>

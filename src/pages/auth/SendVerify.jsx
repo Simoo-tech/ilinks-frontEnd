@@ -31,17 +31,18 @@ export default function SendVerify() {
       >
         <div className="sm:text-xl lg:text-4xl font-bold capitalize flex items-center gap-1">
           <MdMarkEmailUnread />
-          <p>One Last Step!</p>
+          <p>خطوة أخيرة!</p>
         </div>
         <span className="md:text-2xl sm:text-lg sm:text-center">
-          We need to verify your email
+          نحتاج إلى التحقق من بريدك الإلكتروني
         </span>
         <span className="sm:text-lg sm:text-center md:text-xl text-center">
-          Your email addresse is
-          <span className="underline ml-1">{email}</span>
+          عنوان بريدك الإلكتروني هو:
+          <span className="underline mx-1">{email}</span>
         </span>
         <p className="sm:text-base sm:text-center lg:text-lg text-gray-500">
-          please verify your email, to continue press verify email
+          يرجى التحقق من بريدك الإلكتروني، لمتابعة العملية اضغط على زر "التحقق
+          من البريد الإلكتروني"
         </p>
         <button
           className="bg-primaryColor text-white py-2 px-6 text-lg rounded-md"
@@ -49,10 +50,10 @@ export default function SendVerify() {
         >
           {btn ? (
             <span className="flex gap-1 items-center justify-center">
-              Sending <LoadingBtn size={20} />
+              جاري الارسال <LoadingBtn size={20} />
             </span>
           ) : (
-            <span>Verify Email</span>
+            <span>تحقق من البريد الإلكتروني</span>
           )}
         </button>
       </div>

@@ -41,17 +41,17 @@ export default function Register() {
            md:text-3xl 
            lg:text-4xl"
           >
-            Welcome Back!
+            مرحبًا بعودتك!
           </h3>
           <p className="sm:text-sm md:text-lg text-center font-light">
-            If you have an account Sign in and be connected with us
+            إذا كان لديك حساب، قم بتسجيل الدخول وابقَ على اتصال معنا.
           </p>
           <Link
             to="/auth/sign-in"
             className=" capitalize bg-primaryColor py-2 px-6 duration-200 ease-in-out hover:bg-transparent rounded-2xl 
             sm:text-sm md:text-lg"
           >
-            Sign in
+            تسجيل الدخول
           </Link>
         </aside>
       </section>
@@ -70,30 +70,30 @@ const FormContainer = () => {
   // inputs validation
   const InputValidation = Yup.object({
     username: Yup.string()
-      .required("Username field is required")
-      .min(3, "Username must be 3 char at least")
-      .max(15, "Username max length is 15 char")
+      .required("حقل اسم المستخدم مطلوب")
+      .min(3, "اسم المستخدم يجب أن يكون 3 أحرف على الأقل")
+      .max(15, "اسم المستخدم يجب أن يكون 15 حرفًا كحد أقصى")
       .matches(
         /^[a-zA-Z0-9\_-]{3,15}$/,
-        "min lenght 3 and max 15 characters without spaces"
+        "يجب أن يحتوي اسم المستخدم على أحرف وأرقام فقط"
       ),
     email: Yup.string()
-      .required("Email field is required")
+      .required("حقل البريد الإلكتروني مطلوب")
       .matches(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Email not valid"
+        "البريد الإلكتروني غير صالح"
       ),
     password: Yup.string()
-      .required("Password field is required")
-      .min(8, "password must be at least 8 char")
-      .max(30, "password max length is 30")
+      .required("حقل كلمة المرور مطلوب")
+      .min(8, "كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل")
+      .max(30, "كلمة المرور يجب أن تكون 30 حرفًا كحد أقصى")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d[\]{};:=<>_+^#$@!%*?&]{8,30}$/,
-        "Must contain at least 8 Characters, 1 Uppercase, 1 Lowercase, and 1 Number"
+        "يجب أن تحتوي كلمة المرور على حروف كبيرة وصغيرة وأرقام ولا تقل عن 8 احرف"
       ),
     passwordcon: Yup.string().oneOf(
       [Yup.ref("password")],
-      "Passwords must match"
+      "كلمة المرور غير متطابقة"
     ),
   });
 
@@ -129,7 +129,7 @@ const FormContainer = () => {
             <Logo align="self-start" />
             <div className="flex flex-col gap-16 items-center w-full h-full justify-center">
               <h3 className="text-center sm:text-3xl md:text-4xl lg:text-5xl pt-3 font-semibold w-fit text-white">
-                Create Account
+                إنشاء حساب
               </h3>
               <div
                 id="inputs-container"
@@ -148,7 +148,7 @@ const FormContainer = () => {
                       required
                       type="text"
                       name="username"
-                      placeholder="Username"
+                      placeholder="اسم المستخدم"
                       className="outline-none p-1 w-full bg-colorDark2"
                       value={values.username}
                     />
@@ -169,7 +169,7 @@ const FormContainer = () => {
                       required
                       type="email"
                       name="email"
-                      placeholder=" Email"
+                      placeholder="البريد الإلكتروني"
                       className="outline-none p-1 w-full bg-colorDark2"
                       value={values.email}
                     />
@@ -187,7 +187,7 @@ const FormContainer = () => {
                     <Field
                       type={showPass ? "text" : "password"}
                       name="password"
-                      placeholder="Password"
+                      placeholder="كلمة المرور"
                       className="outline-none p-1 w-full bg-colorDark2"
                       value={values.password}
                       autoComplete="on"
@@ -212,7 +212,7 @@ const FormContainer = () => {
                     <Field
                       type={showPass ? "text" : "password"}
                       name="passwordcon"
-                      placeholder="Confirm Password"
+                      placeholder="تأكيد كلمة المرور"
                       className="outline-none p-1 w-full bg-colorDark2"
                       value={values.passwordcon}
                       autoComplete="on"
@@ -237,13 +237,13 @@ const FormContainer = () => {
                     className="capitalize w-fit text-white flex items-center gap-2"
                   >
                     {showPass ? <FaRegCheckCircle /> : <FaRegCircle />}
-                    show password
+                    إظهار كلمة المرور
                   </button>
                   <BtnsActions
                     btn={btn}
                     btnStyle="border-2 justify-center flex items-center border-color3 py-2 px-6
                 duration-300 ease-in-out hover:bg-color3 hover:text-white group rounded-2xl mt-5 text-color3 text-lg gap-2"
-                    ActionText="Sign Up"
+                    ActionText="تسجيل"
                   />
                 </div>
               </div>

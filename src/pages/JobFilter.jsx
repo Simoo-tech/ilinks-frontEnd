@@ -30,6 +30,8 @@ export default function JobFilter() {
       onSuccess: (res) => {
         setJobs(res.data.usersjobs);
       },
+      refetchOnWindowFocus: false,
+      retry: false,
     }
   );
 
@@ -52,11 +54,11 @@ export default function JobFilter() {
           <div id="user-info" className="flex items-center gap-3">
             <div className="relative">
               <span
-                class={`${item.status === "free" && "bg-green-500 -right-8"} ${
-                  item.status === "part-time" && "bg-orange-500 -right-14"
+                class={`${item.status === "free" && "bg-green-500 -left-4"} ${
+                  item.status === "part-time" && "bg-orange-500 -left-14"
                 } ${
-                  item.status === "full-time" && "bg-red-500 -right-14"
-                }  -top-3 uppercase  px-3 py-1 text-xs rounded-2xl absolute w-fit truncate border-none`}
+                  item.status === "full-time" && "bg-red-500 -left-14"
+                }  -top-3 uppercase text-white  px-3 py-1 text-xs rounded-2xl absolute w-fit truncate border-none`}
               >
                 {item.status}
               </span>
@@ -188,13 +190,13 @@ export default function JobFilter() {
               id="user-projects"
               className="text-base capitalize font-semibold"
             >
-              projects done : {item.IlinkData.portfolio.length}
+              المشاريع المكتملة : {item.IlinkData.portfolio.length}
             </p>
             <p
               id="user-projects"
               className="text-base capitalize font-semibold"
             >
-              user Skills: {item.IlinkData.skills.length}
+              المهارات: {item.IlinkData.skills.length}
             </p>
           </div>
 
@@ -202,7 +204,7 @@ export default function JobFilter() {
             to={`/userIlinks/${item.username}`}
             className="py-2 px-6 bg-primaryColor text-center text-white rounded-2xl capitalize"
           >
-            More Details
+            تفاصيل اكثر
           </Link>
         </li>
       );
@@ -225,13 +227,13 @@ export default function JobFilter() {
             type="text"
             name="search-job"
             id="search-job"
-            className=" bg-zinc-400 w-full outline-none p-3 placeholder:text-white rounded-lg "
-            placeholder="Search for a job name "
+            className=" bg-zinc-400 w-full outline-none p-3 placeholder:text-gray-200 rounded-lg text-white "
+            placeholder="ابحث عن وظيفة"
             onChange={(e) => {
               setSearchParams({ name: e.target.value });
             }}
           />
-          <BiSearch className="absolute right-3 top-3" size={28} />
+          <BiSearch className="absolute left-3 top-3 text-gray-200" size={28} />
         </label>
         {/* users cards */}
         {isLoading || isRefetching ? (
@@ -331,7 +333,7 @@ export default function JobFilter() {
         flex text-primaryColor rounded-xl gap-2"
           >
             <LuFileX size={40} />
-            No jobs found by this name
+            لا يوجد وظائف متاحة بهذا الاسم
           </p>
         )}
       </div>

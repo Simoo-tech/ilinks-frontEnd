@@ -11,14 +11,12 @@ import {
 } from "react-icons/bs";
 import { FaTwitter } from "react-icons/fa6";
 import { FaEdit, FaPlus } from "react-icons/fa";
-import cookie from "react-cookies";
 import { useAuth } from "../../context/AuthContext";
 import Layout from "../../Layout";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { UserIlinksSkeleton } from "../../components/Loading Skeletons/userIlinksSkeleton";
 import PageNotFound from "../../components/PageNotFound";
-import Footer from "../../components/Footer";
 
 const serverPath = import.meta.env.VITE_SOME_SERVER_API;
 
@@ -27,7 +25,6 @@ export default function UserIlinks() {
   const [userShow, setUserShow] = useState({});
   const [errorMsg, setErrorMsg] = useState("");
   const { username } = useParams();
-  const userCookies = cookie.load("UD_1");
   // share button
   const [shareBtn, setShareBtn] = useState(false);
 
@@ -112,7 +109,10 @@ export default function UserIlinks() {
   const sameUser = userData.username === username;
 
   return (
-    <Layout title={username && `Ilinks | @${username}`}>
+    <Layout
+      navbar={!sameUser && true}
+      title={username && `Ilinks | @${username}`}
+    >
       <div
         id="user-ilink"
         className={`relative text-black flex flex-col items-center justify-between overflow-y-scroll 
@@ -297,7 +297,7 @@ export default function UserIlinks() {
                 className="w-full border-b-2 pb-2 border-black flex justify-between items-center
             uppercase font-semibold col-span-full sm:text-lg  md:text-xl lg:text-2xl"
               >
-                Skills
+                المهارات
                 {sameUser && (
                   <Link
                     title="add more skills"
@@ -306,7 +306,7 @@ export default function UserIlinks() {
                       hover:bg-primaryColor hover:text-white duration-200
                       sm:text-sm md:text-base lg:text-lg "
                   >
-                    edit skill <FaEdit size={17} />
+                    تعديل <FaEdit size={17} />
                   </Link>
                 )}
               </h3>
@@ -325,7 +325,7 @@ export default function UserIlinks() {
                   uppercase font-semibold col-span-full  
                   sm:text-lg md:text-xl lg:text-2xl"
               >
-                projects
+                المشاريع
                 {sameUser && (
                   <Link
                     title="add more projects"
@@ -334,7 +334,8 @@ export default function UserIlinks() {
                     hover:bg-primaryColor hover:text-white duration-200
                     sm:text-sm md:text-base lg:text-lg "
                   >
-                    edit portfolio <FaEdit size={17} />
+                    تعديل
+                    <FaEdit size={17} />
                   </Link>
                 )}
               </h3>
@@ -342,8 +343,6 @@ export default function UserIlinks() {
             </div>
           )}
         </div>
-        {/* Copy right */}
-        <Footer />
       </div>
     </Layout>
   );

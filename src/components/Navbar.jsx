@@ -17,30 +17,30 @@ export const Navbar = ({ setToast }) => {
   const Links = [
     {
       url: "/" + username + "/profile-data-page",
-      name: "profile data",
+      name: "المعلومات الشخصية",
     },
     {
       url: "/" + username + "/socialLinks-data-page",
-      name: "social media",
+      name: "التواصل الاجتماعي",
     },
     {
       url: "/" + username + "/skills-data-page",
-      name: "skills",
+      name: "المهارات",
     },
     {
       url: "/" + username + "/portfolio-data-page",
-      name: "projects",
+      name: "المشاريع",
     },
     {
       url: "/userIlinks/" + username,
-      name: "Profile",
+      name: "موقعك",
     },
   ];
 
   return (
     <header
       id="navbar"
-      className="sticky top-0 h-16 z-20 flex items-center justify-center container max-w-full bg-primaryColor"
+      className="sticky top-0 h-16 z-20 flex items-center justify-center container max-w-full bg-primaryColor backdrop-blur-sm bg-opacity-90  "
     >
       <nav className=" flex justify-between items-center py-2 w-full">
         <div id="logo" className="">
@@ -58,7 +58,7 @@ export const Navbar = ({ setToast }) => {
         sm:flex-col sm:bg-primaryColor sm:w-11/12 sm:absolute sm:top-[70px] sm:left-4 sm:z-60 sm:py-5 sm:gap-5
          sm:px-4 sm:rounded-lg sm:shadow-lg sm:transition-all sm:duration-300
         ${
-          userCookies ? "lg:w-[68%]" : "lg:w-[57%]"
+          userCookies ? "lg:w-[72%]" : "lg:w-[57%]"
         } lg:flex lg:flex-row lg:relative lg:top-0 lg:bg-transparent lg:shadow-none`}
         >
           <menu
@@ -86,7 +86,7 @@ export const Navbar = ({ setToast }) => {
                       sm:border-zinc-200 sm:pb-3
                       lg:text-md lg:border-transparent lg:pb-1"
                 >
-                  <Link to="/">home</Link>
+                  <Link to="/">الرئيسية</Link>
                 </li>
                 <li
                   className="relative text-nowrap w-full text-center 
@@ -94,7 +94,7 @@ export const Navbar = ({ setToast }) => {
                       sm:border-zinc-200 sm:pb-3
                       lg:text-md lg:border-transparent lg:pb-1"
                 >
-                  <Link to="/about-us">about us</Link>
+                  <Link to="/about-us">من نحن؟</Link>
                 </li>
               </>
             )}
@@ -112,7 +112,7 @@ export const Navbar = ({ setToast }) => {
               justify-center gap-2
               hover:bg-slate-800 duration-200"
             >
-              job search <CiSearch className="sm:text-lg" />
+              البحث عن وظيفة <CiSearch className="sm:text-lg" />
             </Link>
             {userCookies ? (
               <div
@@ -127,7 +127,7 @@ export const Navbar = ({ setToast }) => {
                 hover:bg-slate-800 duration-200"
                   onClick={() => SignOut({ path: "/auth/sign-in" })}
                 >
-                  Logout <BiLogOut size={18} />
+                  <BiLogOut size={18} /> تسجيل الخروج
                 </button>
               </div>
             ) : (
@@ -137,7 +137,7 @@ export const Navbar = ({ setToast }) => {
               justify-center gap-2
                 hover:bg-slate-800 duration-200"
               >
-                login
+                تسجيل الدخول
               </Link>
             )}
           </div>

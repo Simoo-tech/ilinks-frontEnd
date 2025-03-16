@@ -52,12 +52,14 @@ export async function UploadFiles({
         setTimeout(() => setUploadArea(null), 1000);
       }
     } catch (error) {
-      setError("File size is large than 20 MB or type not support");
+      console.log(error);
+
+      setError("حجم الملف أكبر من 20 ميجا بايت");
       setUploading();
       setImgSrc();
     }
   } else {
-    setError("File size is large than 20 MB");
+    setError("حجم الملف أكبر من 20 ميجا بايت");
     setUploading();
     setImgSrc();
   }
